@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERMATA MWC Palu Selatan - System Biodata Peserta</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Amiri -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tealDark: '#007979',
+                        tealMedium: '#24B1B1',
+                        creamLight: '#FFF0E4',
+                        creamSoft: '#FFE0C5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #007979;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #24B1B1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFE0C5;
+        }
+    </style>
+</head>
+<body class="bg-creamLight font-sans text-slate-800 antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+    <!-- MOBILE HEADER -->
+    <div class="md:hidden bg-tealDark text-white p-4 flex justify-between items-center z-50 sticky top-0 shadow-md">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-tealMedium flex items-center justify-center font-bold text-white shadow-lg border border-creamSoft">
+                <i class="fa-solid fa-moon text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-sm leading-tight text-creamSoft">PERMATA MWC</h1>
+                <p class="text-xs text-creamLight/80">Palu Selatan</p>
+            </div>
+        </div>
+        <button id="mobileMenuBtn" class="text-creamSoft hover:text-white p-2">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out w-72 bg-tealDark text-creamLight flex flex-col z-40 shadow-2xl flex-shrink-0">
+        <!-- Sidebar Header / Logo -->
+        <div class="p-5 border-b border-tealMedium/30 bg-tealDark/90">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-xl bg-tealMedium flex items-center justify-center text-tealDark shadow-lg border border-creamSoft/50">
+                    <i class="fa-solid fa-kaaba text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base text-white tracking-wide">MUSLIMAH WAHDAH</h1>
+                    <p class="text-xs font-semibold text-creamSoft tracking-wider uppercase">MWC Palu Selatan</p>
+                    <span class="inline-block mt-1 px-2 py-0.5 text-[10px] bg-tealMedium/30 text-creamSoft rounded-full border border-tealMedium/40">Cloud Sync v3.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+            <div class="text-[11px] font-semibold text-creamSoft/70 uppercase tracking-wider px-3 mb-2">Menu Utama</div>
+            
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition duration-200 text-sm font-medium bg-tealMedium text-white shadow-md">
+                <i class="fa-solid fa-chart-pie text-lg w-5"></i>
+                <span>Dashboard Summary</span>
+            </button>
+
+            <button onclick="switchTab('entry')" id="nav-entry" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition duration-200 text-sm font-medium text-creamLight hover:bg-tealMedium/20 hover:text-white">
+                <i class="fa-solid fa-user-plus text-lg w-5"></i>
+                <span>Input Biodata Peserta</span>
+            </button>
+
+            <button onclick="switchTab('masterlist')" id="nav-masterlist" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition duration-200 text-sm font-medium text-creamLight hover:bg-tealMedium/20 hover:text-white">
+                <i class="fa-solid fa-address-book text-lg w-5"></i>
+                <span>Daftar Peserta</span>
+            </button>
+
+            <button onclick="switchTab('settings')" id="nav-settings" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition duration-200 text-sm font-medium text-creamLight hover:bg-tealMedium/20 hover:text-white">
+                <i class="fa-solid fa-cloud-arrow-up text-lg w-5"></i>
+                <span>Pengaturan Google Sheets</span>
+            </button>
+
+            <!-- Quick Stats Panel -->
+            <div class="pt-4">
+                <div class="bg-tealMedium/15 rounded-xl p-4 border border-tealMedium/30">
+                    <div class="flex items-center justify-between mb-3 border-b border-tealMedium/30 pb-2">
+                        <span class="text-xs font-semibold text-creamSoft flex items-center gap-1.5">
+                            <i class="fa-solid fa-bolt text-creamSoft"></i> Quick Stats
+                        </span>
+                        <span id="quickStatsTotal" class="text-xs font-bold bg-tealMedium text-white px-2 py-0.5 rounded-full">0</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between items-center text-creamLight">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-creamSoft text-[10px]"></i> Takwin 1</span>
+                            <span id="qs-takwin1" class="font-bold text-white">0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-creamLight">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-creamSoft text-[10px]"></i> Takwin 2</span>
+                            <span id="qs-takwin2" class="font-bold text-white">0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-creamLight">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-book-open-reader text-creamSoft text-[10px]"></i> Pengajar Quran</span>
+                            <span id="qs-pengajar" class="font-bold text-white">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar Footer Status -->
+        <div class="p-4 border-t border-tealMedium/30 bg-tealDark/90">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span id="syncIndicator" class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                    <span id="syncStatusText" class="text-[11px] text-creamLight">Sheet: Belum Terhubung</span>
+                </div>
+                <button onclick="fetchFromGoogleSheets()" title="Sinkronisasi Manual" class="p-1.5 bg-tealMedium/30 hover:bg-tealMedium text-creamSoft hover:text-white rounded-lg transition">
+                    <i class="fa-solid fa-rotate text-xs"></i>
+                </button>
+            </div>
+            <div class="mt-2 text-[10px] text-creamSoft/60 text-center">
+                &copy; 2026 Muslimah Wahdah Palu Selatan
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+        <!-- HEADER BAR -->
+        <header class="bg-white border-b border-tealMedium/20 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="font-arabic text-xl text-tealDark font-bold">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+                </div>
+                <h2 id="pageTitle" class="text-xl font-bold text-tealDark mt-1">Dashboard Summary</h2>
+                <p id="pageSubTitle" class="text-xs text-slate-500">Ringkasan statistik data peserta PERMATA MWC Palu Selatan</p>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="fetchFromGoogleSheets()" class="px-3 py-2 bg-creamSoft text-tealDark hover:bg-creamSoft/80 font-medium text-xs rounded-lg transition flex items-center gap-1.5 border border-tealMedium/20 shadow-sm">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                    <span>Tarik Data Sheet</span>
+                </button>
+                <button onclick="switchTab('entry')" class="flex items-center space-x-2 bg-tealDark hover:bg-tealMedium text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-md">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>Tambah Peserta</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT TABS -->
+        <div class="p-4 md:p-6 space-y-6 flex-1">
+
+            <!-- TAB 1: DASHBOARD SUMMARY -->
+            <section id="tab-dashboard" class="space-y-6">
+                <!-- CARDS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-tealDark rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-3 -bottom-3 text-white/10 text-7xl font-bold">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-creamSoft">Total Peserta</p>
+                        <h3 id="cardTotalPeserta" class="text-3xl font-extrabold my-2 text-white">0</h3>
+                        <p class="text-[11px] text-creamLight/80">Terdaftar di sistem</p>
+                    </div>
+
+                    <div class="bg-tealMedium rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-3 -bottom-3 text-white/10 text-7xl font-bold">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-creamLight">Takwin 1</p>
+                        <h3 id="cardTakwin1" class="text-3xl font-extrabold my-2 text-white">0</h3>
+                        <p id="cardTakwin1Pct" class="text-[11px] text-creamLight/90">0% dari total</p>
+                    </div>
+
+                    <div class="bg-tealDark/90 rounded-xl p-5 text-white shadow-lg relative overflow-hidden border border-tealMedium/30">
+                        <div class="absolute -right-3 -bottom-3 text-white/10 text-7xl font-bold">
+                            <i class="fa-solid fa-tree"></i>
+                        </div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-creamSoft">Takwin 2</p>
+                        <h3 id="cardTakwin2" class="text-3xl font-extrabold my-2 text-creamSoft">0</h3>
+                        <p id="cardTakwin2Pct" class="text-[11px] text-creamLight/80">0% dari total</p>
+                    </div>
+
+                    <div class="bg-amber-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-3 -bottom-3 text-white/10 text-7xl font-bold">
+                            <i class="fa-solid fa-book-quran"></i>
+                        </div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-creamSoft">Pengajar Quran / Guru</p>
+                        <h3 id="cardPengajar" class="text-3xl font-extrabold my-2 text-white">0</h3>
+                        <p class="text-[11px] text-creamLight/80">Pendidik & Pengajar</p>
+                    </div>
+
+                    <div class="bg-emerald-700 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-3 -bottom-3 text-white/10 text-7xl font-bold">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-creamSoft">ASN & Pengusaha</p>
+                        <h3 id="cardASN" class="text-3xl font-extrabold my-2 text-white">0</h3>
+                        <p class="text-[11px] text-creamLight/80">Profesional & Wiraswasta</p>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl p-5 border border-tealMedium/20 shadow-sm">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="font-bold text-tealDark">Distribusi Marhala</h4>
+                                <p class="text-xs text-slate-500">Perbandingan jumlah Takwin 1 dan Takwin 2</p>
+                            </div>
+                            <span class="p-2 bg-creamLight rounded-lg text-tealDark"><i class="fa-solid fa-chart-pie"></i></span>
+                        </div>
+                        <div class="h-64 relative">
+                            <canvas id="marhalaChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 border border-tealMedium/20 shadow-sm">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="font-bold text-tealDark">Distribusi Pekerjaan</h4>
+                                <p class="text-xs text-slate-500">Klasifikasi profesi peserta PERMATA MWC</p>
+                            </div>
+                            <span class="p-2 bg-creamLight rounded-lg text-tealDark"><i class="fa-solid fa-chart-bar"></i></span>
+                        </div>
+                        <div class="h-64 relative">
+                            <canvas id="pekerjaanChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECENT PARTICIPANTS TABLE -->
+                <div class="bg-white rounded-xl p-5 border border-tealMedium/20 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-tealDark">Peserta Terbaru Ditambahkan</h4>
+                        <button onclick="switchTab('masterlist')" class="text-xs text-tealMedium font-bold hover:underline">Lihat Semua →</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-creamLight text-tealDark border-b border-tealMedium/20 text-xs uppercase font-bold">
+                                    <th class="p-3">Nama Lengkap</th>
+                                    <th class="p-3">Nama Panggilan</th>
+                                    <th class="p-3">Marhala</th>
+                                    <th class="p-3">Pekerjaan</th>
+                                    <th class="p-3">No. WhatsApp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentParticipantsTable" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: INPUT FORM -->
+            <section id="tab-entry" class="hidden max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl border border-tealMedium/30 shadow-lg overflow-hidden">
+                    <div class="bg-tealDark text-white p-6 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-creamSoft uppercase tracking-widest">Formulir Data Entry</span>
+                            <h3 class="text-xl font-bold mt-1">Input Biodata Peserta PERMATA</h3>
+                            <p class="text-xs text-creamLight/80 mt-1">Lengkapi seluruh informasi peserta di bawah ini dengan benar.</p>
+                        </div>
+                        <div class="hidden sm:block text-creamSoft text-4xl opacity-80">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                    </div>
+
+                    <form id="biodataForm" onsubmit="handleFormSubmit(event)" class="p-6 md:p-8 space-y-6">
+                        <input type="hidden" id="editIndex" value="-1">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Nama Lengkap -->
+                            <div class="space-y-2">
+                                <label for="namaLengkap" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                    Nama Lengkap <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <input type="text" id="namaLengkap" required placeholder="Contoh: Fatimah Az-Zahra" 
+                                        class="w-full pl-10 pr-4 py-2.5 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition">
+                                </div>
+                            </div>
+
+                            <!-- Nama Panggilan -->
+                            <div class="space-y-2">
+                                <label for="namaPanggilan" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                    Nama Panggilan <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                                        <i class="fa-solid fa-tag"></i>
+                                    </span>
+                                    <input type="text" id="namaPanggilan" required placeholder="Contoh: Fatimah" 
+                                        class="w-full pl-10 pr-4 py-2.5 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Nomor HP -->
+                            <div class="space-y-2">
+                                <label for="nomorHP" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                    Nomor HP / WhatsApp <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                                        <i class="fa-brands fa-whatsapp text-lg font-bold"></i>
+                                    </span>
+                                    <input type="tel" id="nomorHP" required placeholder="Contoh: 081234567890" 
+                                        class="w-full pl-10 pr-4 py-2.5 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition">
+                                </div>
+                            </div>
+
+                            <!-- Marhala Dropdown -->
+                            <div class="space-y-2">
+                                <label for="marhala" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                    Marhala <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                    </span>
+                                    <select id="marhala" required class="w-full pl-10 pr-8 py-2.5 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition appearance-none">
+                                        <option value="" disabled selected>-- Pilih Marhala --</option>
+                                        <option value="Takwin 1">Takwin 1</option>
+                                        <option value="Takwin 2">Takwin 2</option>
+                                    </select>
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-tealMedium">
+                                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pekerjaan Dropdown -->
+                        <div class="space-y-2">
+                            <label for="pekerjaan" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                Pekerjaan <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </span>
+                                <select id="pekerjaan" onchange="togglePekerjaanLainnya()" required class="w-full pl-10 pr-8 py-2.5 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition appearance-none">
+                                    <option value="" disabled selected>-- Pilih Pekerjaan --</option>
+                                    <option value="Guru">Guru</option>
+                                    <option value="ASN">ASN</option>
+                                    <option value="Pengusaha">Pengusaha</option>
+                                    <option value="Pedagang">Pedagang</option>
+                                    <option value="Pengajar Al-Qur'an">Pengajar Al-Qur'an</option>
+                                    <option value="Lainnya">Lainnya (Sebutkan)</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-tealMedium">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Pekerjaan Lainnya Textbox -->
+                        <div id="pekerjaanLainnyaWrapper" class="hidden space-y-2 transition-all duration-300">
+                            <label for="pekerjaanLainnya" class="block text-xs font-bold text-amber-700 uppercase tracking-wider">
+                                Sebutkan Pekerjaan Lainnya <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </span>
+                                <input type="text" id="pekerjaanLainnya" placeholder="Tuliskan pekerjaan / profesi spesifik" 
+                                    class="w-full pl-10 pr-4 py-2.5 bg-creamSoft/30 border border-creamSoft rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition">
+                            </div>
+                        </div>
+
+                        <!-- Alamat -->
+                        <div class="space-y-2">
+                            <label for="alamat" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                                Alamat Lengkap <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <textarea id="alamat" rows="3" required placeholder="Tuliskan alamat domisili lengkap (Kelurahan, Kec. Palu Selatan)" 
+                                    class="w-full p-3 bg-creamLight/40 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium focus:bg-white transition resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row gap-3 justify-end">
+                            <button type="button" onclick="resetForm()" class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm font-semibold transition">
+                                <i class="fa-solid fa-rotate-left mr-1"></i> Reset Form
+                            </button>
+                            <button type="submit" id="submitBtn" class="px-6 py-2.5 rounded-lg bg-tealDark hover:bg-tealMedium text-white text-sm font-semibold shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span id="submitBtnText">Simpan Data & Sync</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 3: MASTERLIST -->
+            <section id="tab-masterlist" class="hidden space-y-4">
+                <div class="bg-white p-4 rounded-xl border border-tealMedium/20 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
+                    <div class="flex-1 relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-tealMedium">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="searchInput" onkeyup="filterParticipants()" placeholder="Cari nama, alamat, atau no. HP..." 
+                            class="w-full pl-10 pr-4 py-2 bg-creamLight/30 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium">
+                    </div>
+
+                    <div class="flex flex-wrap sm:flex-nowrap gap-3">
+                        <select id="filterMarhala" onchange="filterParticipants()" class="bg-creamLight/30 border border-tealMedium/30 text-tealDark text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-tealMedium">
+                            <option value="">Semua Marhala</option>
+                            <option value="Takwin 1">Takwin 1</option>
+                            <option value="Takwin 2">Takwin 2</option>
+                        </select>
+
+                        <select id="filterPekerjaan" onchange="filterParticipants()" class="bg-creamLight/30 border border-tealMedium/30 text-tealDark text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-tealMedium">
+                            <option value="">Semua Pekerjaan</option>
+                            <option value="Guru">Guru</option>
+                            <option value="ASN">ASN</option>
+                            <option value="Pengusaha">Pengusaha</option>
+                            <option value="Pedagang">Pedagang</option>
+                            <option value="Pengajar Al-Qur'an">Pengajar Al-Qur'an</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+
+                        <button onclick="printData()" class="px-4 py-2 bg-tealDark hover:bg-tealMedium text-white rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-print"></i>
+                            <span class="hidden sm:inline">Cetak</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-tealMedium/20 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-tealDark text-white text-xs uppercase font-semibold">
+                                    <th class="p-4 w-12 text-center">#</th>
+                                    <th class="p-4">Nama Lengkap</th>
+                                    <th class="p-4">Panggilan</th>
+                                    <th class="p-4">Marhala</th>
+                                    <th class="p-4">Pekerjaan</th>
+                                    <th class="p-4">Alamat</th>
+                                    <th class="p-4">No. HP / WA</th>
+                                    <th class="p-4 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="masterTableBody" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 border-t border-slate-100 bg-creamLight/30 flex justify-between items-center text-xs text-slate-500">
+                        <span id="showingCount">Menampilkan 0 data</span>
+                        <span>PERMATA MWC Palu Selatan</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: GOOGLE SHEETS SETTINGS -->
+            <section id="tab-settings" class="hidden max-w-3xl mx-auto space-y-6">
+                <div class="bg-white rounded-2xl border border-tealMedium/30 shadow-md p-6 space-y-5">
+                    <div class="border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-tealDark flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-tealMedium"></i> Integration Google Sheets (kode.gs)
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">https://script.google.com/macros/s/AKfycbzJb1CTeny3SPwzbVmFq3we4okvxdxbEwIDnAC34KoSv0eU_0te5pn0tt2925dd1UPR/exec.</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="webAppUrl" class="block text-xs font-bold text-tealDark uppercase tracking-wider">
+                            URL Google Apps Script Web App
+                        </label>
+                        <input type="url" id="webAppUrl" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" 
+                            class="w-full p-3 bg-creamLight/30 border border-tealMedium/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tealMedium font-mono">
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <button onclick="testConnection()" class="px-4 py-2 bg-creamSoft hover:bg-creamSoft/80 text-tealDark font-semibold text-xs rounded-lg transition">
+                            <i class="fa-solid fa-vial mr-1"></i> Uji Koneksi
+                        </button>
+                        <button onclick="saveAppSettings()" class="px-5 py-2 bg-tealDark hover:bg-tealMedium text-white font-semibold text-xs rounded-lg shadow-sm transition">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan URL
+                        </button>
+                    </div>
+
+                    <!-- Tutorial Modal/Box -->
+                    <div class="bg-creamLight/60 p-4 rounded-xl border border-tealMedium/20 text-xs text-tealDark space-y-2 leading-relaxed">
+                        <p class="font-bold flex items-center gap-1.5 text-sm">
+                            <i class="fa-solid fa-circle-info text-tealMedium"></i> Langkah Singkat Menghubungkan:
+                        </p>
+                        <ol class="list-decimal pl-5 space-y-1">
+                            <li>Buka Google Spreadsheet baru di Google Drive Anda.</li>
+                            <li>Klik menu <b>Extensions</b> &gt; <b>Apps Script</b>.</li>
+                            <li>Hapus semua kode bawaan, lalu paste file <code>kode.gs</code> yang telah diberikan.</li>
+                            <li>Klik <b>Deploy</b> &gt; <b>New Deployment</b>.</li>
+                            <li>Pilih type <b>Web app</b>, atur <b>Who has access</b> menjadi <b>Anyone</b>.</li>
+                            <li>Klik <b>Deploy</b>, salin <i>Web App URL</i>, dan paste pada kolom di atas!</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-tealDark text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 border border-tealMedium/30">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-creamSoft text-lg"></i>
+        <span id="toastMessage" class="text-sm font-medium">Pesan Notifikasi</span>
+    </div>
+
+    <!-- APP SCRIPT LOGIC -->
+    <script>
+        // Color Palette References: #007979, #24B1B1, #FFF0E4, #FFE0C5
+        let participants = JSON.parse(localStorage.getItem('permata_participants')) || [];
+        let googleScriptUrl = localStorage.getItem('permata_gs_url') || '';
+
+        let marhalaChartInstance = null;
+        let pekerjaanChartInstance = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (googleScriptUrl) {
+                document.getElementById('webAppUrl').value = googleScriptUrl;
+                updateSyncStatus(true, "Cloud Connected");
+                fetchFromGoogleSheets();
+            } else {
+                updateSyncStatus(false, "Local Only (Belum Sync)");
+            }
+
+            renderDashboard();
+            renderMasterlist();
+            initCharts();
+
+            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            });
+        });
+
+        function updateSyncStatus(connected, text) {
+            const indicator = document.getElementById('syncIndicator');
+            const label = document.getElementById('syncStatusText');
+            
+            if (connected) {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse";
+            } else {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-amber-400 inline-block";
+            }
+            label.textContent = text;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('bg-tealMedium', 'text-white', 'shadow-md');
+                btn.classList.add('text-creamLight', 'hover:bg-tealMedium/20');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-tealMedium', 'text-white', 'shadow-md');
+                activeNav.classList.remove('hover:bg-tealMedium/20');
+            }
+
+            const titleEl = document.getElementById('pageTitle');
+            const subTitleEl = document.getElementById('pageSubTitle');
+
+            if (tabId === 'dashboard') {
+                titleEl.textContent = "Dashboard Summary";
+                subTitleEl.textContent = "Ringkasan statistik data peserta PERMATA MWC Palu Selatan";
+                updateCharts();
+            } else if (tabId === 'entry') {
+                titleEl.textContent = "Input Biodata Peserta";
+                subTitleEl.textContent = "Formulir pendaftaran peserta baru PERMATA MWC Palu Selatan";
+            } else if (tabId === 'masterlist') {
+                titleEl.textContent = "Daftar Peserta (Masterlist)";
+                subTitleEl.textContent = "Kelola dan cari data seluruh peserta terdaftar";
+                renderMasterlist();
+            } else if (tabId === 'settings') {
+                titleEl.textContent = "Pengaturan Google Sheets";
+                subTitleEl.textContent = "Hubungkan web dengan spreadsheet Google via Google Apps Script";
+            }
+
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+            }
+        }
+
+        function togglePekerjaanLainnya() {
+            const select = document.getElementById('pekerjaan');
+            const wrapper = document.getElementById('pekerjaanLainnyaWrapper');
+            const input = document.getElementById('pekerjaanLainnya');
+
+            if (select.value === 'Lainnya') {
+                wrapper.classList.remove('hidden');
+                input.setAttribute('required', 'required');
+            } else {
+                wrapper.classList.add('hidden');
+                input.removeAttribute('required');
+                input.value = '';
+            }
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+            const namaLengkap = document.getElementById('namaLengkap').value.trim();
+            const namaPanggilan = document.getElementById('namaPanggilan').value.trim();
+            const nomorHP = document.getElementById('nomorHP').value.trim();
+            const marhala = document.getElementById('marhala').value;
+            let pekerjaan = document.getElementById('pekerjaan').value;
+            const pekerjaanLainnya = document.getElementById('pekerjaanLainnya').value.trim();
+            const alamat = document.getElementById('alamat').value.trim();
+
+            let finalPekerjaan = pekerjaan;
+            if (pekerjaan === 'Lainnya') {
+                finalPekerjaan = `Lainnya: ${pekerjaanLainnya}`;
+            }
+
+            const participantData = {
+                id: editIndex >= 0 ? participants[editIndex].id || Date.now() : Date.now(),
+                namaLengkap,
+                namaPanggilan,
+                nomorHP,
+                marhala,
+                pekerjaanBase: pekerjaan,
+                pekerjaan: finalPekerjaan,
+                alamat,
+                timestamp: new Date().toLocaleDateString('id-ID')
+            };
+
+            if (editIndex >= 0) {
+                participants[editIndex] = participantData;
+                showToast("Data peserta diperbarui di lokal.");
+            } else {
+                participants.unshift(participantData);
+                showToast("Data peserta ditambahkan di lokal.");
+            }
+
+            localStorage.setItem('permata_participants', JSON.stringify(participants));
+
+            // Sync to Google Sheets if connected
+            if (googleScriptUrl) {
+                sendToGoogleSheets(participantData);
+            }
+
+            resetForm();
+            renderDashboard();
+            switchTab('masterlist');
+        }
+
+        function resetForm() {
+            document.getElementById('biodataForm').reset();
+            document.getElementById('editIndex').value = '-1';
+            document.getElementById('submitBtnText').textContent = 'Simpan Data & Sync';
+            togglePekerjaanLainnya();
+        }
+
+        function editParticipant(index) {
+            const p = participants[index];
+            if (!p) return;
+
+            switchTab('entry');
+
+            document.getElementById('editIndex').value = index;
+            document.getElementById('namaLengkap').value = p.namaLengkap;
+            document.getElementById('namaPanggilan').value = p.namaPanggilan;
+            document.getElementById('nomorHP').value = p.nomorHP;
+            document.getElementById('marhala').value = p.marhala;
+            
+            if (p.pekerjaanBase === 'Lainnya' || p.pekerjaan.startsWith('Lainnya:')) {
+                document.getElementById('pekerjaan').value = 'Lainnya';
+                togglePekerjaanLainnya();
+                document.getElementById('pekerjaanLainnya').value = p.pekerjaan.replace('Lainnya: ', '');
+            } else {
+                document.getElementById('pekerjaan').value = p.pekerjaanBase || p.pekerjaan;
+                togglePekerjaanLainnya();
+            }
+
+            document.getElementById('alamat').value = p.alamat;
+            document.getElementById('submitBtnText').textContent = 'Update Data Peserta';
+        }
+
+        function deleteParticipant(index) {
+            if (confirm(`Apakah Anda yakin ingin menghapus data "${participants[index].namaLengkap}"?`)) {
+                const deleted = participants.splice(index, 1)[0];
+                localStorage.setItem('permata_participants', JSON.stringify(participants));
+                showToast("Data dihapus dari lokal.");
+                
+                if (googleScriptUrl && deleted.id) {
+                    fetch(googleScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'delete', id: deleted.id })
+                    }).catch(e => console.error(e));
+                }
+
+                renderDashboard();
+                renderMasterlist();
+            }
+        }
+
+        function renderDashboard() {
+            const total = participants.length;
+            const takwin1Count = participants.filter(p => p.marhala === 'Takwin 1').length;
+            const takwin2Count = participants.filter(p => p.marhala === 'Takwin 2').length;
+            const pengajarCount = participants.filter(p => p.pekerjaanBase === "Pengajar Al-Qur'an" || p.pekerjaanBase === "Guru").length;
+            const asnBusinessCount = participants.filter(p => p.pekerjaanBase === "ASN" || p.pekerjaanBase === "Pengusaha").length;
+
+            document.getElementById('cardTotalPeserta').textContent = total;
+            document.getElementById('cardTakwin1').textContent = takwin1Count;
+            document.getElementById('cardTakwin2').textContent = takwin2Count;
+            document.getElementById('cardPengajar').textContent = pengajarCount;
+            document.getElementById('cardASN').textContent = asnBusinessCount;
+
+            const t1Pct = total > 0 ? Math.round((takwin1Count / total) * 100) : 0;
+            const t2Pct = total > 0 ? Math.round((takwin2Count / total) * 100) : 0;
+            document.getElementById('cardTakwin1Pct').textContent = `${t1Pct}% dari total`;
+            document.getElementById('cardTakwin2Pct').textContent = `${t2Pct}% dari total`;
+
+            document.getElementById('quickStatsTotal').textContent = total;
+            document.getElementById('qs-takwin1').textContent = takwin1Count;
+            document.getElementById('qs-takwin2').textContent = takwin2Count;
+            document.getElementById('qs-pengajar').textContent = participants.filter(p => p.pekerjaanBase === "Pengajar Al-Qur'an").length;
+
+            const recentBody = document.getElementById('recentParticipantsTable');
+            recentBody.innerHTML = '';
+
+            if (participants.length === 0) {
+                recentBody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400 italic">Belum ada data peserta.</td></tr>`;
+            } else {
+                participants.slice(0, 5).forEach(p => {
+                    recentBody.innerHTML += `
+                        <tr class="hover:bg-creamLight/20 border-b border-slate-100">
+                            <td class="p-3 font-semibold text-tealDark">${escapeHtml(p.namaLengkap)}</td>
+                            <td class="p-3 text-slate-600">${escapeHtml(p.namaPanggilan)}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-0.5 rounded text-xs font-semibold ${p.marhala === 'Takwin 1' ? 'bg-tealMedium/20 text-tealDark' : 'bg-creamSoft text-tealDark'}">
+                                    ${p.marhala}
+                                </span>
+                            </td>
+                            <td class="p-3 text-slate-600">${escapeHtml(p.pekerjaan)}</td>
+                            <td class="p-3 text-tealDark font-mono text-xs"><i class="fa-brands fa-whatsapp text-tealMedium"></i> ${escapeHtml(p.nomorHP)}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            updateCharts();
+        }
+
+        function renderMasterlist(filteredData = null) {
+            const dataToRender = filteredData || participants;
+            const tbody = document.getElementById('masterTableBody');
+            tbody.innerHTML = '';
+
+            document.getElementById('showingCount').textContent = `Menampilkan ${dataToRender.length} dari ${participants.length} data peserta`;
+
+            if (dataToRender.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="p-8 text-center text-slate-400">
+                            <i class="fa-solid fa-folder-open text-4xl mb-2 block text-tealMedium/40"></i>
+                            Tidak ada data peserta yang ditemukan.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            dataToRender.forEach((p, index) => {
+                const originalIndex = participants.indexOf(p);
+                tbody.innerHTML += `
+                    <tr class="hover:bg-creamLight/20 transition border-b border-slate-100">
+                        <td class="p-4 text-center font-medium text-slate-400 text-xs">${index + 1}</td>
+                        <td class="p-4 font-bold text-tealDark">${escapeHtml(p.namaLengkap)}</td>
+                        <td class="p-4 text-slate-600">${escapeHtml(p.namaPanggilan)}</td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${p.marhala === 'Takwin 1' ? 'bg-tealMedium/20 text-tealDark' : 'bg-creamSoft text-tealDark'}">
+                                ${p.marhala}
+                            </span>
+                        </td>
+                        <td class="p-4 text-slate-700 font-medium">${escapeHtml(p.pekerjaan)}</td>
+                        <td class="p-4 text-slate-600 max-w-xs text-xs leading-relaxed">${escapeHtml(p.alamat)}</td>
+                        <td class="p-4 font-mono text-xs text-slate-700">
+                            <a href="https://wa.me/${formatWA(p.nomorHP)}" target="_blank" class="inline-flex items-center space-x-1 bg-creamLight text-tealDark hover:bg-creamSoft px-2 py-1 rounded border border-tealMedium/20 transition">
+                                <i class="fa-brands fa-whatsapp text-tealMedium"></i>
+                                <span>${escapeHtml(p.nomorHP)}</span>
+                            </a>
+                        </td>
+                        <td class="p-4 text-center space-x-1">
+                            <button onclick="editParticipant(${originalIndex})" title="Edit" class="p-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-md border border-amber-200 transition">
+                                <i class="fa-solid fa-pen-to-square text-xs"></i>
+                            </button>
+                            <button onclick="deleteParticipant(${originalIndex})" title="Hapus" class="p-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-md border border-rose-200 transition">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterParticipants() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const marhala = document.getElementById('filterMarhala').value;
+            const pekerjaan = document.getElementById('filterPekerjaan').value;
+
+            const filtered = participants.filter(p => {
+                const matchesSearch = p.namaLengkap.toLowerCase().includes(search) ||
+                                      p.namaPanggilan.toLowerCase().includes(search) ||
+                                      p.alamat.toLowerCase().includes(search) ||
+                                      p.nomorHP.toLowerCase().includes(search);
+
+                const matchesMarhala = marhala === "" || p.marhala === marhala;
+                const matchesPekerjaan = pekerjaan === "" || (p.pekerjaanBase === pekerjaan || p.pekerjaan.includes(pekerjaan));
+
+                return matchesSearch && matchesMarhala && matchesPekerjaan;
+            });
+
+            renderMasterlist(filtered);
+        }
+
+        function initCharts() {
+            const ctxMarhala = document.getElementById('marhalaChart').getContext('2d');
+            const ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
+
+            marhalaChartInstance = new Chart(ctxMarhala, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Takwin 1', 'Takwin 2'],
+                    datasets: [{
+                        data: [0, 0],
+                        backgroundColor: ['#24B1B1', '#007979'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            pekerjaanChartInstance = new Chart(ctxPekerjaan, {
+                type: 'bar',
+                data: {
+                    labels: ['Guru', 'ASN', 'Pengusaha', 'Pedagang', 'Pengajar Al-Qur\'an', 'Lainnya'],
+                    datasets: [{
+                        label: 'Jumlah Peserta',
+                        data: [0, 0, 0, 0, 0, 0],
+                        backgroundColor: '#24B1B1',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+
+            updateCharts();
+        }
+
+        function updateCharts() {
+            if (!marhalaChartInstance || !pekerjaanChartInstance) return;
+
+            const t1 = participants.filter(p => p.marhala === 'Takwin 1').length;
+            const t2 = participants.filter(p => p.marhala === 'Takwin 2').length;
+
+            marhalaChartInstance.data.datasets[0].data = [t1, t2];
+            marhalaChartInstance.update();
+
+            const jobs = ['Guru', 'ASN', 'Pengusaha', 'Pedagang', 'Pengajar Al-Qur\'an', 'Lainnya'];
+            const jobCounts = jobs.map(job => {
+                if (job === 'Lainnya') {
+                    return participants.filter(p => p.pekerjaanBase === 'Lainnya' || p.pekerjaan.startsWith('Lainnya')).length;
+                }
+                return participants.filter(p => p.pekerjaanBase === job).length;
+            });
+
+            pekerjaanChartInstance.data.datasets[0].data = jobCounts;
+            pekerjaanChartInstance.update();
+        }
+
+        // GOOGLE SHEETS SYNC LOGIC
+        function saveAppSettings() {
+            const url = document.getElementById('webAppUrl').value.trim();
+            if (!url) {
+                alert("Masukkan URL Web App Google Apps Script!");
+                return;
+            }
+            googleScriptUrl = url;
+            localStorage.setItem('permata_gs_url', url);
+            updateSyncStatus(true, "Cloud Connected");
+            showToast("URL Google Apps Script berhasil disimpan!");
+            fetchFromGoogleSheets();
+        }
+
+        async function sendToGoogleSheets(data) {
+            if (!googleScriptUrl) return;
+            showToast("Mengirim data ke Google Sheets...");
+
+            try {
+                await fetch(googleScriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'upsert', data: data })
+                });
+                showToast("Data tersinkronisasi ke Google Sheets!");
+            } catch (err) {
+                console.error("Sync Error:", err);
+                showToast("Gagal sync ke Google Sheets (Cek Koneksi)");
+            }
+        }
+
+        async function fetchFromGoogleSheets() {
+            if (!googleScriptUrl) return;
+
+            showToast("Mengambil data dari Google Sheets...");
+            try {
+                const res = await fetch(googleScriptUrl + '?action=get');
+                const json = await res.json();
+                
+                if (json.status === 'success' && Array.isArray(json.data)) {
+                    participants = json.data;
+                    localStorage.setItem('permata_participants', JSON.stringify(participants));
+                    renderDashboard();
+                    renderMasterlist();
+                    showToast("Data dari Google Sheets berhasil diambil!");
+                }
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                showToast("Menggunakan data lokal.");
+            }
+        }
+
+        function testConnection() {
+            const url = document.getElementById('webAppUrl').value.trim();
+            if (!url) return alert("URL Kosong!");
+            showToast("Menguji koneksi...");
+            
+            fetch(url + '?action=get')
+                .then(r => r.json())
+                .then(res => {
+                    if (res.status === 'success') {
+                        alert("Koneksi Sukses! Google Sheets siap digunakan.");
+                    } else {
+                        alert("Respon tidak valid dari script.");
+                    }
+                })
+                .catch(err => alert("Gagal terhubung ke Google Apps Script. Pastikan Web App diset ke 'Anyone'."));
+        }
+
+        function formatWA(number) {
+            let clean = number.replace(/[^0-9]/g, '');
+            if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+            return clean;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function printData() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

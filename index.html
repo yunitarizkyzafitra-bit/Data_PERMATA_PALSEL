@@ -54,10 +54,10 @@
     <!-- SIDEBAR LEFT -->
     <aside class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
         <div>
-            <!-- Sidebar Header / Logo -->
+            <!-- Sidebar Header / Logo Image (Palsel.jpeg) -->
             <div class="p-5 border-b border-teal-800/50 bg-brand-darker flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-brand-teal flex items-center justify-center shadow-lg font-extrabold text-white text-lg">
-                    <i class="fa-solid fa-star-and-crescent"></i>
+                <div class="w-11 h-11 rounded-xl bg-brand-teal flex items-center justify-center shadow-lg overflow-hidden border border-teal-400/30">
+                    <img src="Palsel.jpeg" alt="Logo Palsel" class="w-full h-full object-cover" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<i class=\'fa-solid fa-star-and-crescent text-lg text-white\'></i>';">
                 </div>
                 <div>
                     <h1 class="font-bold text-sm tracking-wide text-white leading-tight">PERMATA MWC</h1>
@@ -111,8 +111,8 @@
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-teal-300 font-bold text-xs border border-teal-500/30">
-                    <i class="fa-solid fa-user-shield"></i>
+                <div class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-teal-300 font-bold text-xs border border-teal-500/30 overflow-hidden">
+                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield\'></i>';">
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-[11px] font-bold text-white truncate" id="adminFooterName">Administrator</p>
@@ -130,8 +130,8 @@
         <!-- HEADER BAR -->
         <header class="bg-brand-dark text-white p-5 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-brand-teal/30 border border-brand-teal flex items-center justify-center text-brand-cream text-xl">
-                    <i class="fa-solid fa-building-user"></i>
+                <div class="w-11 h-11 rounded-xl bg-brand-teal/30 border border-brand-teal flex items-center justify-center text-brand-cream overflow-hidden">
+                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl\'></i>';">
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
@@ -154,7 +154,7 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Mode Administrator Aktif:</strong> Data sensitif (Nomor HP, Alamat, Pekerjaan) telah dibuka. Anda dapat mengelola & mengekspor data.</span>
+                <span><strong>Mode Administrator Aktif:</strong> Data sensitif (Nomor HP, Alamat, Pekerjaan) terbuka. Akses penuh hapus & ekspor data diaktifkan.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
@@ -266,11 +266,11 @@
                                 <th class="p-4">No. HP (WhatsApp)</th>
                                 <th class="p-4">Alamat Domisili</th>
                                 <th class="p-4">Pekerjaan</th>
-                                <th class="p-4 text-center admin-only hidden">Aksi</th>
+                                <th class="p-4 text-center admin-only hidden">Aksi Admin</th>
                             </tr>
                         </thead>
                         <tbody id="participantTable" class="divide-y divide-slate-100">
-                            <!-- Rows populated dynamically -->
+                            <!-- Dynamic Table Rows -->
                         </tbody>
                     </table>
                 </div>
@@ -384,13 +384,13 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnjkYT7tIasV4U8hZY90C43ZZyff6duJYo4uJHTQdfSCZEYbfSjLKlbIX_cN4nX9qp/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbza-ZwA7OGnrTjtWGgFiLfO6GZBzK1mFzxKEC2dDkJe-JQkhj33eVJoMzTWShBbXvsf/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "5582";
+        const ADMIN_PIN_DEFAULT = "1282";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -474,7 +474,7 @@
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
                     <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${item.id}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteParticipant('${item.id}', '${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -493,6 +493,7 @@
             const pekerjaanFinal = pekerjaanVal === 'Lainnya' ? document.getElementById('inputPekerjaanLainnya').value : pekerjaanVal;
 
             const newRecord = {
+                action: 'create',
                 id: Date.now().toString(),
                 namaLengkap: document.getElementById('inputNamaLengkap').value,
                 namaPanggilan: document.getElementById('inputNamaPanggilan').value,
@@ -526,6 +527,7 @@
             btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan Data Peserta';
             renderTable();
             switchTab('masterlist');
+            setTimeout(syncDataFromCloud, 1500);
         }
 
         function openAdminModal() {
@@ -570,12 +572,28 @@
             renderTable();
         }
 
-        function deleteParticipant(id) {
+        async function deleteParticipant(id, nama) {
             if(!IS_ADMIN) return;
-            if(confirm("Apakah Anda yakin ingin menghapus data peserta ini?")) {
-                participantsData = participantsData.filter(x => x.id !== id);
+            if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"? Data di Spreadsheet juga akan ikut terhapus secara otomatis.`)) {
+                // Remove local
+                participantsData = participantsData.filter(x => x.id !== id && x.namaLengkap !== nama);
                 localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                 renderTable();
+
+                // Send delete payload to Spreadsheet
+                if(SCRIPT_URL) {
+                    try {
+                        await fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'delete', id: id, namaLengkap: nama })
+                        });
+                        setTimeout(syncDataFromCloud, 1500);
+                    } catch(err) {
+                        console.log("Delete payload error:", err);
+                    }
+                }
             }
         }
 
@@ -648,7 +666,7 @@
             fetch(SCRIPT_URL)
                 .then(res => res.json())
                 .then(data => {
-                    if(Array.isArray(data) && data.length > 0) {
+                    if(Array.isArray(data)) {
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                         renderTable();

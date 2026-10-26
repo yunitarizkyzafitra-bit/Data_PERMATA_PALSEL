@@ -114,7 +114,6 @@
                     <i class="fa-solid fa-utensils w-4 text-center"></i>
                     <span>Pilihan Konsumsi</span>
                 </button>
-                <!-- Menu Baru: Petunjuk Pengisian -->
                 <button onclick="switchTab('guide')" id="nav-guide" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-amber-200 hover:bg-amber-900/30">
                     <i class="fa-solid fa-circle-question w-4 text-center text-amber-400"></i>
                     <span>Petunjuk Pengisian</span>
@@ -522,7 +521,7 @@
             </div>
         </section>
 
-        <!-- 5. TAB PETUNJUK PENGISIAN DATA (DESAIN RESMI & INTERAKTIF) -->
+        <!-- 5. TAB PETUNJUK PENGISIAN DATA (AMAN & TANPA EKSPOSUR PIN) -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 
@@ -549,10 +548,10 @@
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Klik menu <strong>"Form Pendaftaran"</strong> di sidebar kiri.</li>
-                            <li>Isi **Nama Lengkap**, **Nama Panggilan**, dan pilih **Kecamatan** (Palu Selatan/Timur).</li>
-                            <li>Pilih status **Marhala** (Takwin 1 atau Takwin 2).</li>
-                            <li>Masukkan **Nomor WhatsApp**, **Pekerjaan**, dan **Alamat Domisili**.</li>
-                            <li>Tekan **"Simpan Data Peserta"**. Data otomatis tersinkron ke Cloud Google Sheets.</li>
+                            <li>Isi <strong>Nama Lengkap</strong>, <strong>Nama Panggilan</strong>, dan pilih <strong>Kecamatan</strong> (Palu Selatan/Timur).</li>
+                            <li>Pilih status <strong>Marhala</strong> (Takwin 1 atau Takwin 2).</li>
+                            <li>Masukkan <strong>Nomor WhatsApp</strong>, <strong>Pekerjaan</strong>, dan <strong>Alamat Domisili</strong>.</li>
+                            <li>Tekan <strong>"Simpan Data Peserta"</strong>. Data otomatis tersinkron ke Cloud Google Sheets.</li>
                         </ul>
                     </div>
 
@@ -563,9 +562,9 @@
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Buka menu <strong>"Pilihan Konsumsi"</strong>.</li>
-                            <li>Pilih nama Anda pada dropdown **"Pilih Nama Peserta Terdaftar"**.</li>
-                            <li>**Centang salah satu** dari 8 pilihan varian menu makanan yang berjejer di layar.</li>
-                            <li>Klik tombol **"Simpan Pilihan Makanan"**. Pilihan Anda akan tampil pada Rekapitulasi Pesanan.</li>
+                            <li>Pilih nama Anda pada dropdown <strong>"Pilih Nama Peserta Terdaftar"</strong>.</li>
+                            <li><strong>Centang salah satu</strong> dari 8 pilihan varian menu makanan yang berjejer di layar.</li>
+                            <li>Klik tombol <strong>"Simpan Pilihan Makanan"</strong>. Pilihan Anda akan tampil pada Rekapitulasi Pesanan.</li>
                         </ul>
                     </div>
 
@@ -577,7 +576,7 @@
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Klik tombol <strong>"Cetak / Save PDF"</strong> di header bagian atas.</li>
                             <li>Pilih jenis data yang ingin didownload (<strong>Data Peserta</strong> atau <strong>Data Konsumsi</strong>).</li>
-                            <li>Pilih opsi **Save File PDF** untuk menyimpan laporan lengkap ke perangkat Anda.</li>
+                            <li>Pilih opsi <strong>Save File PDF</strong> untuk menyimpan laporan lengkap ke perangkat Anda.</li>
                         </ul>
                     </div>
 
@@ -587,8 +586,8 @@
                             <h4 class="font-bold text-brand-dark text-sm">Fitur Keamanan & Modul Admin</h4>
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
-                            <li>Data pribadi seperti No HP dan Alamat secara otomatis **tersamar (masked)** untuk publik.</li>
-                            <li>Untuk membuka data sensitif atau menghapus data, klik **"Login Admin System"** dan masukkan PIN **1280**.</li>
+                            <li>Data pribadi seperti No HP dan Alamat secara otomatis <strong>tersamar (masked)</strong> untuk publik.</li>
+                            <li>Untuk membuka data sensitif atau mengelola/menghapus data, hubungi pengembang atau administrator untuk mendapatkan <strong>PIN Akses Rahasia</strong> yang sah.</li>
                         </ul>
                     </div>
 
@@ -691,7 +690,7 @@
             
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
-                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN (Default: 1280)" required class="w-full px-4 py-3 text-center text-lg tracking-widest border border-slate-200 rounded-xl focus:outline-none focus:border-brand-dark">
+                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN Admin" required class="w-full px-4 py-3 text-center text-lg tracking-widest border border-slate-200 rounded-xl focus:outline-none focus:border-brand-dark">
                 </div>
                 <div class="flex gap-2">
                     <button type="button" onclick="closeAdminModal()" class="w-1/2 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">Batal</button>
@@ -707,7 +706,7 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "12882";
+        const ADMIN_PIN_DEFAULT = "12780";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -1206,7 +1205,6 @@
             }
         }
 
-        // KEAMANAN KODE: Sanitasi XSS untuk mencegah injection script dari input pengguna
         function escapeHtml(text) {
             return String(text || '').replace(/[&<>"']/g, function(m) {
                 return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];

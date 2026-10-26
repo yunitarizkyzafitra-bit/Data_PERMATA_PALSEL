@@ -54,14 +54,14 @@
     <!-- SIDEBAR LEFT -->
     <aside class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
         <div>
-            <!-- Sidebar Header / Logo Image (Palsel.jpeg) -->
+            <!-- Sidebar Header / Logo Presisi -->
             <div class="p-5 border-b border-teal-800/50 bg-brand-darker flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl bg-brand-teal flex items-center justify-center shadow-lg overflow-hidden border border-teal-400/30">
-                    <img src="logo Palsel.jpeg" alt="Logo Palsel" class="w-full h-full object-cover" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<i class=\'fa-solid fa-star-and-crescent text-lg text-white\'></i>';">
+                <div class="w-11 h-11 min-w-[2.75rem] min-h-[2.75rem] rounded-xl bg-brand-teal flex items-center justify-center shadow-lg overflow-hidden border border-teal-400/30">
+                    <img src="Palsel.jpeg" alt="Logo Palsel" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<i class=\'fa-solid fa-star-and-crescent text-lg text-white\'></i>';">
                 </div>
-                <div>
-                    <h1 class="font-bold text-sm tracking-wide text-white leading-tight">PERMATA MWC</h1>
-                    <p class="text-[10px] text-brand-cream/70 uppercase tracking-widest">Palu Selatan & Timur</p>
+                <div class="overflow-hidden">
+                    <h1 class="font-bold text-sm tracking-wide text-white leading-tight truncate">PERMATA MWC</h1>
+                    <p class="text-[10px] text-brand-cream/70 uppercase tracking-widest truncate">Palu Selatan & Timur</p>
                 </div>
             </div>
 
@@ -79,15 +79,19 @@
             <nav class="p-3 space-y-1">
                 <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition bg-brand-teal text-white shadow-md">
                     <i class="fa-solid fa-chart-pie w-4 text-center"></i>
-                    <span>Employee Dashboard</span>
+                    <span>Dashboard Stats</span>
                 </button>
                 <button onclick="switchTab('masterlist')" id="nav-masterlist" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-users w-4 text-center"></i>
-                    <span>Employee Masterlist</span>
+                    <span>Data Masterlist</span>
                 </button>
                 <button onclick="switchTab('entry')" id="nav-entry" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-user-plus w-4 text-center"></i>
-                    <span>Employee Data Entry</span>
+                    <span>Form Pendaftaran</span>
+                </button>
+                <button onclick="switchTab('konsumsi')" id="nav-konsumsi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
+                    <i class="fa-solid fa-utensils w-4 text-center"></i>
+                    <span>Pilihan Konsumsi</span>
                 </button>
 
                 <div class="pt-4 pb-1 text-[10px] uppercase font-bold text-teal-400/80 px-4 tracking-wider">Modul Admin</div>
@@ -98,7 +102,7 @@
             </nav>
         </div>
 
-        <!-- Sidebar Bottom: Quick Stats & Admin Footer -->
+        <!-- Sidebar Bottom -->
         <div class="p-3 space-y-3">
             <div class="p-3 rounded-xl bg-teal-950/60 border border-teal-800/40 text-[11px] space-y-1 text-slate-300">
                 <div class="font-bold text-teal-300 border-b border-teal-800/50 pb-1 mb-1 flex items-center justify-between">
@@ -111,8 +115,8 @@
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center text-teal-300 font-bold text-xs border border-teal-500/30 overflow-hidden">
-                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield\'></i>';">
+                <div class="w-8 h-8 min-w-[2rem] min-h-[2rem] rounded-full bg-brand-dark flex items-center justify-center text-teal-300 font-bold text-xs border border-teal-500/30 overflow-hidden">
+                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield\'></i>';">
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-[11px] font-bold text-white truncate" id="adminFooterName">Administrator</p>
@@ -130,12 +134,12 @@
         <!-- HEADER BAR -->
         <header class="bg-brand-dark text-white p-5 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl bg-brand-teal/30 border border-brand-teal flex items-center justify-center text-brand-cream overflow-hidden">
-                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl\'></i>';">
+                <div class="w-11 h-11 min-w-[2.75rem] min-h-[2.75rem] rounded-xl bg-brand-teal/30 border border-brand-teal flex items-center justify-center text-brand-cream overflow-hidden">
+                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl\'></i>';">
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
-                    <p class="text-xs text-brand-cream/80">Real-time employee summary and analytics • MWC Palu Selatan & Timur</p>
+                    <p class="text-xs text-brand-cream/80">Real-time summary & konsumsi • MWC Palu Selatan & Timur</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -154,7 +158,7 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Mode Administrator Aktif:</strong> Data sensitif (Nomor HP, Alamat, Pekerjaan) terbuka. Akses penuh hapus & ekspor data diaktifkan.</span>
+                <span><strong>Mode Administrator Aktif:</strong> Data sensitif terbuka. Akses penuh hapus & rekapitulasi data diaktifkan.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
@@ -163,7 +167,7 @@
         <section id="tab-dashboard" class="space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 <div class="bg-brand-dark text-white p-4 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-brand-cream/80 uppercase">Total Employees</p>
+                    <p class="text-[11px] font-semibold text-brand-cream/80 uppercase">Total Peserta</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTotal">0</h3>
                     <p class="text-[10px] text-teal-200/60">Overall records</p>
                 </div>
@@ -359,6 +363,81 @@
             </div>
         </section>
 
+        <!-- 4. TAB PILIHAN KONSUMSI PERMATA -->
+        <section id="tab-konsumsi" class="space-y-6 hidden">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-dark">Pilihan Menu Konsumsi PERMATA</h3>
+                        <p class="text-xs text-slate-500">Pilih peserta terdaftar dan tentukan menu konsumsi pilihan Anda.</p>
+                    </div>
+                    <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
+                        <i class="fa-solid fa-utensils mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Tercatat
+                    </div>
+                </div>
+
+                <!-- Form Pemilihan Menu -->
+                <form id="konsumsiForm" onsubmit="handleKonsumsiSubmit(event)" class="space-y-4 mb-8 bg-brand-cream/40 p-5 rounded-2xl border border-amber-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pilih Nama Peserta Terdaftar *</label>
+                            <select id="selectPesertaKonsumsi" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white">
+                                <option value="">-- Pilih Peserta --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pilih Menu Konsumsi *</label>
+                            <select id="selectMenuMakanan" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white">
+                                <option value="">-- Pilih Menu Makanan --</option>
+                                <option value="Mie Goreng Seafood (Telur, Seafood, kol, wortel, sawi dan kerupuk)">1. Mie Goreng Seafood (Telur, Seafood, kol, wortel, sawi dan kerupuk)</option>
+                                <option value="Nasi Pecel (Bawang Goreng, Kacang Panjang, Toge, Ketimun, Tahu, dan Tempe)">2. Nasi Pecel (Bawang Goreng, Kacang Panjang, Toge, Ketimun, Tahu, dan Tempe)</option>
+                                <option value="Gado-Gado (Telur Rebus, Kacang Panjang, Ketimun, Tahu, dan Tempe)">3. Gado-Gado (Telur Rebus, Kacang Panjang, Ketimun, Tahu, dan Tempe)</option>
+                                <option value="Nasi Goreng Merah (Topping Bakso, Telur suir)">4. Nasi Goreng Merah (Topping Bakso, Telur suir)</option>
+                                <option value="Nasi Goreng Myco (Telur Mata Sapi, ayam Suir, Kerupuk)">5. Nasi Goreng Myco (Telur Mata Sapi, ayam Suir, Kerupuk)</option>
+                                <option value="Soto Ayam">6. Soto Ayam</option>
+                                <option value="Nasi Ayam Sambal Matah (Telur, Ayam Dadu Crispy Bumbu Sambal Matah)">7. Nasi Ayam Sambal Matah (Telur, Ayam Dadu Crispy Bumbu Sambal Matah)</option>
+                                <option value="Nasi Ayam Asam Manis (Telur, ayam dadu Crispy Bumbu Asam Manis, Wijen)">8. Nasi Ayam Asam Manis (Telur, ayam dadu Crispy Bumbu Asam Manis, Wijen)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-end pt-2">
+                        <button type="submit" class="px-5 py-2 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-semibold shadow flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Simpan Pilihan Makanan
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tabel Rekapitulasi Pilihan Makanan (Nama & Kecamatan Otomatis Tertulis) -->
+                <div>
+                    <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Daftar Rekapitulasi Pesanan Makanan Peserta
+                    </h4>
+                    <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
+                                    <tr>
+                                        <th class="p-3">No</th>
+                                        <th class="p-3">Nama Lengkap Peserta</th>
+                                        <th class="p-3">Kecamatan</th>
+                                        <th class="p-3">Menu Makanan Pilihan</th>
+                                        <th class="p-3 text-center admin-only hidden">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="konsumsiTableBody" class="divide-y divide-slate-100">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="emptyKonsumsiState" class="hidden p-6 text-center text-slate-400 text-xs">
+                            <i class="fa-solid fa-utensils text-2xl mb-1 text-slate-300"></i>
+                            <p>Belum ada pilihan konsumsi yang tercatat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- MODAL AUTHENTICATION ADMIN -->
@@ -387,30 +466,42 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbza-ZwA7OGnrTjtWGgFiLfO6GZBzK1mFzxKEC2dDkJe-JQkhj33eVJoMzTWShBbXvsf/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFYX4yu0umz2VgJfYFHv2E1Or-Is_EogDfh0gUUVFz_lO2GvvjOvqBtFFjvEeKfPUu/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "1282";
+        const ADMIN_PIN_DEFAULT = "1280";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
+        let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
         document.addEventListener('DOMContentLoaded', () => {
             renderTable();
             initCharts();
+            populatePesertaDropdown();
+            renderKonsumsiTable();
             syncDataFromCloud();
         });
 
         function switchTab(tabId) {
-            ['dashboard', 'masterlist', 'entry'].forEach(id => {
-                document.getElementById(`tab-${id}`).classList.add('hidden');
-                document.getElementById(`nav-${id}`).classList.remove('bg-brand-teal', 'text-white');
-                document.getElementById(`nav-${id}`).classList.add('text-brand-cream/80');
+            ['dashboard', 'masterlist', 'entry', 'konsumsi'].forEach(id => {
+                const tabEl = document.getElementById(`tab-${id}`);
+                const navEl = document.getElementById(`nav-${id}`);
+                if(tabEl) tabEl.classList.add('hidden');
+                if(navEl) {
+                    navEl.classList.remove('bg-brand-teal', 'text-white', 'shadow-md');
+                    navEl.classList.add('text-brand-cream/80');
+                }
             });
 
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            document.getElementById(`nav-${tabId}`).classList.add('bg-brand-teal', 'text-white');
-            document.getElementById(`nav-${tabId}`).classList.remove('text-brand-cream/80');
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeTab) activeTab.classList.remove('hidden');
+            if(activeNav) {
+                activeNav.classList.add('bg-brand-teal', 'text-white', 'shadow-md');
+                activeNav.classList.remove('text-brand-cream/80');
+            }
 
             if(tabId === 'dashboard') updateCharts();
+            if(tabId === 'konsumsi') populatePesertaDropdown();
         }
 
         function togglePekerjaanLainnya() {
@@ -437,6 +528,7 @@
             const filterMarhala = document.getElementById('filterMarhala').value;
             const filterKecamatan = document.getElementById('filterKecamatan').value;
 
+            if(!tbody) return;
             tbody.innerHTML = '';
             
             const filtered = participantsData.filter(item => {
@@ -447,10 +539,11 @@
                 return matchName && matchMarhala && matchKecamatan;
             });
 
+            const emptyState = document.getElementById('emptyState');
             if(filtered.length === 0) {
-                document.getElementById('emptyState').classList.remove('hidden');
+                if(emptyState) emptyState.classList.remove('hidden');
             } else {
-                document.getElementById('emptyState').classList.add('hidden');
+                if(emptyState) emptyState.classList.add('hidden');
             }
 
             filtered.forEach((item, index) => {
@@ -483,11 +576,108 @@
             updateQuickStats();
         }
 
+        // POPULATE DROPDOWN PESERTA DI TAB KONSUMSI
+        function populatePesertaDropdown() {
+            const select = document.getElementById('selectPesertaKonsumsi');
+            if(!select) return;
+            select.innerHTML = '<option value="">-- Pilih Peserta --</option>';
+            participantsData.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.namaLengkap;
+                opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
+                opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
+                select.appendChild(opt);
+            });
+        }
+
+        // HANDLE SUBMIT KONSUMSI PESERTA
+        function handleKonsumsiSubmit(e) {
+            e.preventDefault();
+            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
+            const selectedOption = selectPeserta.options[selectPeserta.selectedIndex];
+            const namaLengkap = selectPeserta.value;
+            const kecamatan = selectedOption.getAttribute('data-kecamatan') || 'Palu Selatan';
+            const menuMakanan = document.getElementById('selectMenuMakanan').value;
+
+            if(!namaLengkap || !menuMakanan) {
+                alert("Silakan pilih peserta dan menu makanan terlebih dahulu.");
+                return;
+            }
+
+            // Cek apakah peserta sudah pernah memesan, jika ada update atau tambahkan baru
+            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap === namaLengkap);
+            const newOrder = {
+                id: Date.now().toString(),
+                namaLengkap: namaLengkap,
+                kecamatan: kecamatan,
+                menu: menuMakanan,
+                timestamp: new Date().toISOString()
+            };
+
+            if(existingIndex >= 0) {
+                konsumsiData[existingIndex] = newOrder;
+            } else {
+                konsumsiData.push(newOrder);
+            }
+
+            localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
+            alert(`Pilihan konsumsi untuk ${namaLengkap} (${kecamatan}) berhasil disimpan!`);
+            document.getElementById('konsumsiForm').reset();
+            renderKonsumsiTable();
+        }
+
+        function renderKonsumsiTable() {
+            const tbody = document.getElementById('konsumsiTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+
+            const emptyState = document.getElementById('emptyKonsumsiState');
+            const countEl = document.getElementById('totalKonsumsiCount');
+            if(countEl) countEl.innerText = konsumsiData.length;
+
+            if(konsumsiData.length === 0) {
+                if(emptyState) emptyState.classList.remove('hidden');
+                return;
+            } else {
+                if(emptyState) emptyState.classList.add('hidden');
+            }
+
+            konsumsiData.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-slate-400">${index + 1}</td>
+                    <td class="p-3 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">
+                            ${escapeHtml(item.kecamatan)}
+                        </span>
+                    </td>
+                    <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
+                    <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
+                        <button onclick="deleteKonsumsi('${item.id}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteKonsumsi(id) {
+            if(!IS_ADMIN) return;
+            if(confirm("Hapus pesanan konsumsi ini?")) {
+                konsumsiData = konsumsiData.filter(x => x.id !== id);
+                localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
+                renderKonsumsiTable();
+            }
+        }
+
         async function handleFormSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan...';
+            if(btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan...';
+            }
 
             const pekerjaanVal = document.getElementById('inputPekerjaan').value;
             const pekerjaanFinal = pekerjaanVal === 'Lainnya' ? document.getElementById('inputPekerjaanLainnya').value : pekerjaanVal;
@@ -523,19 +713,24 @@
 
             alert("Data biodata berhasil disimpan!");
             document.getElementById('entryForm').reset();
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan Data Peserta';
+            if(btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan Data Peserta';
+            }
             renderTable();
+            populatePesertaDropdown();
             switchTab('masterlist');
             setTimeout(syncDataFromCloud, 1500);
         }
 
         function openAdminModal() {
             if(IS_ADMIN) return;
-            document.getElementById('adminModal').classList.remove('hidden');
+            const modal = document.getElementById('adminModal');
+            if(modal) modal.classList.remove('hidden');
         }
         function closeAdminModal() {
-            document.getElementById('adminModal').classList.add('hidden');
+            const modal = document.getElementById('adminModal');
+            if(modal) modal.classList.add('hidden');
         }
 
         function handleAdminLogin(e) {
@@ -545,42 +740,57 @@
                 IS_ADMIN = true;
                 closeAdminModal();
                 applyAdminState();
-                alert("Verifikasi Admin Berhasil! Data Sensitif Telah Dibuka.");
+                alert("Verifikasi Admin Berhasil! Data Sensitif & Tombol Hapus Telah Dibuka.");
             } else {
                 alert("PIN Admin Salah!");
             }
         }
 
         function applyAdminState() {
-            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user-shield text-[9px] mr-1"></i> Administrator';
-            document.getElementById('adminNotice').classList.remove('hidden');
-            document.getElementById('adminActionGroup').classList.remove('hidden');
-            document.getElementById('lockIcon').className = "fa-solid fa-lock-open w-4 text-center";
-            document.getElementById('adminNavText').innerText = "Mode Admin Aktif";
+            const badge = document.getElementById('roleBadge');
+            if(badge) {
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                badge.innerHTML = '<i class="fa-solid fa-user-shield text-[9px] mr-1"></i> Administrator';
+            }
+            const notice = document.getElementById('adminNotice');
+            if(notice) notice.classList.remove('hidden');
+            const group = document.getElementById('adminActionGroup');
+            if(group) group.classList.remove('hidden');
+            const lockIcon = document.getElementById('lockIcon');
+            if(lockIcon) lockIcon.className = "fa-solid fa-lock-open w-4 text-center";
+            const navText = document.getElementById('adminNavText');
+            if(navText) navText.innerText = "Mode Admin Aktif";
             renderTable();
+            renderKonsumsiTable();
         }
 
         function logoutAdmin() {
             IS_ADMIN = false;
-            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
-            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)';
-            document.getElementById('adminNotice').classList.add('hidden');
-            document.getElementById('adminActionGroup').classList.add('hidden');
-            document.getElementById('lockIcon').className = "fa-solid fa-shield-halved w-4 text-center";
-            document.getElementById('adminNavText').innerText = "Login Admin System";
+            const badge = document.getElementById('roleBadge');
+            if(badge) {
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
+                badge.innerHTML = '<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)';
+            }
+            const notice = document.getElementById('adminNotice');
+            if(notice) notice.classList.add('hidden');
+            const group = document.getElementById('adminActionGroup');
+            if(group) group.classList.add('hidden');
+            const lockIcon = document.getElementById('lockIcon');
+            if(lockIcon) lockIcon.className = "fa-solid fa-shield-halved w-4 text-center";
+            const navText = document.getElementById('adminNavText');
+            if(navText) navText.innerText = "Login Admin System";
             renderTable();
+            renderKonsumsiTable();
         }
 
         async function deleteParticipant(id, nama) {
             if(!IS_ADMIN) return;
-            if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"? Data di Spreadsheet juga akan ikut terhapus secara otomatis.`)) {
-                // Remove local
+            if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"? Data di Spreadsheet juga akan ikut terhapus.`)) {
                 participantsData = participantsData.filter(x => x.id !== id && x.namaLengkap !== nama);
                 localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                 renderTable();
+                populatePesertaDropdown();
 
-                // Send delete payload to Spreadsheet
                 if(SCRIPT_URL) {
                     try {
                         await fetch(SCRIPT_URL, {
@@ -611,40 +821,44 @@
             const paluSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
             const paluTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
 
-            document.getElementById('statTotal').innerText = total;
-            document.getElementById('statTakwin1').innerText = t1;
-            document.getElementById('statTakwin2').innerText = t2;
-            document.getElementById('statPaluSelatan').innerText = paluSelatan;
-            document.getElementById('statPaluTimur').innerText = paluTimur;
+            if(document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
+            if(document.getElementById('statTakwin1')) document.getElementById('statTakwin1').innerText = t1;
+            if(document.getElementById('statTakwin2')) document.getElementById('statTakwin2').innerText = t2;
+            if(document.getElementById('statPaluSelatan')) document.getElementById('statPaluSelatan').innerText = paluSelatan;
+            if(document.getElementById('statPaluTimur')) document.getElementById('statPaluTimur').innerText = paluTimur;
 
-            document.getElementById('quickTotal').innerText = total;
-            document.getElementById('quickPaluSelatan').innerText = paluSelatan;
-            document.getElementById('quickPaluTimur').innerText = paluTimur;
+            if(document.getElementById('quickTotal')) document.getElementById('quickTotal').innerText = total;
+            if(document.getElementById('quickPaluSelatan')) document.getElementById('quickPaluSelatan').innerText = paluSelatan;
+            if(document.getElementById('quickPaluTimur')) document.getElementById('quickPaluTimur').innerText = paluTimur;
 
             const pct1 = total ? Math.round((t1 / total) * 100) : 0;
             const pct2 = total ? Math.round((t2 / total) * 100) : 0;
             
-            document.getElementById('barTakwin1').style.width = pct1 + '%';
-            document.getElementById('barTakwin2').style.width = pct2 + '%';
-            document.getElementById('barTextTakwin1').innerText = `${t1} (${pct1}%)`;
-            document.getElementById('barTextTakwin2').innerText = `${t2} (${pct2}%)`;
-            document.getElementById('marhalaRatio').innerText = `${pct1}% / ${pct2}%`;
+            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1').style.width = pct1 + '%';
+            if(document.getElementById('barTakwin2')) document.getElementById('barTakwin2').style.width = pct2 + '%';
+            if(document.getElementById('barTextTakwin1')) document.getElementById('barTextTakwin1').innerText = `${t1} (${pct1}%)`;
+            if(document.getElementById('barTextTakwin2')) document.getElementById('barTextTakwin2').innerText = `${t2} (${pct2}%)`;
+            if(document.getElementById('marhalaRatio')) document.getElementById('marhalaRatio').innerText = `${pct1}% / ${pct2}%`;
         }
 
         function initCharts() {
-            const ctxM = document.getElementById('marhalaChart').getContext('2d');
-            chartM = new Chart(ctxM, {
-                type: 'bar',
-                data: { labels: ['Takwin 1', 'Takwin 2'], datasets: [{ label: 'Jumlah Peserta', data: [0, 0], backgroundColor: ['#24B1B1', '#007979'] }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+            const ctxM = document.getElementById('marhalaChart');
+            if(ctxM) {
+                chartM = new Chart(ctxM.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: ['Takwin 1', 'Takwin 2'], datasets: [{ label: 'Jumlah Peserta', data: [0, 0], backgroundColor: ['#24B1B1', '#007979'] }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
 
-            const ctxK = document.getElementById('kecamatanChart').getContext('2d');
-            chartK = new Chart(ctxK, {
-                type: 'doughnut',
-                data: { labels: ['Palu Selatan', 'Palu Timur'], datasets: [{ data: [0, 0], backgroundColor: ['#24B1B1', '#6366F1'] }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+            const ctxK = document.getElementById('kecamatanChart');
+            if(ctxK) {
+                chartK = new Chart(ctxK.getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels: ['Palu Selatan', 'Palu Timur'], datasets: [{ data: [0, 0], backgroundColor: ['#24B1B1', '#6366F1'] }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
             updateCharts();
         }
 
@@ -670,6 +884,7 @@
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                         renderTable();
+                        populatePesertaDropdown();
                         updateCharts();
                     }
                 }).catch(err => console.log("Cloud sync note:", err));

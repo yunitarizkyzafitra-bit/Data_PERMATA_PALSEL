@@ -114,6 +114,11 @@
                     <i class="fa-solid fa-utensils w-4 text-center"></i>
                     <span>Pilihan Konsumsi</span>
                 </button>
+                <!-- Menu Baru: Petunjuk Pengisian -->
+                <button onclick="switchTab('guide')" id="nav-guide" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-amber-200 hover:bg-amber-900/30">
+                    <i class="fa-solid fa-circle-question w-4 text-center text-amber-400"></i>
+                    <span>Petunjuk Pengisian</span>
+                </button>
 
                 <div class="pt-4 pb-1 text-[10px] uppercase font-bold text-teal-400/80 px-4 tracking-wider">Modul Admin</div>
                 <button onclick="openAdminModal()" id="nav-admin" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-amber-200 hover:bg-amber-900/30 border border-amber-500/20">
@@ -412,9 +417,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-800 mb-2">2. Centang Salah Satu Menu Makanan Pilihan Anda *</label>
                         
-                        <!-- Grid Menu Berjejer Rapi -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            
                             <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
                                 <input type="radio" name="menuRadio" value="Mie Goreng Seafood (Telur, Seafood, kol, wortel, sawi dan kerupuk)" required class="mt-0.5 text-brand-teal focus:ring-brand-teal">
                                 <div class="ml-3 text-xs">
@@ -478,7 +481,6 @@
                                     <span class="text-slate-500 text-[11px] leading-relaxed">Telur, Ayam Dadu Crispy Asam Manis & Wijen</span>
                                 </div>
                             </label>
-
                         </div>
                     </div>
 
@@ -517,6 +519,95 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 5. TAB PETUNJUK PENGISIAN DATA (DESAIN RESMI & INTERAKTIF) -->
+        <section id="tab-guide" class="space-y-6 hidden">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
+                
+                <!-- Header Petunjuk -->
+                <div class="border-b border-slate-100 pb-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
+                            <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan & Petunjuk Pengisian Sistem PERMATA
+                        </h3>
+                        <p class="text-xs text-slate-500">Ikuti langkah-langkah di bawah ini untuk mengisi formulir biodata dan pilihan konsumsi dengan benar.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[11px] font-bold border border-amber-200 hidden md:inline-block">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Mode Aman & Terenkripsi
+                    </span>
+                </div>
+
+                <!-- Step 1 to Step 4 Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <div class="p-4 rounded-xl bg-teal-50/60 border border-teal-200/80 space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-sm shadow">1</div>
+                            <h4 class="font-bold text-brand-dark text-sm">Form Pendaftaran Biodata</h4>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
+                            <li>Klik menu <strong>"Form Pendaftaran"</strong> di sidebar kiri.</li>
+                            <li>Isi **Nama Lengkap**, **Nama Panggilan**, dan pilih **Kecamatan** (Palu Selatan/Timur).</li>
+                            <li>Pilih status **Marhala** (Takwin 1 atau Takwin 2).</li>
+                            <li>Masukkan **Nomor WhatsApp**, **Pekerjaan**, dan **Alamat Domisili**.</li>
+                            <li>Tekan **"Simpan Data Peserta"**. Data otomatis tersinkron ke Cloud Google Sheets.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow">2</div>
+                            <h4 class="font-bold text-brand-dark text-sm">Pilihan Menu Konsumsi</h4>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
+                            <li>Buka menu <strong>"Pilihan Konsumsi"</strong>.</li>
+                            <li>Pilih nama Anda pada dropdown **"Pilih Nama Peserta Terdaftar"**.</li>
+                            <li>**Centang salah satu** dari 8 pilihan varian menu makanan yang berjejer di layar.</li>
+                            <li>Klik tombol **"Simpan Pilihan Makanan"**. Pilihan Anda akan tampil pada Rekapitulasi Pesanan.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-indigo-50/60 border border-indigo-200/80 space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow">3</div>
+                            <h4 class="font-bold text-brand-dark text-sm">Pencetakan & Save PDF</h4>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
+                            <li>Klik tombol <strong>"Cetak / Save PDF"</strong> di header bagian atas.</li>
+                            <li>Pilih jenis data yang ingin didownload (<strong>Data Peserta</strong> atau <strong>Data Konsumsi</strong>).</li>
+                            <li>Pilih opsi **Save File PDF** untuk menyimpan laporan lengkap ke perangkat Anda.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow">4</div>
+                            <h4 class="font-bold text-brand-dark text-sm">Fitur Keamanan & Modul Admin</h4>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
+                            <li>Data pribadi seperti No HP dan Alamat secara otomatis **tersamar (masked)** untuk publik.</li>
+                            <li>Untuk membuka data sensitif atau menghapus data, klik **"Login Admin System"** dan masukkan PIN **1280**.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Callout Box Bantuan -->
+                <div class="p-4 rounded-xl bg-brand-dark text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-md">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-circle-info text-2xl text-amber-300"></i>
+                        <div class="text-xs">
+                            <h5 class="font-bold text-sm">Butuh Bantuan Lebih Lanjut?</h5>
+                            <p class="text-brand-cream/80">Jika nama Anda belum terdaftar di Pilihan Konsumsi, pastikan Anda telah mengisi Form Pendaftaran terlebih dahulu.</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('entry')" class="px-4 py-2 bg-brand-teal hover:bg-teal-500 text-white font-bold text-xs rounded-xl shadow transition whitespace-nowrap">
+                        Ke Form Pendaftaran <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
             </div>
         </section>
 
@@ -616,7 +707,7 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "12880";
+        const ADMIN_PIN_DEFAULT = "12882";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -629,7 +720,7 @@
         });
 
         function switchTab(tabId) {
-            ['dashboard', 'masterlist', 'entry', 'konsumsi'].forEach(id => {
+            ['dashboard', 'masterlist', 'entry', 'konsumsi', 'guide'].forEach(id => {
                 const tabEl = document.getElementById(`tab-${id}`);
                 const navEl = document.getElementById(`nav-${id}`);
                 if(tabEl) tabEl.classList.add('hidden');
@@ -736,7 +827,6 @@
             });
         }
 
-        // AMBIL MENU DARI RADIO BUTTON YANG DICENTANG
         function getSelectedMenuRadio() {
             const radios = document.getElementsByName('menuRadio');
             for (let r of radios) {
@@ -776,7 +866,6 @@
             localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
             alert(`Pilihan konsumsi untuk ${namaLengkap} (${kecamatan}) berhasil disimpan!`);
             
-            // Reset form dan radio button
             document.getElementById('konsumsiForm').reset();
             renderKonsumsiTable();
         }
@@ -1117,6 +1206,7 @@
             }
         }
 
+        // KEAMANAN KODE: Sanitasi XSS untuk mencegah injection script dari input pengguna
         function escapeHtml(text) {
             return String(text || '').replace(/[&<>"']/g, function(m) {
                 return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];

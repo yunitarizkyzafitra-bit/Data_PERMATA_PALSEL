@@ -36,6 +36,11 @@
             font-family: monospace;
             color: #9CA3AF;
         }
+        /* Style untuk penyesuaian logo presisi utuh */
+        .precise-logo-contain {
+            object-fit: contain;
+            object-position: center;
+        }
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -54,14 +59,15 @@
     <!-- SIDEBAR LEFT -->
     <aside class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
         <div>
-            <!-- Sidebar Header / Logo Presisi -->
-            <div class="p-5 border-b border-teal-800/50 bg-brand-darker flex items-center space-x-3">
-                <div class="w-11 h-11 min-w-[2.75rem] min-h-[2.75rem] rounded-xl bg-brand-teal flex items-center justify-center shadow-lg overflow-hidden border border-teal-400/30">
-                    <img src="Palsel.jpeg" alt="Logo Palsel" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<i class=\'fa-solid fa-star-and-crescent text-lg text-white\'></i>';">
+            <!-- Sidebar Header / Logo Presisi Utuh Latar Putih -->
+            <div class="p-4 border-b border-teal-800/50 bg-brand-darker flex flex-col space-y-2">
+                <!-- Banner Kontainer Logo Berlatar Putih dengan Padding Presisi -->
+                <div class="w-full h-16 bg-white rounded-xl shadow-md p-1.5 flex items-center justify-center overflow-hidden border border-teal-300/40">
+                    <img src="Palsel.jpeg" alt="Logo Palsel" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<div class=\'flex items-center space-x-2 text-brand-dark font-bold text-xs\'><i class=\'fa-solid fa-star-and-crescent text-brand-teal text-base\'></i><span>Muslimah Wahdah</span></div>';">
                 </div>
-                <div class="overflow-hidden">
-                    <h1 class="font-bold text-sm tracking-wide text-white leading-tight truncate">PERMATA MWC</h1>
-                    <p class="text-[10px] text-brand-cream/70 uppercase tracking-widest truncate">Palu Selatan & Timur</p>
+                <div class="pt-1">
+                    <h1 class="font-bold text-sm tracking-wide text-white leading-tight">PERMATA MWC</h1>
+                    <p class="text-[10px] text-brand-cream/70 uppercase tracking-widest">Palu Selatan & Timur</p>
                 </div>
             </div>
 
@@ -115,8 +121,8 @@
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
-                <div class="w-8 h-8 min-w-[2rem] min-h-[2rem] rounded-full bg-brand-dark flex items-center justify-center text-teal-300 font-bold text-xs border border-teal-500/30 overflow-hidden">
-                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield\'></i>';">
+                <div class="w-10 h-7 bg-white rounded-lg flex items-center justify-center p-0.5 overflow-hidden border border-teal-400/30 flex-shrink-0">
+                    <img src="Palsel.jpeg" alt="Logo Admin" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield text-brand-dark text-xs\'></i>';">
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-[11px] font-bold text-white truncate" id="adminFooterName">Administrator</p>
@@ -134,8 +140,8 @@
         <!-- HEADER BAR -->
         <header class="bg-brand-dark text-white p-5 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 min-w-[2.75rem] min-h-[2.75rem] rounded-xl bg-brand-teal/30 border border-brand-teal flex items-center justify-center text-brand-cream overflow-hidden">
-                    <img src="Palsel.jpeg" alt="Logo" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl\'></i>';">
+                <div class="w-28 h-12 bg-white rounded-xl border border-brand-teal/40 flex items-center justify-center p-1 shadow-inner flex-shrink-0 overflow-hidden">
+                    <img src="Palsel.jpeg" alt="Logo Header" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl text-brand-dark\'></i>';">
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
@@ -407,7 +413,7 @@
                     </div>
                 </form>
 
-                <!-- Tabel Rekapitulasi Pilihan Makanan (Nama & Kecamatan Otomatis Tertulis) -->
+                <!-- Tabel Rekapitulasi Pilihan Makanan -->
                 <div>
                     <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Daftar Rekapitulasi Pesanan Makanan Peserta
@@ -453,7 +459,7 @@
             
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
-                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN (Default: 123456)" required class="w-full px-4 py-3 text-center text-lg tracking-widest border border-slate-200 rounded-xl focus:outline-none focus:border-brand-dark">
+                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN (Default: 1280)" required class="w-full px-4 py-3 text-center text-lg tracking-widest border border-slate-200 rounded-xl focus:outline-none focus:border-brand-dark">
                 </div>
                 <div class="flex gap-2">
                     <button type="button" onclick="closeAdminModal()" class="w-1/2 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">Batal</button>
@@ -469,7 +475,7 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "1280";
+        const ADMIN_PIN_DEFAULT = "8820";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -604,7 +610,6 @@
                 return;
             }
 
-            // Cek apakah peserta sudah pernah memesan, jika ada update atau tambahkan baru
             const existingIndex = konsumsiData.findIndex(k => k.namaLengkap === namaLengkap);
             const newOrder = {
                 id: Date.now().toString(),

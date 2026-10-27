@@ -655,10 +655,10 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwP2-BOCPDl5hyt1a_hhayyHbjD9C6Ic6cf-IpoQefK5WdsdRcjWEUrrCKP5kluiQ5t/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "127880";
+        const ADMIN_PIN_DEFAULT = "12780";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -713,9 +713,13 @@
 
         function renderTable() {
             const tbody = document.getElementById('participantTable');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase();
-            const filterMarhala = document.getElementById('filterMarhala').value;
-            const filterKecamatan = document.getElementById('filterKecamatan').value;
+            const searchInput = document.getElementById('searchInput');
+            const filterMarhalaEl = document.getElementById('filterMarhala');
+            const filterKecamatanEl = document.getElementById('filterKecamatan');
+
+            const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
+            const filterMarhala = filterMarhalaEl ? filterMarhalaEl.value : '';
+            const filterKecamatan = filterKecamatanEl ? filterKecamatanEl.value : '';
 
             if(!tbody) return;
             tbody.innerHTML = '';
@@ -804,7 +808,7 @@
                 id: 'k_' + Date.now(),
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
-                menu: menuMakanan, // Masuk ke Kolom I Spreadsheet
+                menu: menuMakanan, // Kolom I Spreadsheet Mapping
                 timestamp: new Date().toISOString()
             };
 
@@ -1213,7 +1217,7 @@
             const pct1 = total ? Math.round((t1 / total) * 100) : 0;
             const pct2 = total ? Math.round((t2 / total) * 100) : 0;
             
-            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1'].style.width = pct1 + '%';
+            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1').style.width = pct1 + '%';
             if(document.getElementById('barTakwin2')) document.getElementById('barTakwin2').style.width = pct2 + '%';
             if(document.getElementById('barTextTakwin1')) document.getElementById('barTextTakwin1').innerText = `${t1} (${pct1}%)`;
             if(document.getElementById('barTextTakwin2')) document.getElementById('barTextTakwin2').innerText = `${t2} (${pct2}%)`;
@@ -1263,7 +1267,6 @@
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                         
-                        // Sinkronisasi data konsumsi dari data cloud (Kolom I Spreadsheet)
                         konsumsiData = data.filter(item => item.menu && item.menu.trim() !== "").map(item => ({
                             id: item.id || ('k_' + Math.random()),
                             namaLengkap: item.namaLengkap,

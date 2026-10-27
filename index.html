@@ -655,7 +655,7 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwP2-BOCPDl5hyt1a_hhayyHbjD9C6Ic6cf-IpoQefK5WdsdRcjWEUrrCKP5kluiQ5t/exec";
 
         let IS_ADMIN = false;
         const ADMIN_PIN_DEFAULT = "127880";
@@ -800,16 +800,17 @@
             }
 
             const newOrder = {
-                action: 'updateKonsumsi',
+                action: 'submitKonsumsi',
+                id: 'k_' + Date.now(),
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
-                menu: menuMakanan, // Kolom I Spreadsheet Mapping
+                menu: menuMakanan, // Masuk ke Kolom I Spreadsheet
                 timestamp: new Date().toISOString()
             };
 
-            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap === namaLengkap);
+            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase());
             if(existingIndex >= 0) {
-                konsumsiData[existingIndex] = newOrder;
+                konsumsiData[existingIndex] = { ...konsumsiData[existingIndex], menu: menuMakanan, timestamp: newOrder.timestamp };
             } else {
                 konsumsiData.push(newOrder);
             }
@@ -829,7 +830,7 @@
                 }
             }
 
-            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan dan disinkronkan ke Spreadsheet!`);
+            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan dan disinkronkan otomatis!`);
             
             document.getElementById('konsumsiForm').reset();
             renderKonsumsiTable();
@@ -843,17 +844,20 @@
 
             const emptyState = document.getElementById('emptyKonsumsiState');
             const countEl = document.getElementById('totalKonsumsiCount');
-            if(countEl) countEl.innerText = konsumsiData.length;
+            
+            const validKonsumsi = konsumsiData.filter(item => item.menu && item.menu.trim() !== "");
+            
+            if(countEl) countEl.innerText = validKonsumsi.length;
 
-            if(konsumsiData.length === 0) {
+            if(validKonsumsi.length === 0) {
                 if(emptyState) emptyState.classList.remove('hidden');
                 return;
             } else {
                 if(emptyState) emptyState.classList.add('hidden');
             }
 
-            // OTOMATIS URUTKAN KRONOLOGIS BERDASARKAN WAKTU
-            const sortedKonsumsi = [...konsumsiData].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            // URUTKAN KRONOLOGIS OTOMATIS BERDASARKAN WAKTU PESAN
+            const sortedKonsumsi = [...validKonsumsi].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
             sortedKonsumsi.forEach((item, index) => {
                 const tr = document.createElement('tr');
@@ -863,12 +867,12 @@
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
                     <td class="p-3">
                         <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">
-                            ${escapeHtml(item.kecamatan)}
+                            ${escapeHtml(item.kecamatan || 'Palu Selatan')}
                         </span>
                     </td>
                     <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
                     <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteKonsumsi('${item.id}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteKonsumsi('${item.id || item.namaLengkap}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -878,7 +882,7 @@
         function deleteKonsumsi(id) {
             if(!IS_ADMIN) return;
             if(confirm("Hapus pesanan konsumsi ini dari log?")) {
-                konsumsiData = konsumsiData.filter(x => x.id !== id);
+                konsumsiData = konsumsiData.filter(x => x.id !== id && x.namaLengkap !== id);
                 localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
                 renderKonsumsiTable();
             }
@@ -899,7 +903,7 @@
 
             const newRecord = {
                 action: 'create',
-                id: Date.now().toString(),
+                id: 'p_' + Date.now(),
                 namaLengkap: namaBaru,
                 namaPanggilan: document.getElementById('inputNamaPanggilan').value,
                 kecamatan: document.getElementById('inputKecamatan').value,
@@ -1209,7 +1213,7 @@
             const pct1 = total ? Math.round((t1 / total) * 100) : 0;
             const pct2 = total ? Math.round((t2 / total) * 100) : 0;
             
-            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1').style.width = pct1 + '%';
+            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1'].style.width = pct1 + '%';
             if(document.getElementById('barTakwin2')) document.getElementById('barTakwin2').style.width = pct2 + '%';
             if(document.getElementById('barTextTakwin1')) document.getElementById('barTextTakwin1').innerText = `${t1} (${pct1}%)`;
             if(document.getElementById('barTextTakwin2')) document.getElementById('barTextTakwin2').innerText = `${t2} (${pct2}%)`;
@@ -1258,8 +1262,20 @@
                     if(Array.isArray(data)) {
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
+                        
+                        // Sinkronisasi data konsumsi dari data cloud (Kolom I Spreadsheet)
+                        konsumsiData = data.filter(item => item.menu && item.menu.trim() !== "").map(item => ({
+                            id: item.id || ('k_' + Math.random()),
+                            namaLengkap: item.namaLengkap,
+                            kecamatan: item.kecamatan || 'Palu Selatan',
+                            menu: item.menu,
+                            timestamp: item.timestamp || new Date().toISOString()
+                        }));
+                        localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
+
                         renderTable();
                         populatePesertaDropdown();
+                        renderKonsumsiTable();
                         updateCharts();
                     }
                 }).catch(err => console.log("Cloud sync note:", err));

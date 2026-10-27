@@ -75,7 +75,7 @@
     <!-- SIDEBAR LEFT -->
     <aside class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
         <div>
-            <!-- Sidebar Header / Logo Presisi Utuh Latar Putih -->
+            <!-- Sidebar Header -->
             <div class="p-4 border-b border-teal-800/50 bg-brand-darker flex flex-col space-y-2">
                 <div class="w-full h-16 bg-white rounded-xl shadow-md p-1.5 flex items-center justify-center overflow-hidden border border-teal-300/40">
                     <img src="Palsel.jpeg" alt="Logo Palsel" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<div class=\'flex items-center space-x-2 text-brand-dark font-bold text-xs\'><i class=\'fa-solid fa-star-and-crescent text-brand-teal text-base\'></i><span>Muslimah Wahdah</span></div>';">
@@ -383,7 +383,7 @@
 
                     <div class="pt-4 flex justify-end gap-2 border-t border-slate-100">
                         <button type="reset" class="px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-50">Reset</button>
-                        <button type="submit" id="btnSubmit" class="px-6 py-2 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
+                        <button type="submit" id="btnSubmitBiodata" class="px-6 py-2 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut Pilih Menu
                         </button>
                     </div>
@@ -404,7 +404,7 @@
                     </div>
                 </div>
 
-                <!-- Form Pemilihan Menu (Tampilan Grid Berjejer) -->
+                <!-- Form Pemilihan Menu dengan Anti Double Click -->
                 <form id="konsumsiForm" onsubmit="handleKonsumsiSubmit(event)" class="space-y-6 mb-8 bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100">
                     <div>
                         <label class="block text-xs font-bold text-slate-800 mb-1.5">1. Pilih Nama Peserta Terdaftar *</label>
@@ -414,7 +414,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-800 mb-2">2. Centang Salah Satu Menu Makanan Pilihan Anda (Tercatat di Kolom I Spreadsheet) *</label>
+                        <label class="block text-xs font-bold text-slate-800 mb-2">2. Centang Salah Satu Menu Makanan Pilihan Anda *</label>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
@@ -484,13 +484,13 @@
                     </div>
 
                     <div class="flex justify-end pt-2">
-                        <button type="submit" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2">
+                        <button type="submit" id="btnSubmitKonsumsi" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
                             <i class="fa-solid fa-circle-check"></i> Simpan Pilihan Makanan
                         </button>
                     </div>
                 </form>
 
-                <!-- Tabel Rekapitulasi Pilihan Makanan (Log Daftar Hadir & Menu Terurut Kronologis) -->
+                <!-- Tabel Rekapitulasi Pesanan Makanan -->
                 <div>
                     <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Log Daftar Hadir & Rekapitulasi Pesanan Makanan Peserta
@@ -503,7 +503,7 @@
                                         <th class="p-3">No</th>
                                         <th class="p-3">Nama Lengkap Peserta</th>
                                         <th class="p-3">Kecamatan</th>
-                                        <th class="p-3">Menu Makanan Pilihan (Kolom I)</th>
+                                        <th class="p-3">Menu Makanan Pilihan</th>
                                         <th class="p-3 text-center admin-only hidden">Aksi</th>
                                     </tr>
                                 </thead>
@@ -521,7 +521,7 @@
             </div>
         </section>
 
-        <!-- 5. TAB PETUNJUK PENGISIAN DATA -->
+        <!-- 5. TAB PETUNJUK PENGISIAN DATA (Bahasa Profesional, Tanpa Penyebutan Kolom) -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex items-center justify-between">
@@ -540,22 +540,22 @@
                     <div class="p-4 rounded-xl bg-teal-50/60 border border-teal-200/80 space-y-2">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-sm shadow">1</div>
-                            <h4 class="font-bold text-brand-dark text-sm">Form Pendaftaran Biodata</h4>
+                            <h4 class="font-bold text-brand-dark text-sm">Pendaftaran Data Peserta</h4>
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
-                            <li>Isi lengkap biodata pada menu <strong>"Form Pendaftaran"</strong>.</li>
-                            <li>Setelah klik simpan, sistem secara otomatis mengarahkan Anda ke menu <strong>Pilihan Konsumsi</strong>.</li>
+                            <li>Lengkapi formulir registrasi pada menu <strong>"Form Pendaftaran"</strong> dengan data diri yang valid.</li>
+                            <li>Setelah data berhasil disimpan, sistem akan mengarahkan Anda secara otomatis ke menu <strong>Pilihan Konsumsi</strong>.</li>
                         </ul>
                     </div>
 
                     <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow">2</div>
-                            <h4 class="font-bold text-brand-dark text-sm">Pilihan Menu Konsumsi</h4>
+                            <h4 class="font-bold text-brand-dark text-sm">Pemilihan Menu Konsumsi</h4>
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
-                            <li>Pilih nama Anda pada dropdown peserta.</li>
-                            <li>Centang salah satu varian menu makanan (tersimpan otomatis pada <strong>Kolom I</strong> spreadsheet).</li>
+                            <li>Pilih nama Anda dari daftar pilihan peserta yang tersedia.</li>
+                            <li>Tentukan varian menu makanan favorit Anda dengan sekali klik pada opsi yang disediakan. Sistem akan merekam pesanan Anda secara aman.</li>
                         </ul>
                     </div>
                 </div>
@@ -655,7 +655,7 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8fhpw24rNRtqJmtpxP194pnH4UFtMYzG8V6fqEtdGQdY9whGYeNdZ4ERmmHa8ipiE/exec";
 
         let IS_ADMIN = false;
         const ADMIN_PIN_DEFAULT = "12780";
@@ -760,7 +760,7 @@
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
                     <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${item.id}', '${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -790,8 +790,17 @@
             return '';
         }
 
+        /* --- PENCEGAHAN KLIK GANDA (ANTI DOUBLE CLICK / DEBOUNCE LOCK) --- */
         async function handleKonsumsiSubmit(e) {
             e.preventDefault();
+            const btnSubmit = document.getElementById('btnSubmitKonsumsi');
+            
+            // Kunci tombol agar tidak bisa diklik dua kali
+            if (btnSubmit.disabled) return;
+            btnSubmit.disabled = true;
+            const originalBtnText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Pesanan...';
+
             const selectPeserta = document.getElementById('selectPesertaKonsumsi');
             const selectedOption = selectPeserta.options[selectPeserta.selectedIndex];
             const namaLengkap = selectPeserta.value;
@@ -800,16 +809,17 @@
 
             if(!namaLengkap || !menuMakanan) {
                 alert("Silakan pilih peserta dan centang salah satu menu makanan terlebih dahulu.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnText;
                 return;
             }
 
             const newOrder = {
                 action: 'submitKonsumsi',
-                id: 'k_' + Date.now(),
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
-                menu: menuMakanan, // Kolom I Spreadsheet Mapping
-                timestamp: new Date().toISOString()
+                menu: menuMakanan,
+                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
             };
 
             const existingIndex = konsumsiData.findIndex(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase());
@@ -834,11 +844,17 @@
                 }
             }
 
-            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan dan disinkronkan otomatis!`);
+            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan!`);
             
             document.getElementById('konsumsiForm').reset();
             renderKonsumsiTable();
             setTimeout(syncDataFromCloud, 1500);
+
+            // Buka kembali tombol setelah jeda aman
+            setTimeout(() => {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnText;
+            }, 1000);
         }
 
         function renderKonsumsiTable() {
@@ -860,10 +876,7 @@
                 if(emptyState) emptyState.classList.add('hidden');
             }
 
-            // URUTKAN KRONOLOGIS OTOMATIS BERDASARKAN WAKTU PESAN
-            const sortedKonsumsi = [...validKonsumsi].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-            sortedKonsumsi.forEach((item, index) => {
+            validKonsumsi.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
                 tr.innerHTML = `
@@ -876,30 +889,28 @@
                     </td>
                     <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
                     <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteKonsumsi('${item.id || item.namaLengkap}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function deleteKonsumsi(id) {
+        function deleteKonsumsi(namaLengkap) {
             if(!IS_ADMIN) return;
-            if(confirm("Hapus pesanan konsumsi ini dari log?")) {
-                konsumsiData = konsumsiData.filter(x => x.id !== id && x.namaLengkap !== id);
+            if(confirm(`Hapus pilihan konsumsi untuk ${namaLengkap}?`)) {
+                konsumsiData = konsumsiData.filter(x => x.namaLengkap !== namaLengkap);
                 localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
                 renderKonsumsiTable();
             }
         }
 
-        /* --- OTOMATISASI REDIRECT KE KONSUMSI SETELAH SUBMIT BIODATA --- */
         async function handleFormSubmit(e) {
             e.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            if(btn) {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan...';
-            }
+            const btn = document.getElementById('btnSubmitBiodata');
+            if(btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan...';
 
             const pekerjaanVal = document.getElementById('inputPekerjaan').value;
             const pekerjaanFinal = pekerjaanVal === 'Lainnya' ? document.getElementById('inputPekerjaanLainnya').value : pekerjaanVal;
@@ -907,15 +918,14 @@
 
             const newRecord = {
                 action: 'create',
-                id: 'p_' + Date.now(),
+                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' }),
                 namaLengkap: namaBaru,
                 namaPanggilan: document.getElementById('inputNamaPanggilan').value,
                 kecamatan: document.getElementById('inputKecamatan').value,
-                marhala: document.getElementById('inputMarhala').value,
-                nomorHp: document.getElementById('inputNomorHp').value,
-                pekerjaan: pekerjaanFinal,
                 alamat: document.getElementById('inputAlamat').value,
-                timestamp: new Date().toISOString()
+                nomorHp: document.getElementById('inputNomorHp').value,
+                marhala: document.getElementById('inputMarhala').value,
+                pekerjaan: pekerjaanFinal
             };
 
             participantsData.push(newRecord);
@@ -930,16 +940,14 @@
                         body: JSON.stringify(newRecord)
                     });
                 } catch(err) {
-                    console.log("Remote post queued:", err);
+                    console.log("Remote post error:", err);
                 }
             }
 
             alert("Data biodata berhasil disimpan! Anda akan diarahkan otomatis ke menu Pilihan Konsumsi.");
             document.getElementById('entryForm').reset();
-            if(btn) {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut Pilih Menu';
-            }
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut Pilih Menu';
 
             renderTable();
             populatePesertaDropdown();
@@ -947,7 +955,6 @@
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
 
-            // REDIRECT OTOMATIS KE TAB KONSUMSI
             switchTab('konsumsi');
             setTimeout(syncDataFromCloud, 1500);
         }
@@ -974,7 +981,6 @@
             const type = getSelectedPrintType();
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
             const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
             doc.setFontSize(14);
@@ -997,18 +1003,11 @@
                     maskPrivateInfo(p.pekerjaan || '')
                 ]);
 
-                doc.autoTable({
-                    head: headers,
-                    body: rows,
-                    startY: 26,
-                    headStyles: { fillColor: [0, 121, 121] },
-                    styles: { fontSize: 8 }
-                });
-
+                doc.autoTable({ head: headers, body: rows, startY: 26, headStyles: { fillColor: [0, 121, 121] }, styles: { fontSize: 8 } });
                 doc.save(`Laporan_Peserta_PERMATA_${Date.now()}.pdf`);
             } else {
                 doc.text(`LAPORAN REKAPITULASI PILIHAN KONSUMSI PESERTA (Tanggal: ${today})`, 14, 21);
-                const headers = [["No", "Nama Lengkap Peserta", "Kecamatan", "Menu Makanan Pilihan (Kolom I)"]];
+                const headers = [["No", "Nama Lengkap Peserta", "Kecamatan", "Menu Makanan Pilihan"]];
                 const rows = konsumsiData.map((k, index) => [
                     index + 1,
                     k.namaLengkap || '-',
@@ -1016,14 +1015,7 @@
                     k.menu || '-'
                 ]);
 
-                doc.autoTable({
-                    head: headers,
-                    body: rows,
-                    startY: 26,
-                    headStyles: { fillColor: [0, 121, 121] },
-                    styles: { fontSize: 9 }
-                });
-
+                doc.autoTable({ head: headers, body: rows, startY: 26, headStyles: { fillColor: [0, 121, 121] }, styles: { fontSize: 9 } });
                 doc.save(`Laporan_Konsumsi_PERMATA_${Date.now()}.pdf`);
             }
 
@@ -1040,70 +1032,24 @@
 
             if (type === 'peserta') {
                 printTitle.innerText = "Laporan Rekapitulasi Data Peserta PERMATA";
-                let html = `
-                    <table style="width:100%; border-collapse:collapse; font-size:11px;">
-                        <thead>
-                            <tr style="background-color:#007979; color:white;">
-                                <th style="border:1px solid #ccc; padding:6px;">No</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Nama Lengkap</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Panggilan</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Kecamatan</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Marhala</th>
-                                <th style="border:1px solid #ccc; padding:6px;">No. HP</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Alamat</th>
-                                <th style="border:1px solid #ccc; padding:6px;">Pekerjaan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                let html = `<table style="width:100%; border-collapse:collapse; font-size:11px;"><thead><tr style="background-color:#007979; color:white;"><th style="border:1px solid #ccc; padding:6px;">No</th><th style="border:1px solid #ccc; padding:6px;">Nama Lengkap</th><th style="border:1px solid #ccc; padding:6px;">Panggilan</th><th style="border:1px solid #ccc; padding:6px;">Kecamatan</th><th style="border:1px solid #ccc; padding:6px;">Marhala</th><th style="border:1px solid #ccc; padding:6px;">No. HP</th><th style="border:1px solid #ccc; padding:6px;">Alamat</th><th style="border:1px solid #ccc; padding:6px;">Pekerjaan</th></tr></thead><tbody>`;
                 participantsData.forEach((p, idx) => {
-                    html += `
-                        <tr>
-                            <td style="border:1px solid #ccc; padding:6px; text-align:center;">${idx + 1}</td>
-                            <td style="border:1px solid #ccc; padding:6px; font-weight:bold;">${escapeHtml(p.namaLengkap)}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.namaPanggilan)}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.kecamatan || 'Palu Selatan')}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.marhala)}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.nomorHp)}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.alamat)}</td>
-                            <td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.pekerjaan)}</td>
-                        </tr>
-                    `;
+                    html += `<tr><td style="border:1px solid #ccc; padding:6px; text-align:center;">${idx + 1}</td><td style="border:1px solid #ccc; padding:6px; font-weight:bold;">${escapeHtml(p.namaLengkap)}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.namaPanggilan)}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.kecamatan || 'Palu Selatan')}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.marhala)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.nomorHp)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.alamat)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.pekerjaan)}</td></tr>`;
                 });
                 html += `</tbody></table>`;
                 printContainer.innerHTML = html;
             } else {
                 printTitle.innerText = "Laporan Rekapitulasi Pesanan Makanan Konsumsi Peserta";
-                let html = `
-                    <table style="width:100%; border-collapse:collapse; font-size:11px;">
-                        <thead>
-                            <tr style="background-color:#007979; color:white;">
-                                <th style="border:1px solid #ccc; padding:8px;">No</th>
-                                <th style="border:1px solid #ccc; padding:8px;">Nama Lengkap Peserta</th>
-                                <th style="border:1px solid #ccc; padding:8px;">Kecamatan</th>
-                                <th style="border:1px solid #ccc; padding:8px;">Menu Makanan Pilihan (Kolom I)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                let html = `<table style="width:100%; border-collapse:collapse; font-size:11px;"><thead><tr style="background-color:#007979; color:white;"><th style="border:1px solid #ccc; padding:8px;">No</th><th style="border:1px solid #ccc; padding:8px;">Nama Lengkap Peserta</th><th style="border:1px solid #ccc; padding:8px;">Kecamatan</th><th style="border:1px solid #ccc; padding:8px;">Menu Makanan Pilihan</th></tr></thead><tbody>`;
                 konsumsiData.forEach((k, idx) => {
-                    html += `
-                        <tr>
-                            <td style="border:1px solid #ccc; padding:8px; text-align:center;">${idx + 1}</td>
-                            <td style="border:1px solid #ccc; padding:8px; font-weight:bold;">${escapeHtml(k.namaLengkap)}</td>
-                            <td style="border:1px solid #ccc; padding:8px;">${escapeHtml(k.kecamatan)}</td>
-                            <td style="border:1px solid #ccc; padding:8px; font-weight:600;">${escapeHtml(k.menu)}</td>
-                        </tr>
-                    `;
+                    html += `<tr><td style="border:1px solid #ccc; padding:8px; text-align:center;">${idx + 1}</td><td style="border:1px solid #ccc; padding:8px; font-weight:bold;">${escapeHtml(k.namaLengkap)}</td><td style="border:1px solid #ccc; padding:8px;">${escapeHtml(k.kecamatan)}</td><td style="border:1px solid #ccc; padding:8px; font-weight:600;">${escapeHtml(k.menu)}</td></tr>`;
                 });
                 html += `</tbody></table>`;
                 printContainer.innerHTML = html;
             }
 
             closePrintModal();
-            setTimeout(() => {
-                window.print();
-            }, 300);
+            setTimeout(() => { window.print(); }, 300);
         }
 
         function openAdminModal() {
@@ -1166,10 +1112,10 @@
             renderKonsumsiTable();
         }
 
-        async function deleteParticipant(id, nama) {
+        async function deleteParticipant(nama) {
             if(!IS_ADMIN) return;
             if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"?`)) {
-                participantsData = participantsData.filter(x => x.id !== id && x.namaLengkap !== nama);
+                participantsData = participantsData.filter(x => x.namaLengkap !== nama);
                 localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                 renderTable();
                 populatePesertaDropdown();
@@ -1180,11 +1126,11 @@
                             method: 'POST',
                             mode: 'no-cors',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'delete', id: id, namaLengkap: nama })
+                            body: JSON.stringify({ action: 'delete', namaLengkap: nama })
                         });
                         setTimeout(syncDataFromCloud, 1500);
                     } catch(err) {
-                        console.log("Delete payload error:", err);
+                        console.log("Delete error:", err);
                     }
                 }
             }
@@ -1268,11 +1214,10 @@
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                         
                         konsumsiData = data.filter(item => item.menu && item.menu.trim() !== "").map(item => ({
-                            id: item.id || ('k_' + Math.random()),
                             namaLengkap: item.namaLengkap,
                             kecamatan: item.kecamatan || 'Palu Selatan',
                             menu: item.menu,
-                            timestamp: item.timestamp || new Date().toISOString()
+                            timestamp: item.timestamp || new Date().toLocaleString()
                         }));
                         localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
 
@@ -1286,9 +1231,9 @@
 
         function exportDataExcel() {
             if(!IS_ADMIN) return;
-            let csvContent = "data:text/csv;charset=utf-8,Nama Lengkap,Nama Panggilan,Kecamatan,Marhala,Nomor HP,Alamat,Pekerjaan\n";
+            let csvContent = "data:text/csv;charset=utf-8,Timestamp,Nama Lengkap,Nama Panggilan,Kecamatan,Alamat,Nomor HP,Marhala,Pekerjaan\n";
             participantsData.forEach(row => {
-                csvContent += `"${row.namaLengkap}","${row.namaPanggilan}","${row.kecamatan}","${row.marhala}","${row.nomorHp}","${row.alamat}","${row.pekerjaan}"\n`;
+                csvContent += `"${row.timestamp}","${row.namaLengkap}","${row.namaPanggilan}","${row.kecamatan}","${row.alamat}","${row.nomorHp}","${row.marhala}","${row.pekerjaan}"\n`;
             });
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");

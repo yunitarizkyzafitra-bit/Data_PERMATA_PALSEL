@@ -186,7 +186,7 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Mode Administrator Aktif:</strong> Data sensitif terbuka. Akses penuh hapus & rekapitulasi data diaktifkan.</span>
+                <span><strong>Mode Administrator Aktif:</strong> Hak akses penuh penghapusan & pengelolaan data diaktifkan.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
@@ -298,7 +298,7 @@
                                 <th class="p-4">No. HP (WhatsApp)</th>
                                 <th class="p-4">Alamat Domisili</th>
                                 <th class="p-4">Pekerjaan</th>
-                                <th class="p-4 text-center admin-only hidden">Aksi Admin</th>
+                                <th class="p-4 text-center admin-only hidden" id="headerAksiPeserta">Aksi Admin</th>
                             </tr>
                         </thead>
                         <tbody id="participantTable" class="divide-y divide-slate-100">
@@ -504,7 +504,7 @@
                                         <th class="p-3">Nama Lengkap Peserta</th>
                                         <th class="p-3">Kecamatan</th>
                                         <th class="p-3">Menu Makanan Pilihan</th>
-                                        <th class="p-3 text-center admin-only hidden">Aksi</th>
+                                        <th class="p-3 text-center admin-only hidden" id="headerAksiKonsumsi">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="konsumsiTableBody" class="divide-y divide-slate-100">
@@ -521,7 +521,7 @@
             </div>
         </section>
 
-        <!-- 5. TAB PETUNJUK PENGISIAN DATA (Bahasa Profesional, Tanpa Penyebutan Kolom) -->
+        <!-- 5. TAB PETUNJUK PENGISIAN DATA (Bahasa Profesional, Tanpa Kolom) -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex items-center justify-between">
@@ -545,6 +545,7 @@
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Lengkapi formulir registrasi pada menu <strong>"Form Pendaftaran"</strong> dengan data diri yang valid.</li>
                             <li>Setelah data berhasil disimpan, sistem akan mengarahkan Anda secara otomatis ke menu <strong>Pilihan Konsumsi</strong>.</li>
+                            <li>Peserta hanya dapat mendaftarkan diri dan tidak memiliki hak akses untuk mengubah atau menghapus data setelah tersimpan.</li>
                         </ul>
                     </div>
 
@@ -555,7 +556,8 @@
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Pilih nama Anda dari daftar pilihan peserta yang tersedia.</li>
-                            <li>Tentukan varian menu makanan favorit Anda dengan sekali klik pada opsi yang disediakan. Sistem akan merekam pesanan Anda secara aman.</li>
+                            <li>Tentukan varian menu makanan favorit Anda dengan sekali klik pada opsi yang disediakan. Tombol kirim dilengkapi pengaman otomatis anti klik ganda.</li>
+                            <li>Pengelolaan, koreksi, atau penghapusan data maupun pesanan sepenuhnya dikelola secara eksklusif oleh Administrator.</li>
                         </ul>
                     </div>
                 </div>
@@ -655,10 +657,10 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8fhpw24rNRtqJmtpxP194pnH4UFtMYzG8V6fqEtdGQdY9whGYeNdZ4ERmmHa8ipiE/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "12780";
+        const ADMIN_PIN_DEFAULT = "127780";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -760,7 +762,7 @@
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
                     <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1" title="Hapus Data Peserta"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -790,12 +792,11 @@
             return '';
         }
 
-        /* --- PENCEGAHAN KLIK GANDA (ANTI DOUBLE CLICK / DEBOUNCE LOCK) --- */
+        /* --- PENCEGAHAN KLIK GANDA (ANTI DOUBLE CLICK) & PROTEKSI HAK AKSES --- */
         async function handleKonsumsiSubmit(e) {
             e.preventDefault();
             const btnSubmit = document.getElementById('btnSubmitKonsumsi');
             
-            // Kunci tombol agar tidak bisa diklik dua kali
             if (btnSubmit.disabled) return;
             btnSubmit.disabled = true;
             const originalBtnText = btnSubmit.innerHTML;
@@ -850,7 +851,6 @@
             renderKonsumsiTable();
             setTimeout(syncDataFromCloud, 1500);
 
-            // Buka kembali tombol setelah jeda aman
             setTimeout(() => {
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = originalBtnText;
@@ -889,7 +889,7 @@
                     </td>
                     <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
                     <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1" title="Hapus Pesanan"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -897,7 +897,10 @@
         }
 
         function deleteKonsumsi(namaLengkap) {
-            if(!IS_ADMIN) return;
+            if(!IS_ADMIN) {
+                alert("Akses ditolak! Hanya Administrator yang berwenang menghapus pesanan.");
+                return;
+            }
             if(confirm(`Hapus pilihan konsumsi untuk ${namaLengkap}?`)) {
                 konsumsiData = konsumsiData.filter(x => x.namaLengkap !== namaLengkap);
                 localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
@@ -1069,7 +1072,7 @@
                 IS_ADMIN = true;
                 closeAdminModal();
                 applyAdminState();
-                alert("Verifikasi Admin Berhasil! Data Sensitif & Kontrol Data Telah Dibuka.");
+                alert("Verifikasi Admin Berhasil! Hak Akses Pengelolaan & Penghapusan Data Diaktifkan.");
             } else {
                 alert("PIN Admin Salah!");
             }
@@ -1089,6 +1092,12 @@
             if(lockIcon) lockIcon.className = "fa-solid fa-lock-open w-4 text-center";
             const navText = document.getElementById('adminNavText');
             if(navText) navText.innerText = "Mode Admin Aktif";
+            
+            const thPeserta = document.getElementById('headerAksiPeserta');
+            if(thPeserta) thPeserta.classList.remove('hidden');
+            const thKonsumsi = document.getElementById('headerAksiKonsumsi');
+            if(thKonsumsi) thKonsumsi.classList.remove('hidden');
+
             renderTable();
             renderKonsumsiTable();
         }
@@ -1108,12 +1117,21 @@
             if(lockIcon) lockIcon.className = "fa-solid fa-shield-halved w-4 text-center";
             const navText = document.getElementById('adminNavText');
             if(navText) navText.innerText = "Login Admin System";
+
+            const thPeserta = document.getElementById('headerAksiPeserta');
+            if(thPeserta) thPeserta.classList.add('hidden');
+            const thKonsumsi = document.getElementById('headerAksiKonsumsi');
+            if(thKonsumsi) thKonsumsi.classList.add('hidden');
+
             renderTable();
             renderKonsumsiTable();
         }
 
         async function deleteParticipant(nama) {
-            if(!IS_ADMIN) return;
+            if(!IS_ADMIN) {
+                alert("Akses ditolak! Hanya Administrator yang berwenang menghapus data peserta.");
+                return;
+            }
             if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"?`)) {
                 participantsData = participantsData.filter(x => x.namaLengkap !== nama);
                 localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));

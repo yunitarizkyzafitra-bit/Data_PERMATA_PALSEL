@@ -655,7 +655,7 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwSXy_c024HsMxRcqm2N9_PRwjt__0dB78ixNWzNgcOTDBDphnWlRloJfPZSCfFazHd/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
 
         let IS_ADMIN = false;
         const ADMIN_PIN_DEFAULT = "127880";
@@ -786,7 +786,7 @@
             return '';
         }
 
-        function handleKonsumsiSubmit(e) {
+        async function handleKonsumsiSubmit(e) {
             e.preventDefault();
             const selectPeserta = document.getElementById('selectPesertaKonsumsi');
             const selectedOption = selectPeserta.options[selectPeserta.selectedIndex];
@@ -799,15 +799,15 @@
                 return;
             }
 
-            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap === namaLengkap);
             const newOrder = {
-                id: Date.now().toString(),
+                action: 'updateKonsumsi',
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
-                menu: menuMakanan, // Kolom I Spreadsheet mapping
+                menu: menuMakanan, // Kolom I Spreadsheet Mapping
                 timestamp: new Date().toISOString()
             };
 
+            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap === namaLengkap);
             if(existingIndex >= 0) {
                 konsumsiData[existingIndex] = newOrder;
             } else {
@@ -815,10 +815,25 @@
             }
 
             localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan ke log sistem!`);
+
+            if (SCRIPT_URL) {
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newOrder)
+                    });
+                } catch(err) {
+                    console.log("Cloud sync error:", err);
+                }
+            }
+
+            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan dan disinkronkan ke Spreadsheet!`);
             
             document.getElementById('konsumsiForm').reset();
             renderKonsumsiTable();
+            setTimeout(syncDataFromCloud, 1500);
         }
 
         function renderKonsumsiTable() {
@@ -837,7 +852,7 @@
                 if(emptyState) emptyState.classList.add('hidden');
             }
 
-            // OTOMATIS URUTKAN BERDASARKAN WAKTU TERBARU/KRONOLOGIS
+            // OTOMATIS URUTKAN KRONOLOGIS BERDASARKAN WAKTU
             const sortedKonsumsi = [...konsumsiData].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
             sortedKonsumsi.forEach((item, index) => {
@@ -921,7 +936,6 @@
             renderTable();
             populatePesertaDropdown();
             
-            // Otomatis set value dropdown ke peserta yang baru saja mendaftar
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
 

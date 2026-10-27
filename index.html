@@ -186,7 +186,7 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Mode Administrator Aktif:</strong> Hak akses penuh penghapusan & pengelolaan data diaktifkan.</span>
+                <span><strong>Mode Administrator Aktif:</strong> Hak akses penuh pengelolaan, koreksi, & penghapusan data diaktifkan.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
@@ -404,13 +404,14 @@
                     </div>
                 </div>
 
-                <!-- Form Pemilihan Menu dengan Anti Double Click -->
+                <!-- Form Pemilihan Menu dengan Proteksi Ketat -->
                 <form id="konsumsiForm" onsubmit="handleKonsumsiSubmit(event)" class="space-y-6 mb-8 bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100">
                     <div>
                         <label class="block text-xs font-bold text-slate-800 mb-1.5">1. Pilih Nama Peserta Terdaftar *</label>
-                        <select id="selectPesertaKonsumsi" required class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white shadow-sm">
+                        <select id="selectPesertaKonsumsi" required onchange="checkExistingOrder(this.value)" class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white shadow-sm">
                             <option value="">-- Pilih Nama Peserta --</option>
                         </select>
+                        <p id="orderWarning" class="text-[11px] text-amber-600 font-medium mt-1 hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Peserta ini telah memiliki pesanan sebelumnya. Publik tidak dapat mengubah pesanan orang lain.</p>
                     </div>
 
                     <div>
@@ -521,7 +522,7 @@
             </div>
         </section>
 
-        <!-- 5. TAB PETUNJUK PENGISIAN DATA (Bahasa Profesional, Tanpa Kolom) -->
+        <!-- 5. TAB PETUNJUK PENGISIAN DATA -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex items-center justify-between">
@@ -545,7 +546,7 @@
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Lengkapi formulir registrasi pada menu <strong>"Form Pendaftaran"</strong> dengan data diri yang valid.</li>
                             <li>Setelah data berhasil disimpan, sistem akan mengarahkan Anda secara otomatis ke menu <strong>Pilihan Konsumsi</strong>.</li>
-                            <li>Peserta hanya dapat mendaftarkan diri dan tidak memiliki hak akses untuk mengubah atau menghapus data setelah tersimpan.</li>
+                            <li>Peserta hanya dapat mendaftarkan diri dan dilarang keras memanipulasi atau menghapus data milik peserta lain.</li>
                         </ul>
                     </div>
 
@@ -556,8 +557,8 @@
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Pilih nama Anda dari daftar pilihan peserta yang tersedia.</li>
-                            <li>Tentukan varian menu makanan favorit Anda dengan sekali klik pada opsi yang disediakan. Tombol kirim dilengkapi pengaman otomatis anti klik ganda.</li>
-                            <li>Pengelolaan, koreksi, atau penghapusan data maupun pesanan sepenuhnya dikelola secara eksklusif oleh Administrator.</li>
+                            <li>Jika nama Anda telah memiliki pesanan, sistem publik akan mengunci tombol simpan untuk mencegah perubahan tanpa izin.</li>
+                            <li>Segala bentuk koreksi, perubahan data, atau penghapusan pesanan sepenuhnya dikelola secara eksklusif oleh Administrator.</li>
                         </ul>
                     </div>
                 </div>
@@ -657,10 +658,10 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwDdy46clUUbge3CKQdhpgBdeVVZE_YMV-unUKHB9QcgZjYggUkJ0IZcjdoqrsSwxz/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlT330bV-tK_031RTNaVKWpcL0U0P8IkaPpTvqKXUz-QRryLvu3ubPRwULyAJTc8mx/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "127780";
+        const ADMIN_PIN_DEFAULT = "12180";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -784,6 +785,32 @@
             });
         }
 
+        // --- CEK APAKAH PESERTA SUDAH PESAN (MENCEGAH PUBLIK MENGUBAH PESANAN ORANG LAIN) ---
+        function checkExistingOrder(namaLengkap) {
+            const btnSubmit = document.getElementById('btnSubmitKonsumsi');
+            const warningBox = document.getElementById('orderWarning');
+            
+            if(!namaLengkap) {
+                warningBox.classList.add('hidden');
+                if(!IS_ADMIN) btnSubmit.disabled = false;
+                return;
+            }
+
+            const existing = konsumsiData.find(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase() && k.menu && k.menu.trim() !== "");
+            
+            if (existing && !IS_ADMIN) {
+                warningBox.classList.remove('hidden');
+                btnSubmit.disabled = true;
+                btnSubmit.title = "Peserta ini sudah memiliki pesanan. Publik dilarang mengubah pesanan.";
+                btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                warningBox.classList.add('hidden');
+                btnSubmit.disabled = false;
+                btnSubmit.title = "";
+                btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
         function getSelectedMenuRadio() {
             const radios = document.getElementsByName('menuRadio');
             for (let r of radios) {
@@ -792,7 +819,7 @@
             return '';
         }
 
-        /* --- PENCEGAHAN KLIK GANDA (ANTI DOUBLE CLICK) & PROTEKSI HAK AKSES --- */
+        /* --- PENCEGAHAN KLIK GANDA & PROTEKSI KEAMANAN PUBLIK --- */
         async function handleKonsumsiSubmit(e) {
             e.preventDefault();
             const btnSubmit = document.getElementById('btnSubmitKonsumsi');
@@ -810,6 +837,15 @@
 
             if(!namaLengkap || !menuMakanan) {
                 alert("Silakan pilih peserta dan centang salah satu menu makanan terlebih dahulu.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalBtnText;
+                return;
+            }
+
+            // Validasi ketat sisi klien: Jika bukan admin dan sudah ada pesanan, tolak total
+            const alreadyOrdered = konsumsiData.find(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase() && k.menu && k.menu.trim() !== "");
+            if (alreadyOrdered && !IS_ADMIN) {
+                alert("Akses ditolak! Peserta ini sudah tercatat memiliki pesanan. Publik tidak diizinkan mengubah pesanan yang sudah ada.");
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = originalBtnText;
                 return;
@@ -848,6 +884,7 @@
             alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan!`);
             
             document.getElementById('konsumsiForm').reset();
+            document.getElementById('orderWarning').classList.add('hidden');
             renderKonsumsiTable();
             setTimeout(syncDataFromCloud, 1500);
 
@@ -957,6 +994,7 @@
             
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
+            checkExistingOrder(namaBaru);
 
             switchTab('konsumsi');
             setTimeout(syncDataFromCloud, 1500);
@@ -1098,6 +1136,11 @@
             const thKonsumsi = document.getElementById('headerAksiKonsumsi');
             if(thKonsumsi) thKonsumsi.classList.remove('hidden');
 
+            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
+            if(selectPeserta && selectPeserta.value) {
+                checkExistingOrder(selectPeserta.value);
+            }
+
             renderTable();
             renderKonsumsiTable();
         }
@@ -1122,6 +1165,11 @@
             if(thPeserta) thPeserta.classList.add('hidden');
             const thKonsumsi = document.getElementById('headerAksiKonsumsi');
             if(thKonsumsi) thKonsumsi.classList.add('hidden');
+
+            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
+            if(selectPeserta && selectPeserta.value) {
+                checkExistingOrder(selectPeserta.value);
+            }
 
             renderTable();
             renderKonsumsiTable();

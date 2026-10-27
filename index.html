@@ -490,7 +490,7 @@
                     </div>
                 </form>
 
-                <!-- Tabel Rekapitulasi Pilihan Makanan (Log Daftar Hadir & Menu) -->
+                <!-- Tabel Rekapitulasi Pilihan Makanan (Log Daftar Hadir & Menu Terurut Kronologis) -->
                 <div>
                     <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Log Daftar Hadir & Rekapitulasi Pesanan Makanan Peserta
@@ -555,7 +555,7 @@
                         </div>
                         <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
                             <li>Pilih nama Anda pada dropdown peserta.</li>
-                            <li>Centang salah satu varian menu makanan (tersimpan otomatis pada <strong>Kolom I</strong>).</li>
+                            <li>Centang salah satu varian menu makanan (tersimpan otomatis pada <strong>Kolom I</strong> spreadsheet).</li>
                         </ul>
                     </div>
                 </div>
@@ -655,10 +655,10 @@
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQEEcQPfvjXfrJgae1VzlFGrw3RMEAtUl4z3E-PABpYA7sE3tM2SSU09QxDka7waAH/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwSXy_c024HsMxRcqm2N9_PRwjt__0dB78ixNWzNgcOTDBDphnWlRloJfPZSCfFazHd/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "127080";
+        const ADMIN_PIN_DEFAULT = "127880";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
 
@@ -804,7 +804,7 @@
                 id: Date.now().toString(),
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
-                menu: menuMakanan, // Kolom I Spreadsheet Mapping
+                menu: menuMakanan, // Kolom I Spreadsheet mapping
                 timestamp: new Date().toISOString()
             };
 
@@ -837,7 +837,10 @@
                 if(emptyState) emptyState.classList.add('hidden');
             }
 
-            konsumsiData.forEach((item, index) => {
+            // OTOMATIS URUTKAN BERDASARKAN WAKTU TERBARU/KRONOLOGIS
+            const sortedKonsumsi = [...konsumsiData].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            sortedKonsumsi.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
                 tr.innerHTML = `
@@ -918,7 +921,7 @@
             renderTable();
             populatePesertaDropdown();
             
-            // Otomatis pilih nama yang baru diinput pada dropdown konsumsi agar peserta langsung bisa memilih
+            // Otomatis set value dropdown ke peserta yang baru saja mendaftar
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
 

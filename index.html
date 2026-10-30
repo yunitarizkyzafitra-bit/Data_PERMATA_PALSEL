@@ -126,7 +126,7 @@
                 <div class="overflow-hidden">
                     <p class="text-[11px] font-bold text-white truncate" id="adminFooterName">Administrator</p>
                     <p class="text-[9px] text-emerald-400 flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> System Online
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Security Protect Active
                     </p>
                 </div>
             </div>
@@ -166,14 +166,13 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Mode Administrator Aktif:</strong> Hak akses penuh pengelolaan, koreksi, & penghapusan data diaktifkan.</span>
+                <span><strong>Security Protect Active:</strong> Mode Administrator Aktif. Hak akses penuh pengelolaan, koreksi, & dekripsi nomor HP dibuka.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
 
         <!-- 1. TAB DASHBOARD -->
         <section id="tab-dashboard" class="space-y-6">
-            <!-- HITUNGAN TERPISAH DI DASHBOARD -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-brand-dark text-white p-5 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-brand-cream/80 uppercase tracking-wider">Total Peserta PERMATA</p>
@@ -181,19 +180,19 @@
                     <p class="text-[10px] text-teal-200">Terdaftar di Sistem Kegiatan</p>
                 </div>
                 <div class="bg-teal-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-teal-100 uppercase tracking-wider">Order Konsumsi PERMATA</p>
+                    <p class="text-[11px] font-semibold text-teal-100 uppercase tracking-wider">Order Konsumsi Utama</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statKonsumsi">0</h3>
                     <p class="text-[10px] text-teal-100">Konsumsi Utama Peserta</p>
                 </div>
                 <div class="bg-amber-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-amber-100 uppercase tracking-wider">Peserta Order Bazar</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarPeserta">0</h3>
-                    <p class="text-[10px] text-amber-100">Bazar Khusus Peserta</p>
+                    <p class="text-[10px] text-amber-100">Transaksi Bazar Peserta</p>
                 </div>
                 <div class="bg-purple-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-purple-100 uppercase tracking-wider">Pembeli Umum Bazar</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarUmum">0</h3>
-                    <p class="text-[10px] text-purple-100">Bazar Non-Peserta</p>
+                    <p class="text-[10px] text-purple-100">Transaksi Bazar Non-Peserta</p>
                 </div>
             </div>
 
@@ -246,7 +245,7 @@
                                 <th class="p-4">Nama Panggilan</th>
                                 <th class="p-4">Kecamatan</th>
                                 <th class="p-4">Marhala</th>
-                                <th class="p-4">No. HP</th>
+                                <th class="p-4">No. HP (Protected)</th>
                                 <th class="p-4">Alamat</th>
                                 <th class="p-4">Pekerjaan</th>
                                 <th class="p-4 text-center admin-only hidden" id="headerAksiPeserta">Aksi Admin</th>
@@ -258,7 +257,7 @@
             </div>
         </section>
 
-        <!-- 3. TAB FORM ENTRY DATA PESERTA BAWAAN -->
+        <!-- 3. TAB FORM ENTRY DATA PESERTA -->
         <section id="tab-entry" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-3xl mx-auto">
                 <div class="border-b border-slate-100 pb-4 mb-6">
@@ -337,7 +336,7 @@
             </div>
         </section>
 
-        <!-- 4. TAB KONSUMSI UTAMA PERMATA (CLOSED ORDER) -->
+        <!-- 4. TAB KONSUMSI UTAMA PERMATA -->
         <section id="tab-konsumsi" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-center justify-between text-rose-900 shadow-sm">
@@ -371,34 +370,53 @@
             </div>
         </section>
 
-        <!-- 5. TAB MENU BAZAR MYCO SPACE (PESERTA & NON-PESERTA) -->
+        <!-- 5. TAB MENU BAZAR MYCO SPACE (TERBUKA, LENGKAP 5 KATEGORI, PROTECTED CONTACT) -->
         <section id="tab-bazar" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-amber-100 max-w-6xl mx-auto space-y-6">
                 
+                <!-- BANNER INFORMASI KONTAK TERLINDUNGI -->
+                <div class="p-4 bg-teal-50 border border-teal-200 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-3 shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-dark text-white flex items-center justify-center font-bold text-base shadow flex-shrink-0">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-brand-dark">Pusat Bantuan & Layanan Informasi Bazar</h4>
+                            <p class="text-[11px] text-slate-600">Untuk informasi lebih lanjut mengenai pemesanan bazar, silakan hubungi di nomor ini:</p>
+                        </div>
+                    </div>
+                    <div class="px-4 py-2 bg-white border border-teal-300 rounded-xl shadow-sm text-xs flex items-center space-x-2">
+                        <i class="fa-solid fa-phone-volume text-brand-teal"></i>
+                        <span class="font-bold text-slate-800">Ummu Aliyah:</span>
+                        <span id="contactPhoneDisplay" class="font-mono font-bold text-brand-dark masked-text">•••••••••••••</span>
+                        <button onclick="copyContactNumber()" title="Salin Kontak" class="text-xs text-brand-teal hover:text-brand-dark ml-1"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                </div>
+
                 <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
                             <i class="fa-solid fa-store text-amber-500"></i> Pemesanan Menu Bazar MYCO Space
                         </h3>
-                        <p class="text-xs text-slate-500">Konfirmasi identitas pemesan terlebih dahulu sebelum memilih menu dari katalog visual.</p>
+                        <p class="text-xs text-slate-500">Katalog menu terbuka. Pilih nama peserta terdaftar atau tulis data diri jika pembeli umum, lalu pilih menu pilihan Anda.</p>
                     </div>
                 </div>
 
-                <!-- ALUR VALIDASI IDENTITAS (PESERTA VS NON-PESERTA) -->
+                <!-- ALUR VALIDASI IDENTITAS -->
                 <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
                     <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Langkah 1: Tentukan Kategori Pemesan</h4>
                     <div class="flex gap-4">
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="katPembeli" value="Peserta" checked onchange="switchKategoriPembeli('Peserta')" class="text-brand-teal focus:ring-brand-teal">
-                            <span class="text-xs font-bold text-slate-700">Peserta PERMATA Terdaftar</span>
+                            <span class="text-xs font-bold text-slate-700">Peserta PERMATA Terdaftar (Pilih Nama Anda)</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="katPembeli" value="Umum" onchange="switchKategoriPembeli('Umum')" class="text-brand-teal focus:ring-brand-teal">
-                            <span class="text-xs font-bold text-slate-700">Pembeli Umum (Non-Peserta)</span>
+                            <span class="text-xs font-bold text-slate-700">Pembeli Umum / Non-Peserta (Tulis Data Diri)</span>
                         </label>
                     </div>
 
-                    <!-- BOX PEMILIHAN PESERTA TERDAFTAR -->
+                    <!-- BOX PESERTA TERDAFTAR -->
                     <div id="boxIdentitasPeserta" class="space-y-2 pt-2 border-t border-slate-200">
                         <label class="block text-xs font-bold text-slate-700">Cari & Lock Nama Peserta Anda *</label>
                         <div class="flex gap-2">
@@ -411,7 +429,7 @@
                         </div>
                     </div>
 
-                    <!-- BOX PEMASUKAN DATA PEMBELI UMUM (NON-PESERTA) -->
+                    <!-- BOX PEMBELI UMUM -->
                     <div id="boxIdentitasUmum" class="hidden space-y-3 pt-2 border-t border-slate-200">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div>
@@ -434,7 +452,7 @@
                         </div>
                     </div>
 
-                    <!-- STATUS BADGE LOCK IDENTITAS -->
+                    <!-- STATUS BADGE -->
                     <div id="statusIdentitasTerkunci" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex justify-between items-center">
                         <div>
                             <span><strong>Identitas Terkunci:</strong> <span id="textIdentitasNama">-</span></span>
@@ -443,7 +461,7 @@
                     </div>
                 </div>
 
-                <!-- METODE PENGAMBILAN & KATALOG BAZAR -->
+                <!-- METODE PENGAMBILAN & KATALOG BAZAR LENGKAP -->
                 <div id="sectionOrderContent" class="opacity-40 pointer-events-none transition-all space-y-4">
                     
                     <div class="p-4 bg-brand-light border border-brand-teal/30 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
@@ -462,16 +480,16 @@
                         </div>
                     </div>
 
-                    <!-- RINGKASAN KERANJANG PESANAN BAZAR -->
+                    <!-- KERANJANG MULTI-MENU -->
                     <div class="p-4 bg-slate-50 border rounded-2xl space-y-2">
                         <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center justify-between">
                             <span><i class="fa-solid fa-cart-shopping text-brand-teal mr-1"></i> Ringkasan Keranjang Pesanan</span>
                             <span id="cartCountBadge" class="px-2 py-0.5 bg-brand-teal text-white rounded-full text-[10px]">0 Item</span>
                         </h4>
-                        <div id="cartItemsContainer" class="text-xs text-slate-500 italic py-2">Belum ada menu yang dipilih. Klik kartu menu di bawah ini untuk menambah pesanan.</div>
+                        <div id="cartItemsContainer" class="text-xs text-slate-500 italic py-2">Belum ada menu yang dipilih. Klik item menu di bawah untuk menambah pesanan (bisa lebih dari 1 menu).</div>
                     </div>
 
-                    <!-- KATALOG VISUAL DENGAN HARGA TERMASUK PAJAK -->
+                    <!-- 5 KATEGORI MENU BAZAR LENGKAP UTUH -->
                     <div class="space-y-6">
 
                         <!-- 1. COFFEE SERIES -->
@@ -484,34 +502,28 @@
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                 <div onclick="addToCart('Aren Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Aren Caffe Latte</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
-                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Aren Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
                                 <div onclick="addToCart('Myco Kopi Susu', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Myco Kopi Susu</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
-                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Myco Kopi Susu</h5><p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
                                 <div onclick="addToCart('Americano', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Americano</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
-                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Americano</h5><p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Cappuchino', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Cappuchino</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso, powder kayu manis</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Pandan Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Pandan Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">pandan, freshmilk, espresso</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
                             </div>
                         </div>
@@ -526,34 +538,136 @@
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                 <div onclick="addToCart('Spagetti Bolognese', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Spagetti Bolognese</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
-                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Spagetti Bolognese</h5><p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Spagetti Oglio Olio', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Spagetti Oglio Olio</h5><p class="text-[10px] text-slate-500 mt-0.5">chili flakes, bombai, smoke beef</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
                                 <div onclick="addToCart('Mie Goreng Seafood', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Mie Goreng Seafood</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, kerupuk</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
-                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Mie Goreng Seafood</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, sawi</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
-                                <div onclick="addToCart('Nasi Ayam Lalapan', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div>
-                                        <h5 class="font-bold text-slate-800 text-xs">Nasi Ayam Lalapan</h5>
-                                        <p class="text-[10px] text-slate-500 mt-0.5">ayam goreng, sambal terasi, sup</p>
-                                    </div>
-                                    <div class="text-right flex-shrink-0">
-                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
-                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                    </div>
+                                <div onclick="addToCart('Nasi Pecel', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Pecel</h5><p class="text-[10px] text-slate-500 mt-0.5">bawang goreng, sayur, tahu & tempe</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Gado - Gado', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Gado - Gado</h5><p class="text-[10px] text-slate-500 mt-0.5">telur rebus, sayur lengkap, tahu & tempe</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Nasi Goreng Merah', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Goreng Merah</h5><p class="text-[10px] text-slate-500 mt-0.5">topping bakso, telur suir</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Nasi Goreng Myco', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Goreng Myco</h5><p class="text-[10px] text-slate-500 mt-0.5">telur mata sapi, ayam suir, kerupuk</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Soto Ayam', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Soto Ayam</h5><p class="text-[10px] text-slate-500 mt-0.5">telur rebus, ayam suir, tahu, toge</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Ayam Sambal Matah', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Ayam Sambal Matah</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, sambal matah</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Ayam Asam Manis', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Ayam Asam Manis</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, wijen</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. REGAL, MILK & JUICE -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b pb-1.5 border-emerald-100">
+                                <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-glass-water text-emerald-600"></i> 3. Regal, Milk & Juice Series
+                                </h4>
+                                <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-900 font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div onclick="addToCart('Pandan Regal', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Pandan Regal</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk mix, pandan, topping regal</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Juice Alpukat', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Alpukat</h5><p class="text-[10px] text-slate-500 mt-0.5">buah alpukat, freshmilk, skm</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Juice Mangga', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Mangga</h5><p class="text-[10px] text-slate-500 mt-0.5">buah mangga, mango powder, freshmilk</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Juice Buah Naga', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Buah Naga</h5><p class="text-[10px] text-slate-500 mt-0.5">buah naga, vanila syrup, freshmilk</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. TEA & MOCKTAIL -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b pb-1.5 border-purple-100">
+                                <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-wine-glass text-purple-600"></i> 4. Tea & Mocktail Series
+                                </h4>
+                                <span class="px-2.5 py-0.5 bg-purple-100 text-purple-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div onclick="addToCart('Teh Jahe Madu', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Teh Jahe Madu</h5><p class="text-[10px] text-slate-500 mt-0.5">madu, jahe, sereh, teh</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Lemon Tea', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Lemon Tea</h5><p class="text-[10px] text-slate-500 mt-0.5">lemon, sparkling water, jeruk nipis</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Lychee Tea', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Lychee Tea</h5><p class="text-[10px] text-slate-500 mt-0.5">leci, sparkling water, buah leci</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('R & B Mocktail', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">R & B Mocktail</h5><p class="text-[10px] text-slate-500 mt-0.5">strawberry, bluelagoon, sunkist</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Ocean Blue', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Ocean Blue</h5><p class="text-[10px] text-slate-500 mt-0.5">bluelagoon, mint, sparkling water</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. DESSERT, ROTI & SNACK -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b pb-1.5 border-rose-100">
+                                <h4 class="font-bold text-rose-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-cookie-bite text-rose-600"></i> 5. Dessert, Roti & Snack
+                                </h4>
+                                <span class="px-2.5 py-0.5 bg-rose-100 text-rose-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div onclick="addToCart('Tahu Lada Garam', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Tahu Lada Garam</h5><p class="text-[10px] text-slate-500 mt-0.5">tahu dadu crispy, daun jeruk, cabai</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('3 in 1 (Sosis, Nugget, Kentang)', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">3 in 1 Snack</h5><p class="text-[10px] text-slate-500 mt-0.5">sosis, nugget, kentang balado</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Sanggara Belanda Coklat Kacang', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Sanggara Belanda Coklat Kacang</h5><p class="text-[10px] text-slate-500 mt-0.5">pisang, caramel, coklat kacang</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Roti Bakar Mix', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Roti Bakar Mix</h5><p class="text-[10px] text-slate-500 mt-0.5">coklat, keju parut, skm</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
+                                </div>
+                                <div onclick="addToCart('Tahu Bakso', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div><h5 class="font-bold text-slate-800 text-xs">Tahu Bakso</h5><p class="text-[10px] text-slate-500 mt-0.5">tahu isian bakso gurih</p></div>
+                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
                                 </div>
                             </div>
                         </div>
@@ -570,8 +684,6 @@
 
                 <!-- OVERVIEW PESANAN TERPISAH (PESERTA VS UMUM) -->
                 <div class="pt-8 border-t border-slate-200 space-y-6">
-                    
-                    <!-- TABEL LOG BAZAR PESERTA PERMATA -->
                     <div>
                         <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-users text-brand-teal"></i> Log Pesanan Bazar Peserta PERMATA
@@ -591,7 +703,6 @@
                         </div>
                     </div>
 
-                    <!-- TABEL LOG BAZAR PEMBELI UMUM (NON-PESERTA) -->
                     <div>
                         <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-store text-purple-600"></i> Log Pesanan Bazar Pembeli Umum (Non-Peserta)
@@ -602,7 +713,7 @@
                                     <tr>
                                         <th class="p-3">No</th>
                                         <th class="p-3">Nama Pembeli Umum</th>
-                                        <th class="p-3">No. HP</th>
+                                        <th class="p-3">No. HP (Protected)</th>
                                         <th class="p-3">Alamat</th>
                                         <th class="p-3">Rincian Pesanan Bazar</th>
                                     </tr>
@@ -611,27 +722,26 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </section>
 
-        <!-- 6. TAB PETUNJUK PENGISIAN DATA -->
+        <!-- 6. TAB PETUNJUK -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4">
                     <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
                         <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan System PERMATA & Bazar
                     </h3>
-                    <p class="text-xs text-slate-500">Panduan terpisah antara pendaftaran peserta, konsumsi utama, dan pesanan bazar MYCO Space.</p>
+                    <p class="text-xs text-slate-500">Panduan lengkap penggunaan aplikasi bawaan.</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL CETAK & SAVE PDF -->
+    <!-- MODAL CETAK -->
     <div id="printModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-slate-100">
             <h3 class="font-bold text-slate-800 text-base mb-4 text-center">Opsi Cetak & Save PDF</h3>
@@ -643,7 +753,7 @@
         </div>
     </div>
 
-    <!-- MODAL AUTHENTICATION ADMIN -->
+    <!-- MODAL ADMIN -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm border border-slate-100">
             <div class="text-center mb-4">
@@ -663,12 +773,14 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT SYSTEM LOGIC -->
+    <!-- JAVASCRIPT SYSTEM LOGIC & SECURITY PROTECT -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpZd1FQMzV0xRfDTmiGiT5ENO36oHJxb4n_RpsV3Da_c4yAcg-Y0r6K5m8HLUNpC-C/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbXD3XDbUKSqI9QKguydJD8caHOcSRxZFl7Krzau9-twwpA6J2OqDiQWLwvrB3auZ_/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "12780";
+        const ADMIN_PIN_DEFAULT = "9002";
+        const CONTACT_PHONE_RAW = "+62 852-9980-2002";
+        
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
         let currentKategoriPembeli = "Peserta";
@@ -680,8 +792,31 @@
             initCharts();
             populateDropdowns();
             renderSeparatedBazarTables();
+            updateContactDisplay();
             syncDataFromCloud();
         });
+
+        function updateContactDisplay() {
+            const el = document.getElementById('contactPhoneDisplay');
+            if(el) {
+                if(IS_ADMIN) {
+                    el.innerText = CONTACT_PHONE_RAW;
+                    el.classList.remove('masked-text');
+                } else {
+                    el.innerText = "•••••••••••••";
+                    el.classList.add('masked-text');
+                }
+            }
+        }
+
+        function copyContactNumber() {
+            if(!IS_ADMIN) {
+                alert("Nomor kontak dilindungi sistem (Protected Mode). Silakan Login Admin untuk membuka nomor selengkapnya.");
+                return;
+            }
+            navigator.clipboard.writeText(CONTACT_PHONE_RAW);
+            alert("Nomor kontak Ummu Aliyah (+62 852-9980-2002) berhasil disalin!");
+        }
 
         function switchTab(tabId) {
             ['dashboard', 'masterlist', 'entry', 'konsumsi', 'bazar', 'guide'].forEach(id => {
@@ -772,7 +907,7 @@
         }
 
         function addToCart(menuName, price) {
-            if(!activeBuyerInfo) { alert("Mohon lock identitas Anda terlebih dahulu!"); return; }
+            if(!activeBuyerInfo) { alert("Mohon lock identitas Anda terlebih dahulu sebelum memilih menu!"); return; }
             const existing = cartList.find(x => x.name === menuName);
             if(existing) { existing.qty += 1; }
             else { cartList.push({ name: menuName, price: price, qty: 1 }); }
@@ -783,7 +918,7 @@
             const container = document.getElementById('cartItemsContainer');
             const badge = document.getElementById('cartCountBadge');
             if(cartList.length === 0) {
-                container.innerHTML = '<span class="italic text-slate-400">Belum ada menu yang dipilih.</span>';
+                container.innerHTML = '<span class="italic text-slate-400">Belum ada menu yang dipilih. Klik item menu di bawah untuk menambah pesanan.</span>';
                 badge.innerText = '0 Item';
                 return;
             }
@@ -865,8 +1000,8 @@
                     tUtama.innerHTML += `
                         <tr class="hover:bg-teal-50/50">
                             <td class="p-3">${idxUt++}</td>
-                            <td class="p-3 font-bold">${p.namaLengkap}</td>
-                            <td class="p-3">${p.kecamatan || 'Palu Selatan'}</td>
+                            <td class="p-3 font-bold">${escapeHtml(p.namaLengkap)}</td>
+                            <td class="p-3">${escapeHtml(p.kecamatan || 'Palu Selatan')}</td>
                             <td class="p-3 font-bold text-rose-600">Closed Order</td>
                         </tr>
                     `;
@@ -879,10 +1014,10 @@
                         tUmum.innerHTML += `
                             <tr class="hover:bg-purple-50/50">
                                 <td class="p-3">${idxU++}</td>
-                                <td class="p-3 font-bold">${item.namaLengkap}</td>
-                                <td class="p-3">${item.noHp || '-'}</td>
-                                <td class="p-3">${item.alamat || '-'}</td>
-                                <td class="p-3 font-bold text-purple-800">${item.menu}</td>
+                                <td class="p-3 font-bold">${escapeHtml(item.namaLengkap)}</td>
+                                <td class="p-3 ${IS_ADMIN ? 'font-mono' : 'masked-text'}">${maskPrivateInfo(item.noHp || '-')}</td>
+                                <td class="p-3">${escapeHtml(item.alamat || '-')}</td>
+                                <td class="p-3 font-bold text-purple-800">${escapeHtml(item.menu)}</td>
                             </tr>
                         `;
                     }
@@ -891,9 +1026,9 @@
                         tPeserta.innerHTML += `
                             <tr class="hover:bg-teal-50/50">
                                 <td class="p-3">${idxP++}</td>
-                                <td class="p-3 font-bold">${item.namaLengkap}</td>
-                                <td class="p-3">${item.kecamatan || 'Palu Selatan'}</td>
-                                <td class="p-3 font-bold text-brand-dark">${item.menu}</td>
+                                <td class="p-3 font-bold">${escapeHtml(item.namaLengkap)}</td>
+                                <td class="p-3">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
+                                <td class="p-3 font-bold text-brand-dark">${escapeHtml(item.menu)}</td>
                             </tr>
                         `;
                     }
@@ -1042,11 +1177,13 @@
             if (document.getElementById('adminPinInput').value === ADMIN_PIN_DEFAULT) {
                 IS_ADMIN = true;
                 closeAdminModal();
-                alert("Login Admin Berhasil!");
+                updateContactDisplay();
                 renderTable();
+                renderSeparatedBazarTables();
+                alert("Security Protect Status: Admin Unlocked.");
             } else { alert("PIN Salah!"); }
         }
-        function logoutAdmin() { IS_ADMIN = false; renderTable(); }
+        function logoutAdmin() { IS_ADMIN = false; updateContactDisplay(); renderTable(); renderSeparatedBazarTables(); }
         function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); }
         function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
         function executePDFExport() { window.print(); closePrintModal(); }

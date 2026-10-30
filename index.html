@@ -348,10 +348,41 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Pemberitahuan: Batas Waktu Konsumsi Utama Telah Ditutup</h4>
-                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong>. Silakan melakukan pemesanan melalui pilihan <strong>Menu Bazar PERMATA</strong> (Lengkap dengan harga termasuk pajak) di bawah ini.</p>
+                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong>. Silakan memilih <strong>Menu Bazar PERMATA</strong> di bawah ini (seluruh harga sudah termasuk pajak).</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 bg-rose-200 text-rose-900 rounded-full text-[10px] font-extrabold uppercase tracking-widest hidden sm:inline-block">Closed</span>
+                </div>
+
+                <!-- TOMBOL BUKA/TUTUP FORM PEMBELI UMUM -->
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div class="text-xs text-amber-900">
+                        <strong>Bukan Peserta Kegiatan PERMATA?</strong> Ingin beli bazar saja? Klik tombol di samping untuk mengisi data pembeli umum.
+                    </div>
+                    <button onclick="togglePembeliUmumForm()" id="btnToggleUmum" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow transition flex-shrink-0">
+                        <i class="fa-solid fa-user-plus mr-1"></i> Form Pembeli Bazar Saja
+                    </button>
+                </div>
+
+                <!-- FORM KHUSUS PEMBELI UMUM (NON-PESERTA) -->
+                <div id="formPembeliUmumContainer" class="hidden bg-amber-50/70 p-5 rounded-2xl border border-amber-300 space-y-3">
+                    <h5 class="font-bold text-xs text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-cash-register text-amber-600"></i> Form Khusus Pembeli Bazar (Non-Peserta)
+                    </h5>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nama Lengkap Pembeli *</label>
+                            <input type="text" id="umumNama" placeholder="Nama Pembeli..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nomor HP / WhatsApp *</label>
+                            <input type="tel" id="umumHp" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Alamat Domisili *</label>
+                            <input type="text" id="umumAlamat" placeholder="Alamat pembeli..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -359,20 +390,20 @@
                         <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
                             <i class="fa-solid fa-store text-brand-teal"></i> Katalog Menu Bazar PERMATA (MYCO Space)
                         </h3>
-                        <p class="text-xs text-slate-500">Klik salah satu kartu menu di bawah ini. Semua harga sudah **termasuk pajak**.</p>
+                        <p class="text-xs text-slate-500">Klik salah satu kartu menu di bawah ini. Seluruh harga sudah <strong>termasuk pajak</strong>.</p>
                     </div>
                     <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
                         <i class="fa-solid fa-clipboard-check mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Bazar Tercatat
                     </div>
                 </div>
 
-                <!-- FORM PEMILIHAN BAZAR -->
+                <!-- FORM PEMILIHAN PESERTA TERDAFTAR -->
                 <div class="bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100 space-y-4">
-                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Form Pemesanan Menu Bazar PERMATA</h4>
+                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Pemilihan Untuk Peserta Terdaftar PERMATA</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">1. Pilih Nama Peserta Terdaftar *</label>
-                            <select id="selectPesertaKonsumsi" required class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white shadow-sm">
+                            <select id="selectPesertaKonsumsi" class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white shadow-sm">
                                 <option value="">-- Pilih Nama Peserta --</option>
                             </select>
                         </div>
@@ -383,7 +414,7 @@
                     </div>
                 </div>
 
-                <!-- KATALOG VISUAL LENGKAP BAZAR DENGAN HARGA LENGKAP PAJAK -->
+                <!-- KATALOG VISUAL LENGKAP BAZAR DENGAN HARGA LENGKAP PAJAK TERTULIS DI BAWAH HARGA -->
                 <div class="space-y-6">
 
                     <!-- KATEGORI 1: COFFEE SERIES -->
@@ -400,42 +431,60 @@
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Aren Caffe Latte</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Myco Kopi Susu (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Myco Kopi Susu</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Americano (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Americano</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Caffe Latte</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Cappuchino (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Cappuchino</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso, powder kayu manis</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Pandan Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Caffe Latte</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">pandan, freshmilk, espresso</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -454,70 +503,100 @@
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Bolognese</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Spagetti Oglio Olio (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Oglio Olio</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">chili flakes, bombai, smoke beef</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Mie Goreng Seafood (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Mie Goreng Seafood</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, sawi, kerupuk</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Nasi Pecel (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Pecel</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">bawang goreng, sayur, tahu & tempe</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Gado - Gado (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Gado - Gado</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, sayur lengkap, tahu & tempe</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Nasi Goreng Merah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Merah</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">topping bakso, telur suir</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Nasi Goreng Myco (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Myco</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur mata sapi, ayam suir, kerupuk</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Soto Ayam (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Soto Ayam</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, ayam suir, tahu, toge</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Ayam Sambal Matah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Sambal Matah</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, sambal matah</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Ayam Asam Manis (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Asam Manis</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, wijen</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
+                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -536,28 +615,40 @@
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Regal</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">freshmilk mix, pandan, topping regal</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Juice Alpukat (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Alpukat</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">buah alpukat, freshmilk, skm</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Juice Mangga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Mangga</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">buah mangga, mango powder, freshmilk</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Juice Buah Naga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Buah Naga</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">buah naga, vanila syrup, freshmilk</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
+                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -576,35 +667,50 @@
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Teh Jahe Madu</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">madu, jahe, sereh, teh</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Lemon Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lemon Tea</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">lemon, sparkling water, jeruk nipis</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Lychee Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lychee Tea</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">leci, sparkling water, buah leci</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('R & B Mocktail (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">R & B Mocktail</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">strawberry, bluelagoon, sunkist</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Ocean Blue (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ocean Blue</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">bluelagoon, mint, sparkling water</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -623,35 +729,50 @@
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Lada Garam</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">tahu dadu crispy, daun jeruk, cabai</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('3 in 1 Snack (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">3 in 1 (Sosis, Nugget, Kentang)</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">sosis, nugget, kentang balado</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Sanggara Belanda Coklat Kacang (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Sanggara Belanda Coklat Kacang</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">pisang, caramel, coklat kacang</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Roti Bakar Mix (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Roti Bakar Mix</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">coklat, keju parut, skm</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                             <div onclick="selectMenuCard('Tahu Bakso (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Bakso</h5>
                                     <p class="text-[10px] text-slate-500 mt-0.5">tahu isian bakso gurih</p>
                                 </div>
-                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                                <div class="text-right flex-shrink-0">
+                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
+                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -675,8 +796,8 @@
                                 <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
                                     <tr>
                                         <th class="p-3">No</th>
-                                        <th class="p-3">Nama Lengkap Peserta</th>
-                                        <th class="p-3">Kecamatan</th>
+                                        <th class="p-3">Nama Lengkap Peserta / Pembeli</th>
+                                        <th class="p-3">Kecamatan / Kategori</th>
                                         <th class="p-3">Menu Bazar Pilihan</th>
                                         <th class="p-3 text-center admin-only hidden" id="headerAksiKonsumsi">Aksi</th>
                                     </tr>
@@ -701,7 +822,7 @@
                 </div>
                 <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
                     <li>Isi formulir pada menu <strong>Form Pendaftaran</strong>. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</li>
-                    <li>Konsumsi utama telah ditutup (Closed Order). Peserta memesan menu melalui katalog visual <strong>Menu Bazar PERMATA</strong> (Semua harga termasuk pajak).</li>
+                    <li>Untuk pembeli non-peserta (umum), gunakan tombol <strong>Form Pembeli Bazar Saja</strong> untuk memesan tanpa mendaftar presensi kegiatan.</li>
                 </ul>
             </div>
         </section>
@@ -762,10 +883,10 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyHP4h3c2DJcdTpaOKE8FFMUmT9N1kumcRjWU5-Sj_AiGSjbNntOy4UHERCcLfzgcU9/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoBknPEL0IQv-f7kT9KffkjLJtgUckY2bIXh1Q56Dsqj6vhH4ia5SmRC6noeB0CltG/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "77777";
+        const ADMIN_PIN_DEFAULT = "7780";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
         let selectedActiveMenu = "";
@@ -815,6 +936,11 @@
             }
         }
 
+        function togglePembeliUmumForm() {
+            const container = document.getElementById('formPembeliUmumContainer');
+            if (container) container.classList.toggle('hidden');
+        }
+
         function selectMenuCard(menuName) {
             selectedActiveMenu = menuName;
             const displayInput = document.getElementById('selectedMenuDisplay');
@@ -827,12 +953,35 @@
         }
 
         async function submitBazarOrder() {
-            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
-            const selectedOption = selectPeserta ? selectPeserta.options[selectPeserta.selectedIndex] : null;
-            const namaLengkap = selectPeserta ? selectPeserta.value : '';
-            const kecamatan = selectedOption ? selectedOption.getAttribute('data-kecamatan') : 'Palu Selatan';
+            const isUmumActive = !document.getElementById('formPembeliUmumContainer').classList.contains('hidden');
+            
+            let namaLengkap = "";
+            let kecamatan = "Palu Selatan";
+            let nomorHp = "";
+            let alamat = "";
 
-            if (!namaLengkap) { alert("Silakan pilih nama peserta terlebih dahulu."); return; }
+            if (isUmumActive) {
+                const uNama = document.getElementById('umumNama').value.trim();
+                const uHp = document.getElementById('umumHp').value.trim();
+                const uAlamat = document.getElementById('umumAlamat').value.trim();
+
+                if (!uNama || !uHp || !uAlamat) {
+                    alert("Mohon lengkapi Nama, Nomor HP, dan Alamat untuk Pembeli Umum.");
+                    return;
+                }
+                namaLengkap = `${uNama} (Pembeli Umum)`;
+                kecamatan = "Umum / Non-Peserta";
+                nomorHp = uHp;
+                alamat = uAlamat;
+            } else {
+                const selectPeserta = document.getElementById('selectPesertaKonsumsi');
+                const selectedOption = selectPeserta ? selectPeserta.options[selectPeserta.selectedIndex] : null;
+                namaLengkap = selectPeserta ? selectPeserta.value : '';
+                kecamatan = selectedOption ? selectedOption.getAttribute('data-kecamatan') : 'Palu Selatan';
+
+                if (!namaLengkap) { alert("Silakan pilih nama peserta terdaftar, atau isi Form Pembeli Bazar Saja."); return; }
+            }
+
             if (!selectedActiveMenu) { alert("Silakan klik dan pilih salah satu menu dari katalog bazar."); return; }
 
             const btn = document.getElementById('btnSubmitBazar');
@@ -844,6 +993,8 @@
                 action: 'submitKonsumsi',
                 namaLengkap: namaLengkap,
                 kecamatan: kecamatan,
+                alamat: alamat,
+                nomorHp: nomorHp,
                 menu: selectedActiveMenu,
                 timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
             };
@@ -872,9 +1023,12 @@
                 } catch (err) { console.log(err); }
             }
 
-            alert(`Sukses! Pesanan "${selectedActiveMenu}" untuk ${namaLengkap} berhasil dicatat.`);
+            alert(`Sukses! Pesanan "${selectedActiveMenu}" untuk ${namaLengkap} berhasil disimpan ke Spreadsheet!`);
             
-            selectPeserta.value = "";
+            document.getElementById('selectPesertaKonsumsi').value = "";
+            document.getElementById('umumNama').value = "";
+            document.getElementById('umumHp').value = "";
+            document.getElementById('umumAlamat').value = "";
             selectedActiveMenu = "";
             document.getElementById('selectedMenuDisplay').value = "";
             document.querySelectorAll('.menu-card').forEach(card => {

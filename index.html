@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERMATA MWC - Dashboard, Bazar & Barcode Absensi System</title>
+    <title>PERMATA MWC - Check-in Kehadiran Mandiri</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -50,8 +50,8 @@
 </head>
 <body class="bg-brand-cream font-sans min-h-screen flex flex-col md:flex-row text-slate-800">
 
-    <!-- SIDEBAR LEFT -->
-    <aside class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
+    <!-- SIDEBAR LEFT (Disembunyikan otomatis jika diakses via Scan Barcode) -->
+    <aside id="appSidebar" class="w-full md:w-64 bg-brand-sidebar text-white flex flex-col justify-between shadow-2xl min-h-screen z-20">
         <div>
             <!-- Sidebar Header -->
             <div class="p-4 border-b border-teal-800/50 bg-brand-darker flex flex-col space-y-2">
@@ -90,7 +90,7 @@
                 </button>
                 <button onclick="switchTab('absensi')" id="nav-absensi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-qrcode w-4 text-center text-emerald-300"></i>
-                    <span>Scan Barcode / Absensi (Kolom L)</span>
+                    <span>Scan Barcode / Absensi</span>
                 </button>
                 <button onclick="switchTab('konsumsi')" id="nav-konsumsi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-utensils w-4 text-center text-teal-300"></i>
@@ -121,21 +121,7 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </div>
                 <div class="flex justify-between"><span>Total Peserta:</span> <strong id="quickTotal" class="text-white">0</strong></div>
-                <div class="flex justify-between"><span>Hadir (Kolom L):</span> <strong id="quickHadir" class="text-emerald-400">0</strong></div>
-                <div class="flex justify-between"><span>Bazar Peserta:</span> <strong id="quickBazarPeserta" class="text-white">0</strong></div>
-                <div class="flex justify-between"><span>Bazar Umum:</span> <strong id="quickBazarUmum" class="text-white">0</strong></div>
-            </div>
-
-            <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
-                <div class="w-10 h-7 bg-white rounded-lg flex items-center justify-center p-0.5 overflow-hidden border border-teal-400/30 flex-shrink-0">
-                    <img src="Palsel.jpeg" alt="Logo Admin" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-user-shield text-brand-dark text-xs\'></i>';">
-                </div>
-                <div class="overflow-hidden">
-                    <p class="text-[11px] font-bold text-white truncate" id="adminFooterName">Administrator</p>
-                    <p class="text-[9px] text-emerald-400 flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Master Mode Active
-                    </p>
-                </div>
+                <div class="flex justify-between"><span>Hadir:</span> <strong id="quickHadir" class="text-emerald-400">0</strong></div>
             </div>
         </div>
     </aside>
@@ -143,15 +129,15 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 p-4 md:p-8 overflow-y-auto">
         
-        <!-- HEADER BAR -->
-        <header class="bg-brand-dark text-white p-5 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <!-- HEADER BAR (Disembunyikan jika diakses via Scan Barcode) -->
+        <header id="appHeader" class="bg-brand-dark text-white p-5 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div class="flex items-center space-x-3">
                 <div class="w-28 h-12 bg-white rounded-xl border border-brand-teal/40 flex items-center justify-center p-1 shadow-inner flex-shrink-0 overflow-hidden">
                     <img src="Palsel.jpeg" alt="Logo Header" class="w-full h-full precise-logo-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-user text-xl text-brand-dark\'></i>';">
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
-                    <p class="text-xs text-brand-cream/80">System Management PERMATA & Bazar MYCO Space • Palu Selatan & Timur</p>
+                    <p class="text-xs text-brand-cream/80">System Management PERMATA & Bazar • Palu Selatan & Timur</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -168,7 +154,7 @@
         <div id="adminNotice" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-900 text-xs flex justify-between items-center shadow-sm">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i>
-                <span><strong>Master Admin Aktif:</strong> Hak akses tombol Edit & Hapus Peserta dan Pesanan Bazar diaktifkan.</span>
+                <span><strong>Master Admin Aktif:</strong> Hak akses edit & hapus diaktifkan.</span>
             </div>
             <button onclick="logoutAdmin()" class="px-3 py-1 bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded-lg text-xs font-bold transition">Keluar Admin</button>
         </div>
@@ -179,188 +165,55 @@
                 <div class="bg-brand-dark text-white p-5 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-brand-cream/80 uppercase tracking-wider">Total Peserta PERMATA</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTotal">0</h3>
-                    <p class="text-[10px] text-teal-200">Terdaftar di Sistem Kegiatan</p>
                 </div>
                 <div class="bg-emerald-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-emerald-100 uppercase tracking-wider">Peserta Hadir (Kolom L)</p>
+                    <p class="text-[11px] font-semibold text-emerald-100 uppercase tracking-wider">Peserta Hadir</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statHadir">0</h3>
-                    <p class="text-[10px] text-emerald-100">Check-in Kehadiran Terverifikasi</p>
-                </div>
-                <div class="bg-amber-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-amber-100 uppercase tracking-wider">Peserta Order Bazar</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarPeserta">0</h3>
-                    <p class="text-[10px] text-amber-100">Transaksi Bazar Peserta</p>
-                </div>
-                <div class="bg-purple-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-purple-100 uppercase tracking-wider">Pembeli Umum Bazar</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarUmum">0</h3>
-                    <p class="text-[10px] text-purple-100">Transaksi Bazar Non-Peserta</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100">
-                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                        <h4 class="font-bold text-brand-dark text-sm">Marhala Overview</h4>
-                        <span class="text-xs text-slate-400 font-mono" id="marhalaRatio">0% / 0% / 0%</span>
-                    </div>
-                    <div class="h-48"><canvas id="marhalaChart"></canvas></div>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100">
-                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                        <h4 class="font-bold text-brand-dark text-sm">Distribusi Kecamatan</h4>
-                    </div>
-                    <div class="h-64"><canvas id="kecamatanChart"></canvas></div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. TAB MASTERLIST DATA PESERTA -->
+        <!-- 2. TAB MASTERLIST -->
         <section id="tab-masterlist" class="space-y-4 hidden">
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 justify-between items-center">
-                <div class="relative w-full md:w-80">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="renderTable()" placeholder="Cari nama lengkap / panggilan..." class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-brand-teal">
-                </div>
-                <div class="flex gap-2 w-full md:w-auto">
-                    <select id="filterKecamatan" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none">
-                        <option value="">Semua Kecamatan</option>
-                        <option value="Palu Selatan">Palu Selatan</option>
-                        <option value="Palu Timur">Palu Timur</option>
-                    </select>
-                    <select id="filterMarhala" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none">
-                        <option value="">Semua Marhala</option>
-                        <option value="Takwin 1">Takwin 1</option>
-                        <option value="Takwin 2">Takwin 2</option>
-                        <option value="Tanfiz (Khusus)">Tanfiz (Khusus)</option>
-                    </select>
-                </div>
-            </div>
-
+            <!-- Tabel Masterlist Peserta -->
             <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-slate-600">
-                        <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
-                            <tr>
-                                <th class="p-4">No</th>
-                                <th class="p-4">Nama Lengkap</th>
-                                <th class="p-4">Nama Panggilan</th>
-                                <th class="p-4">Kecamatan</th>
-                                <th class="p-4">Marhala</th>
-                                <th class="p-4">No. HP (Protected)</th>
-                                <th class="p-4">Waktu Hadir (Kolom L)</th>
-                                <th class="p-4 text-center admin-only hidden" id="headerAksiPeserta">Aksi Admin</th>
-                            </tr>
-                        </thead>
-                        <tbody id="participantTable" class="divide-y divide-slate-100"></tbody>
-                    </table>
-                </div>
+                <table class="w-full text-left text-xs text-slate-600">
+                    <thead class="bg-brand-dark text-white uppercase text-[10px]">
+                        <tr>
+                            <th class="p-4">No</th><th class="p-4">Nama Lengkap</th><th class="p-4">Kecamatan</th><th class="p-4">Waktu Hadir</th>
+                        </tr>
+                    </thead>
+                    <tbody id="participantTable" class="divide-y divide-slate-100"></tbody>
+                </table>
             </div>
         </section>
 
-        <!-- 3. TAB FORM ENTRY DATA PESERTA -->
-        <section id="tab-entry" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-3xl mx-auto">
-                <div class="border-b border-slate-100 pb-4 mb-6">
-                    <h3 class="text-lg font-bold text-brand-dark">Formulir Biodata Peserta PERMATA</h3>
-                    <p class="text-xs text-slate-500">Lengkapi formulir di bawah ini untuk pendaftaran peserta kegiatan PERMATA.</p>
-                </div>
-                
-                <form id="entryForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap *</label>
-                            <input type="text" id="inputNamaLengkap" required placeholder="Contoh: Fatimah Az-Zahra" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Panggilan *</label>
-                            <input type="text" id="inputNamaPanggilan" required placeholder="Contoh: Fatimah" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal">
-                        </div>
-                    </div>
+        <!-- 3. TAB FORM ENTRY -->
+        <section id="tab-entry" class="space-y-6 hidden"></section>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kecamatan *</label>
-                            <select id="inputKecamatan" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
-                                <option value="">-- Pilih Kecamatan --</option>
-                                <option value="Palu Selatan">Palu Selatan</option>
-                                <option value="Palu Timur">Palu Timur</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Marhala *</label>
-                            <select id="inputMarhala" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
-                                <option value="">-- Pilih Marhala --</option>
-                                <option value="Takwin 1">Takwin 1</option>
-                                <option value="Takwin 2">Takwin 2</option>
-                                <option value="Tanfiz (Khusus)">Tanfiz (Khusus)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor HP / WhatsApp *</label>
-                            <input type="tel" id="inputNomorHp" required placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pekerjaan *</label>
-                            <select id="inputPekerjaan" onchange="togglePekerjaanLainnya()" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
-                                <option value="">-- Pilih Pekerjaan --</option>
-                                <option value="Guru">Guru</option>
-                                <option value="ASN">ASN</option>
-                                <option value="Pengusaha">Pengusaha</option>
-                                <option value="Pedagang">Pedagang</option>
-                                <option value="Pengajar Al-Qur'an">Pengajar Al-Qur'an</option>
-                                <option value="Lainnya">Lainnya (Sebutkan)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="pekerjaanLainnyaContainer" class="hidden">
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Sebutkan Pekerjaan *</label>
-                        <input type="text" id="inputPekerjaanLainnya" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none" placeholder="Tuliskan profesi...">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Alamat Domisili Lengkap *</label>
-                        <textarea id="inputAlamat" rows="2" required placeholder="Masukkan alamat..." class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none"></textarea>
-                    </div>
-
-                    <div class="pt-4 flex justify-end gap-2 border-t border-slate-100">
-                        <button type="reset" class="px-4 py-2 border rounded-xl text-xs text-slate-600">Reset</button>
-                        <button type="submit" id="btnSubmitBiodata" class="px-6 py-2 bg-brand-dark text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Simpan Data Peserta
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- 4. TAB SCAN BARCODE / ABSENSI MANDIRI -->
-        <section id="tab-absensi" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-emerald-200 max-w-2xl mx-auto space-y-6">
+        <!-- 4. TAB SCAN BARCODE / ABSENSI MANDIRI (FOKUS UTAMA PESERTA) -->
+        <section id="tab-absensi" class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border-2 border-emerald-300 max-w-xl mx-auto space-y-6 my-auto">
                 <div class="text-center space-y-2 border-b pb-4 border-slate-100">
-                    <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow-inner">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-800">Scan Barcode / Check-in Kehadiran Mandiri</h3>
-                    <p class="text-xs text-slate-500">Pilih nama lengkap Anda, verifikasi asal kecamatan dan pesanan konsumsi utama, centang konfirmasi, lalu simpan waktu hadir ke <strong>Kolom L</strong> Spreadsheet.</p>
+                    <h3 class="text-xl font-extrabold text-slate-900">Check-in Kehadiran PERMATA</h3>
+                    <p class="text-xs text-slate-500">Silakan pilih nama lengkap Anda, periksa asal kecamatan, centang konfirmasi, dan simpan kehadiran.</p>
                 </div>
 
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Cari & Pilih Nama Lengkap Anda *</label>
-                        <select id="absensiSelectNama" onchange="previewDataAbsensi()" class="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl bg-white focus:outline-none focus:border-emerald-500">
-                            <option value="">-- Pilih Nama Peserta PERMATA --</option>
+                        <select id="absensiSelectNama" onchange="previewDataAbsensi()" class="w-full px-3 py-3 text-xs border border-slate-300 rounded-xl bg-white focus:outline-none focus:border-emerald-500 shadow-sm">
+                            <option value="">-- Pilih / Cari Nama Anda --</option>
                         </select>
                     </div>
 
-                    <div id="previewCardAbsensi" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs">
+                    <div id="previewCardAbsensi" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs shadow-sm">
                         <div class="flex justify-between"><span>Nama Lengkap:</span> <strong id="prevNama" class="text-slate-900">-</strong></div>
                         <div class="flex justify-between"><span>Asal Kecamatan:</span> <strong id="prevKecamatan" class="text-brand-dark">-</strong></div>
                         <div class="flex justify-between"><span>Marhala:</span> <strong id="prevMarhala" class="text-purple-700">-</strong></div>
-                        <div class="flex justify-between"><span>Konsumsi Utama:</span> <strong class="text-slate-700">Closed Order</strong></div>
                     </div>
 
                     <div class="p-4 bg-slate-50 border rounded-xl">
@@ -372,439 +225,33 @@
                         </label>
                     </div>
 
-                    <button onclick="submitAbsensiHadir()" id="btnSubmitAbsen" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran (Simpan ke Kolom L)
+                    <button onclick="submitAbsensiHadir()" id="btnSubmitAbsen" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-base"></i> Konfirmasi Kehadiran (Simpan ke Spreadsheet)
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- 5. TAB KONSUMSI UTAMA PERMATA -->
-        <section id="tab-konsumsi" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
-                <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-center justify-between text-rose-900 shadow-sm">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center font-bold text-base shadow flex-shrink-0">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Konsumsi Utama PERMATA Status: CLOSED ORDER</h4>
-                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama kegiatan PERMATA telah ditutup. Untuk memesan makanan/minuman, silakan gunakan tab <strong>Menu Bazar MYCO Space</strong>.</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- 5. TAB KONSUMSI -->
+        <section id="tab-konsumsi" class="space-y-6 hidden"></section>
 
-                <div>
-                    <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider mb-2">Log Pesanan Konsumsi Utama Peserta PERMATA</h4>
-                    <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
-                        <table class="w-full text-left text-xs text-slate-600">
-                            <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
-                                <tr>
-                                    <th class="p-3">No</th>
-                                    <th class="p-3">Nama Peserta PERMATA</th>
-                                    <th class="p-3">Kecamatan</th>
-                                    <th class="p-3">Status Konsumsi Utama</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableKonsumsiUtamaBody" class="divide-y divide-slate-100"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 6. TAB BAZAR -->
+        <section id="tab-bazar" class="space-y-6 hidden"></section>
 
-        <!-- 6. TAB MENU BAZAR MYCO SPACE -->
-        <section id="tab-bazar" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-amber-100 max-w-6xl mx-auto space-y-6">
-                
-                <!-- BANNER INFORMASI KONTAK -->
-                <div class="p-4 bg-teal-50 border border-teal-200 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-3 shadow-sm">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-dark text-white flex items-center justify-center font-bold text-base shadow flex-shrink-0">
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs uppercase tracking-wider text-brand-dark">Pusat Bantuan & Layanan Informasi Bazar</h4>
-                            <p class="text-[11px] text-slate-600">Untuk informasi lebih lanjut mengenai pemesanan bazar, silakan hubungi di nomor ini:</p>
-                        </div>
-                    </div>
-                    <div class="px-4 py-2 bg-white border border-teal-300 rounded-xl shadow-sm text-xs flex items-center space-x-2">
-                        <i class="fa-solid fa-phone-volume text-brand-teal"></i>
-                        <span class="font-bold text-slate-800">Ummu Aliyah:</span>
-                        <span id="contactPhoneDisplay" class="font-mono font-bold text-brand-dark masked-text">•••••••••••••</span>
-                        <button onclick="copyContactNumber()" title="Salin Kontak" class="text-xs text-brand-teal hover:text-brand-dark ml-1"><i class="fa-solid fa-copy"></i></button>
-                    </div>
-                </div>
-
-                <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                            <i class="fa-solid fa-store text-amber-500"></i> Pemesanan Menu Bazar MYCO Space
-                        </h3>
-                        <p class="text-xs text-slate-500">Katalog menu terbuka. Pilih nama peserta terdaftar atau tulis data diri jika pembeli umum, lalu pilih menu pilihan Anda.</p>
-                    </div>
-                </div>
-
-                <!-- ALUR VALIDASI IDENTITAS -->
-                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Langkah 1: Tentukan Kategori Pemesan</h4>
-                    <div class="flex gap-4">
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="katPembeli" value="Peserta" checked onchange="switchKategoriPembeli('Peserta')" class="text-brand-teal focus:ring-brand-teal">
-                            <span class="text-xs font-bold text-slate-700">Peserta PERMATA Terdaftar (Pilih Nama Anda)</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="katPembeli" value="Umum" onchange="switchKategoriPembeli('Umum')" class="text-brand-teal focus:ring-brand-teal">
-                            <span class="text-xs font-bold text-slate-700">Pembeli Umum / Non-Peserta (Tulis Data Diri)</span>
-                        </label>
-                    </div>
-
-                    <!-- BOX PESERTA TERDAFTAR -->
-                    <div id="boxIdentitasPeserta" class="space-y-2 pt-2 border-t border-slate-200">
-                        <label class="block text-xs font-bold text-slate-700">Cari & Lock Nama Peserta Anda *</label>
-                        <div class="flex gap-2">
-                            <select id="selectPesertaKonsumsi" class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none">
-                                <option value="">-- Cari Nama Peserta PERMATA --</option>
-                            </select>
-                            <button onclick="konfirmasiIdentitasPeserta()" class="px-4 py-2 bg-brand-teal text-white rounded-xl text-xs font-bold flex-shrink-0 shadow">
-                                Lock Identitas
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- BOX PEMBELI UMUM -->
-                    <div id="boxIdentitasUmum" class="hidden space-y-3 pt-2 border-t border-slate-200">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-700 mb-1">Nama Pembeli *</label>
-                                <input type="text" id="umumNama" placeholder="Masukkan Nama Lengkap..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-700 mb-1">No. HP / WA *</label>
-                                <input type="tel" id="umumHp" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-700 mb-1">Alamat Domisili *</label>
-                                <input type="text" id="umumAlamat" placeholder="Masukkan Alamat Lengkap..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <button onclick="konfirmasiIdentitasUmum()" class="px-4 py-2 bg-amber-600 text-white rounded-xl text-xs font-bold shadow">
-                                Lock Data Pembeli Umum
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- STATUS BADGE -->
-                    <div id="statusIdentitasTerkunci" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex justify-between items-center">
-                        <div>
-                            <span><strong>Identitas Terkunci:</strong> <span id="textIdentitasNama">-</span></span>
-                        </div>
-                        <button onclick="resetIdentitas()" class="text-[10px] text-red-600 underline font-bold">Ganti Pemesan</button>
-                    </div>
-                </div>
-
-                <!-- METODE PENGAMBILAN & KATALOG BAZAR LENGKAP -->
-                <div id="sectionOrderContent" class="opacity-40 pointer-events-none transition-all space-y-4">
-                    
-                    <div class="p-4 bg-brand-light border border-brand-teal/30 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
-                        <div class="text-xs font-bold text-brand-dark">
-                            Langkah 2: Pilih Metode Pengambilan Pesanan *
-                        </div>
-                        <div class="flex gap-4">
-                            <label class="flex items-center space-x-2 cursor-pointer bg-white px-3 py-1.5 rounded-xl border">
-                                <input type="radio" name="tipePengambilan" value="Dine In" checked class="text-brand-teal focus:ring-brand-teal">
-                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-utensils mr-1"></i> Makan di Tempat (Dine In)</span>
-                            </label>
-                            <label class="flex items-center space-x-2 cursor-pointer bg-white px-3 py-1.5 rounded-xl border">
-                                <input type="radio" name="tipePengambilan" value="Take Away" class="text-brand-teal focus:ring-brand-teal">
-                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-bag-shopping mr-1 text-amber-600"></i> Dibungkus (Take Away)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- KERANJANG MULTI-MENU -->
-                    <div class="p-4 bg-slate-50 border rounded-2xl space-y-2">
-                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center justify-between">
-                            <span><i class="fa-solid fa-cart-shopping text-brand-teal mr-1"></i> Ringkasan Keranjang Pesanan</span>
-                            <span id="cartCountBadge" class="px-2 py-0.5 bg-brand-teal text-white rounded-full text-[10px]">0 Item</span>
-                        </h4>
-                        <div id="cartItemsContainer" class="text-xs text-slate-500 italic py-2">Belum ada menu yang dipilih. Klik item menu di bawah untuk menambah pesanan (bisa lebih dari 1 menu).</div>
-                    </div>
-
-                    <!-- 5 KATEGORI MENU BAZAR LENGKAP -->
-                    <div class="space-y-6">
-
-                        <!-- 1. COFFEE SERIES -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between border-b pb-1.5 border-teal-100">
-                                <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-mug-hot text-brand-teal"></i> 1. Coffee Series
-                                </h4>
-                                <span class="px-2.5 py-0.5 bg-teal-100 text-brand-dark font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                <div onclick="addToCart('Aren Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Aren Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Myco Kopi Susu', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Myco Kopi Susu</h5><p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Americano', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Americano</h5><p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Cappuchino', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Cappuchino</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso, powder kayu manis</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Pandan Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Pandan Caffe Latte</h5><p class="text-[10px] text-slate-500 mt-0.5">pandan, freshmilk, espresso</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span><span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2. MAKANAN UTAMA & PASTA -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between border-b pb-1.5 border-amber-100">
-                                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-utensils text-amber-600"></i> 2. Makanan Utama & Pasta
-                                </h4>
-                                <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[11px] rounded-md">Rp 37.000 / Porsi</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                <div onclick="addToCart('Spagetti Bolognese', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Spagetti Bolognese</h5><p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Spagetti Oglio Olio', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Spagetti Oglio Olio</h5><p class="text-[10px] text-slate-500 mt-0.5">chili flakes, bombai, smoke beef</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Mie Goreng Seafood', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Mie Goreng Seafood</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, sawi</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Nasi Pecel', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Pecel</h5><p class="text-[10px] text-slate-500 mt-0.5">bawang goreng, sayur, tahu & tempe</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Gado - Gado', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Gado - Gado</h5><p class="text-[10px] text-slate-500 mt-0.5">telur rebus, sayur lengkap, tahu & tempe</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Nasi Goreng Merah', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Goreng Merah</h5><p class="text-[10px] text-slate-500 mt-0.5">topping bakso, telur suir</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Nasi Goreng Myco', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Nasi Goreng Myco</h5><p class="text-[10px] text-slate-500 mt-0.5">telur mata sapi, ayam suir, kerupuk</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Soto Ayam', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Soto Ayam</h5><p class="text-[10px] text-slate-500 mt-0.5">telur rebus, ayam suir, tahu, toge</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Ayam Sambal Matah', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Ayam Sambal Matah</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, sambal matah</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Ayam Asam Manis', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Ayam Asam Manis</h5><p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, wijen</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span><span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 3. REGAL, MILK & JUICE -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between border-b pb-1.5 border-emerald-100">
-                                <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-glass-water text-emerald-600"></i> 3. Regal, Milk & Juice Series
-                                </h4>
-                                <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-900 font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                <div onclick="addToCart('Pandan Regal', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Pandan Regal</h5><p class="text-[10px] text-slate-500 mt-0.5">freshmilk mix, pandan, topping regal</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Juice Alpukat', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Alpukat</h5><p class="text-[10px] text-slate-500 mt-0.5">buah alpukat, freshmilk, skm</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Juice Mangga', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Mangga</h5><p class="text-[10px] text-slate-500 mt-0.5">buah mangga, mango powder, freshmilk</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Juice Buah Naga', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Juice Buah Naga</h5><p class="text-[10px] text-slate-500 mt-0.5">buah naga, vanila syrup, freshmilk</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-emerald-800 block">Rp 32.000</span><span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 4. TEA & MOCKTAIL -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between border-b pb-1.5 border-purple-100">
-                                <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-wine-glass text-purple-600"></i> 4. Tea & Mocktail Series
-                                </h4>
-                                <span class="px-2.5 py-0.5 bg-purple-100 text-purple-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                <div onclick="addToCart('Teh Jahe Madu', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Teh Jahe Madu</h5><p class="text-[10px] text-slate-500 mt-0.5">madu, jahe, sereh, teh</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Lemon Tea', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Lemon Tea</h5><p class="text-[10px] text-slate-500 mt-0.5">lemon, sparkling water, jeruk nipis</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Lychee Tea', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Lychee Tea</h5><p class="text-[10px] text-slate-500 mt-0.5">leci, sparkling water, buah leci</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('R & B Mocktail', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">R & B Mocktail</h5><p class="text-[10px] text-slate-500 mt-0.5">strawberry, bluelagoon, sunkist</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Ocean Blue', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Ocean Blue</h5><p class="text-[10px] text-slate-500 mt-0.5">bluelagoon, mint, sparkling water</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-purple-800 block">Rp 27.000</span><span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 5. DESSERT, ROTI & SNACK -->
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between border-b pb-1.5 border-rose-100">
-                                <h4 class="font-bold text-rose-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <i class="fa-solid fa-cookie-bite text-rose-600"></i> 5. Dessert, Roti & Snack
-                                </h4>
-                                <span class="px-2.5 py-0.5 bg-rose-100 text-rose-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                <div onclick="addToCart('Tahu Lada Garam', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Tahu Lada Garam</h5><p class="text-[10px] text-slate-500 mt-0.5">tahu dadu crispy, daun jeruk, cabai</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('3 in 1 (Sosis, Nugget, Kentang)', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">3 in 1 Snack</h5><p class="text-[10px] text-slate-500 mt-0.5">sosis, nugget, kentang balado</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Sanggara Belanda Coklat Kacang', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Sanggara Belanda Coklat Kacang</h5><p class="text-[10px] text-slate-500 mt-0.5">pisang, caramel, coklat kacang</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Roti Bakar Mix', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Roti Bakar Mix</h5><p class="text-[10px] text-slate-500 mt-0.5">coklat, keju parut, skm</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                                <div onclick="addToCart('Tahu Bakso', 27000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
-                                    <div><h5 class="font-bold text-slate-800 text-xs">Tahu Bakso</h5><p class="text-[10px] text-slate-500 mt-0.5">tahu isian bakso gurih</p></div>
-                                    <div class="text-right flex-shrink-0"><span class="text-xs font-extrabold text-rose-800 block">Rp 27.000</span><span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="flex justify-end pt-4 border-t border-slate-100">
-                        <button onclick="submitMultiBazarOrder()" id="btnSubmitBazar" class="px-6 py-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
-                            <i class="fa-solid fa-paper-plane"></i> Kirim & Simpan Pesanan Bazar
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- OVERVIEW PESANAN TERPISAH -->
-                <div class="pt-8 border-t border-slate-200 space-y-6">
-                    <div>
-                        <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-users text-brand-teal"></i> Log Pesanan Bazar Peserta PERMATA
-                        </h4>
-                        <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
-                                    <tr>
-                                        <th class="p-3">No</th>
-                                        <th class="p-3">Nama Pemesan (Peserta)</th>
-                                        <th class="p-3">Kecamatan</th>
-                                        <th class="p-3">Rincian Menu & Tipe</th>
-                                        <th class="p-3 text-center admin-only hidden header-bazar-aksi">Aksi Admin</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablePesertaBazar" class="divide-y divide-slate-100"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-store text-purple-600"></i> Log Pesanan Bazar Pembeli Umum (Non-Peserta)
-                        </h4>
-                        <div class="bg-white rounded-2xl shadow-sm border border-purple-200 overflow-hidden">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-purple-800 text-white uppercase text-[10px] tracking-wider">
-                                    <tr>
-                                        <th class="p-3">No</th>
-                                        <th class="p-3">Nama Pemesan (Umum)</th>
-                                        <th class="p-3">No. HP (Protected)</th>
-                                        <th class="p-3">Alamat</th>
-                                        <th class="p-3">Rincian Menu & Tipe</th>
-                                        <th class="p-3 text-center admin-only hidden header-bazar-aksi">Aksi Admin</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableUmumBazar" class="divide-y divide-slate-100"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 7. TAB PETUNJUK -->
-        <section id="tab-guide" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                        <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan System PERMATA & Bazar
-                    </h3>
-                    <p class="text-xs text-slate-500">Panduan lengkap penggunaan aplikasi bawaan.</p>
-                </div>
-            </div>
-        </section>
+        <!-- 7. TAB GUIDE -->
+        <section id="tab-guide" class="space-y-6 hidden"></section>
 
     </main>
 
-    <!-- MODAL CETAK & BARCODE MEJA REGISTRASI -->
+    <!-- MODAL CETAK & BARCODE MEJA -->
     <div id="printModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg border border-slate-100 space-y-4">
-            <h3 class="font-bold text-slate-800 text-base text-center">Pusat Cetak Dokumen & Barcode Meja</h3>
+            <h3 class="font-bold text-slate-800 text-base text-center">Pusat Barcode Meja Registrasi</h3>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <button onclick="exportPDFPesertaDanKonsumsi()" class="py-3 px-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> PDF Data Peserta
-                </button>
-                <button onclick="exportPDFBazarGabung()" class="py-3 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> PDF Rekap Bazar
-                </button>
-            </div>
-
-            <!-- CONTAINER BARCODE / QR CODE UNTUK MEJA -->
             <div class="p-5 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-3 shadow-inner">
-                <h4 class="font-bold text-emerald-900 text-sm uppercase tracking-wider">Barcode Meja Registrasi (Absensi Kolom L)</h4>
+                <h4 class="font-bold text-emerald-900 text-sm uppercase tracking-wider">Scan Barcode Khusus Absensi</h4>
                 <div id="qrcodeContainer" class="bg-white p-4 inline-block rounded-2xl shadow-md border border-emerald-200"></div>
-                <p class="text-[11px] text-emerald-800 font-medium leading-relaxed">Silakan cetak atau simpan QR Code ini untuk ditempelkan pada meja registrasi agar peserta mudah melakukan scan barcode absensi.</p>
+                <p class="text-[11px] text-emerald-800 font-medium leading-relaxed">Scan QR Code ini untuk langsung membuka halaman absen bersih (tanpa menu dashboard).</p>
                 <button onclick="downloadBarcodeImage()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow transition">
                     <i class="fa-solid fa-download mr-1"></i> Save Barcode Meja (PNG)
                 </button>
@@ -817,13 +264,6 @@
     <!-- MODAL ADMIN -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm border border-slate-100">
-            <div class="text-center mb-4">
-                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <i class="fa-solid fa-user-shield text-xl"></i>
-                </div>
-                <h3 class="font-bold text-slate-800 text-base">Verifikasi Akses Admin</h3>
-                <p class="text-xs text-slate-500">Masukkan PIN Admin terotorisasi.</p>
-            </div>
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <input type="password" id="adminPinInput" placeholder="Masukkan PIN Admin" required class="w-full px-4 py-3 text-center text-lg tracking-widest border rounded-xl">
                 <div class="flex gap-2">
@@ -834,52 +274,28 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT SYSTEM LOGIC & BARCODE ABSENSI -->
+    <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNNkJOZG_z8B7xNWmvkhk6O2uu4daDM0J2T5y2CtAIEb0sviIBAvMz0SMy85tZ4b7G/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3Z1lyq_pjNRi8Glo44_NVMSh6qkAGEDHLBU1bysFKVui5VN8bU2jqNc7T_DMpJ0t8/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "127";
-        const CONTACT_PHONE_RAW = "+62 852-9980-2002";
+        const ADMIN_PIN_DEFAULT = "10";
         
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
-        let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
-        let currentKategoriPembeli = "Peserta";
-        let activeBuyerInfo = null;
-        let cartList = [];
-        let isSubmittingBazar = false;
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderTable();
-            initCharts();
+            // Cek apakah diakses dari scan barcode (URL mengandung #scan atau langsung mode peserta)
+            if (window.location.hash === '#scan' || window.location.hash === '#absensi') {
+                // Sembunyikan sidebar dan header agar peserta tidak bingung melihat menu lain
+                document.getElementById('appSidebar').style.display = 'none';
+                document.getElementById('appHeader').style.display = 'none';
+            }
+
+            switchTab('absensi');
             populateDropdowns();
-            renderSeparatedBazarTables();
-            updateContactDisplay();
             syncDataFromCloud();
             generateQRCode();
         });
-
-        function updateContactDisplay() {
-            const el = document.getElementById('contactPhoneDisplay');
-            if(el) {
-                if(IS_ADMIN) {
-                    el.innerText = CONTACT_PHONE_RAW;
-                    el.classList.remove('masked-text');
-                } else {
-                    el.innerText = "•••••••••••••";
-                    el.classList.add('masked-text');
-                }
-            }
-        }
-
-        function copyContactNumber() {
-            if(!IS_ADMIN) {
-                alert("Nomor kontak dilindungi sistem (Protected Mode). Silakan Login Admin untuk membuka nomor selengkapnya.");
-                return;
-            }
-            navigator.clipboard.writeText(CONTACT_PHONE_RAW);
-            alert("Nomor kontak Ummu Aliyah (+62 852-9980-2002) berhasil disalin!");
-        }
 
         function switchTab(tabId) {
             ['dashboard', 'masterlist', 'entry', 'absensi', 'konsumsi', 'bazar', 'guide'].forEach(id => {
@@ -899,30 +315,24 @@
                 activeNav.classList.add('bg-brand-teal', 'text-white', 'shadow-md');
                 activeNav.classList.remove('text-brand-cream/80');
             }
-
-            if(tabId === 'dashboard') updateCharts();
-            if(tabId === 'bazar' || tabId === 'absensi') populateDropdowns();
+            if(tabId === 'absensi') populateDropdowns();
         }
 
         function populateDropdowns() {
-            const selBazar = document.getElementById('selectPesertaKonsumsi');
             const selAbsen = document.getElementById('absensiSelectNama');
-
-            [selBazar, selAbsen].forEach(sel => {
-                if(sel) {
-                    const currentVal = sel.value;
-                    sel.innerHTML = '<option value="">-- Cari Nama Peserta PERMATA --</option>';
-                    participantsData.forEach(p => {
-                        const opt = document.createElement('option');
-                        opt.value = p.namaLengkap;
-                        opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
-                        opt.setAttribute('data-marhala', p.marhala || '-');
-                        opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
-                        sel.appendChild(opt);
-                    });
-                    sel.value = currentVal;
-                }
-            });
+            if(selAbsen) {
+                const currentVal = selAbsen.value;
+                selAbsen.innerHTML = '<option value="">-- Cari Nama Peserta PERMATA --</option>';
+                participantsData.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.namaLengkap;
+                    opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
+                    opt.setAttribute('data-marhala', p.marhala || '-');
+                    opt.textContent = `${p.namaLengkap} - Kec. ${p.kecamatan || 'Palu Selatan'}`;
+                    selAbsen.appendChild(opt);
+                });
+                selAbsen.value = currentVal;
+            }
         }
 
         function previewDataAbsensi() {
@@ -951,6 +361,7 @@
             const namaPeserta = sel.value;
             const waktuHadir = new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' });
 
+            // Simpan status hadir ke local data
             const participant = participantsData.find(x => x.namaLengkap === namaPeserta);
             if(participant) {
                 participant.waktuHadir = waktuHadir;
@@ -959,7 +370,7 @@
 
             const btn = document.getElementById('btnSubmitAbsen');
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan ke Kolom L...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Kehadiran...`;
 
             const payload = {
                 action: 'hadir',
@@ -978,389 +389,13 @@
                 } catch(e) { console.log(e); }
             }
 
-            alert(`Alhamdulillah, Kehadiran atas nama ${namaPeserta} berhasil dicatat ke Kolom L Spreadsheet pada ${waktuHadir}!`);
+            alert(`Alhamdulillah, Kehadiran atas nama ${namaPeserta} berhasil disimpan & tersinkronkan ke Spreadsheet!`);
             btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran (Simpan ke Kolom L)`;
+            btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran (Simpan ke Spreadsheet)`;
             checkbox.checked = false;
             sel.value = "";
             document.getElementById('previewCardAbsensi').classList.add('hidden');
-            renderTable();
-            updateQuickStats();
-        }
-
-        function switchKategoriPembeli(kat) {
-            currentKategoriPembeli = kat;
-            resetIdentitas();
-            if (kat === 'Peserta') {
-                document.getElementById('boxIdentitasPeserta').classList.remove('hidden');
-                document.getElementById('boxIdentitasUmum').classList.add('hidden');
-            } else {
-                document.getElementById('boxIdentitasPeserta').classList.add('hidden');
-                document.getElementById('boxIdentitasUmum').classList.remove('hidden');
-            }
-        }
-
-        function konfirmasiIdentitasPeserta() {
-            const sel = document.getElementById('selectPesertaKonsumsi');
-            if(!sel.value) { alert("Pilih nama peserta Anda terlebih dahulu!"); return; }
-            activeBuyerInfo = {
-                namaLengkap: sel.value,
-                kecamatan: sel.options[sel.selectedIndex].getAttribute('data-kecamatan'),
-                kategori: "Peserta"
-            };
-            lockIdentitasState();
-        }
-
-        function konfirmasiIdentitasUmum() {
-            const nama = document.getElementById('umumNama').value.trim();
-            const hp = document.getElementById('umumHp').value.trim();
-            const alamat = document.getElementById('umumAlamat').value.trim();
-            if(!nama || !hp || !alamat) { alert("Lengkapi Nama, No HP, dan Alamat Anda!"); return; }
-            activeBuyerInfo = {
-                namaLengkap: `${nama} (Umum)`,
-                noHp: hp,
-                alamat: alamat,
-                kategori: "Umum"
-            };
-            lockIdentitasState();
-        }
-
-        function lockIdentitasState() {
-            document.getElementById('statusIdentitasTerkunci').classList.remove('hidden');
-            document.getElementById('textIdentitasNama').innerText = activeBuyerInfo.namaLengkap;
-            document.getElementById('sectionOrderContent').classList.remove('opacity-40', 'pointer-events-none');
-        }
-
-        function resetIdentitas() {
-            activeBuyerInfo = null;
-            cartList = [];
-            updateCartDisplay();
-            document.getElementById('statusIdentitasTerkunci').classList.add('hidden');
-            document.getElementById('sectionOrderContent').classList.add('opacity-40', 'pointer-events-none');
-        }
-
-        function addToCart(menuName, price) {
-            if(!activeBuyerInfo) { alert("Mohon lock identitas Anda terlebih dahulu sebelum memilih menu!"); return; }
-            const existing = cartList.find(x => x.name === menuName);
-            if(existing) { existing.qty += 1; }
-            else { cartList.push({ name: menuName, price: price, qty: 1 }); }
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            const container = document.getElementById('cartItemsContainer');
-            const badge = document.getElementById('cartCountBadge');
-            if(cartList.length === 0) {
-                container.innerHTML = '<span class="italic text-slate-400">Belum ada menu yang dipilih. Klik item menu di bawah untuk menambah pesanan.</span>';
-                badge.innerText = '0 Item';
-                return;
-            }
-            let totalQty = 0;
-            let totalHarga = 0;
-            let html = '<ul class="space-y-1 font-semibold text-slate-700">';
-            cartList.forEach(item => {
-                totalQty += item.qty;
-                totalHarga += (item.price * item.qty);
-                html += `<li class="flex justify-between items-center bg-white p-2 rounded-lg border">
-                    <span>${item.name} x${item.qty}</span>
-                    <span class="text-brand-dark font-bold">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
-                </li>`;
-            });
-            html += `</ul><div class="pt-2 flex justify-between font-bold text-slate-800 border-t mt-2"><span>Total Tagihan:</span><span class="text-brand-dark">Rp ${totalHarga.toLocaleString('id-ID')}</span></div>`;
-            container.innerHTML = html;
-            badge.innerText = `${totalQty} Item`;
-        }
-
-        async function submitMultiBazarOrder() {
-            if (isSubmittingBazar) return;
-            if(!activeBuyerInfo) { alert("Lock identitas Anda terlebih dahulu!"); return; }
-            if(cartList.length === 0) { alert("Pilih minimal 1 menu dari katalog bazar."); return; }
-
-            isSubmittingBazar = true;
-            const btnSubmit = document.getElementById('btnSubmitBazar');
-            btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Pesanan...`;
-
-            const tipePengambilan = document.querySelector('input[name="tipePengambilan"]:checked').value;
-            const compiledMenu = cartList.map(x => `${x.name} x${x.qty}`).join(", ");
-
-            const payload = {
-                action: 'submitKonsumsi',
-                kategoriPembeli: activeBuyerInfo.kategori,
-                namaLengkap: activeBuyerInfo.namaLengkap,
-                kecamatan: activeBuyerInfo.kecamatan || "Umum",
-                alamat: activeBuyerInfo.alamat || "-",
-                nomorHp: activeBuyerInfo.noHp || "-",
-                menu: `${compiledMenu} [${tipePengambilan}]`,
-                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
-            };
-
-            konsumsiData.push(payload);
-            localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-
-            if(SCRIPT_URL) {
-                try {
-                    await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                } catch(e) { console.log(e); }
-            }
-
-            alert(`Pesanan Bazar (${tipePengambilan}) Berhasil Disimpan & Disinkronkan ke Spreadsheet!`);
-            resetIdentitas();
-            renderSeparatedBazarTables();
-            updateQuickStats();
-
-            isSubmittingBazar = false;
-            btnSubmit.disabled = false;
-            btnSubmit.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Kirim & Simpan Pesanan Bazar`;
-        }
-
-        function deleteBazarOrder(index, type) {
-            if(!IS_ADMIN) { alert("Akses ditolak! Hanya Admin yang dapat menghapus pesanan bazar."); return; }
-            if(confirm("Yakin ingin menghapus pesanan bazar ini? Data akan terhapus dari aplikasi dan sinkronisasi Spreadsheet.")) {
-                let actualIndex = -1;
-                let count = 0;
-                konsumsiData.forEach((item, i) => {
-                    const isUmum = item.kategori === 'Umum' || item.namaLengkap.includes('(Umum)');
-                    if((type === 'umum' && isUmum) || (type === 'peserta' && !isUmum)) {
-                        if(count === index) actualIndex = i;
-                        count++;
-                    }
-                });
-
-                if(actualIndex !== -1) {
-                    const removed = konsumsiData.splice(actualIndex, 1)[0];
-                    localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-                    
-                    if(SCRIPT_URL) {
-                        fetch(SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'deleteBazar', namaLengkap: removed.namaLengkap, timestamp: removed.timestamp })
-                        }).catch(e => console.log(e));
-                    }
-
-                    renderSeparatedBazarTables();
-                    updateQuickStats();
-                    alert("Pesanan berhasil dihapus dari aplikasi & Spreadsheet.");
-                }
-            }
-        }
-
-        function renderSeparatedBazarTables() {
-            const tPeserta = document.getElementById('tablePesertaBazar');
-            const tUmum = document.getElementById('tableUmumBazar');
-            const tUtama = document.getElementById('tableKonsumsiUtamaBody');
-
-            if(tPeserta) tPeserta.innerHTML = "";
-            if(tUmum) tUmum.innerHTML = "";
-            if(tUtama) tUtama.innerHTML = "";
-
-            let idxP = 0, idxU = 0, idxUt = 1;
-
-            participantsData.forEach(p => {
-                if(tUtama) {
-                    tUtama.innerHTML += `
-                        <tr class="hover:bg-teal-50/50">
-                            <td class="p-3">${idxUt++}</td>
-                            <td class="p-3 font-bold">${escapeHtml(p.namaLengkap)}</td>
-                            <td class="p-3">${escapeHtml(p.kecamatan || 'Palu Selatan')}</td>
-                            <td class="p-3 font-bold text-rose-600">Closed Order</td>
-                        </tr>
-                    `;
-                }
-            });
-
-            konsumsiData.forEach((item, index) => {
-                const isUmum = item.kategori === 'Umum' || item.namaLengkap.includes('(Umum)');
-                const adminActionHTML = IS_ADMIN ? `<button onclick="deleteBazarOrder(${isUmum ? idxU : idxP}, '${isUmum ? 'umum' : 'peserta'}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i> Hapus</button>` : '';
-
-                if(isUmum) {
-                    tUmum.innerHTML += `
-                        <tr class="hover:bg-purple-50/50">
-                            <td class="p-3">${idxU + 1}</td>
-                            <td class="p-3 font-bold text-slate-900">${escapeHtml(item.namaLengkap)}</td>
-                            <td class="p-3 ${IS_ADMIN ? 'font-mono' : 'masked-text'}">${maskPrivateInfo(item.nomorHp || '-')}</td>
-                            <td class="p-3">${escapeHtml(item.alamat || '-')}</td>
-                            <td class="p-3 font-bold text-purple-800">${escapeHtml(item.menu)}</td>
-                            <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">${adminActionHTML}</td>
-                        </tr>
-                    `;
-                    idxU++;
-                } else {
-                    tPeserta.innerHTML += `
-                        <tr class="hover:bg-teal-50/50">
-                            <td class="p-3">${idxP + 1}</td>
-                            <td class="p-3 font-bold text-slate-900">${escapeHtml(item.namaLengkap)}</td>
-                            <td class="p-3">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
-                            <td class="p-3 font-bold text-brand-dark">${escapeHtml(item.menu)}</td>
-                            <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">${adminActionHTML}</td>
-                        </tr>
-                    `;
-                    idxP++;
-                }
-            });
-
-            document.querySelectorAll('.header-bazar-aksi').forEach(el => {
-                if(IS_ADMIN) el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            });
-        }
-
-        function updateQuickStats() {
-            const totalPeserta = participantsData.length;
-            const hadircount = participantsData.filter(x => x.waktuHadir).length;
-            const bazarPesertaCount = konsumsiData.filter(x => !(x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)'))).length;
-            const bazarUmumCount = konsumsiData.filter(x => x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)')).length;
-
-            document.getElementById('statTotal').innerText = totalPeserta;
-            document.getElementById('statHadir').innerText = hadircount;
-            document.getElementById('statBazarPeserta').innerText = bazarPesertaCount;
-            document.getElementById('statBazarUmum').innerText = bazarUmumCount;
-
-            document.getElementById('quickTotal').innerText = totalPeserta;
-            document.getElementById('quickHadir').innerText = hadircount;
-            document.getElementById('quickBazarPeserta').innerText = bazarPesertaCount;
-            document.getElementById('quickBazarUmum').innerText = bazarUmumCount;
-        }
-
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnSubmitBiodata');
-            btn.disabled = true;
-
-            const namaBaru = document.getElementById('inputNamaLengkap').value;
-            const pekerjaanVal = document.getElementById('inputPekerjaan').value;
-            const pekerjaanFinal = pekerjaanVal === 'Lainnya' ? document.getElementById('inputPekerjaanLainnya').value : pekerjaanVal;
-
-            const newRecord = {
-                action: 'create',
-                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' }),
-                namaLengkap: namaBaru,
-                namaPanggilan: document.getElementById('inputNamaPanggilan').value,
-                kecamatan: document.getElementById('inputKecamatan').value,
-                alamat: document.getElementById('inputAlamat').value,
-                nomorHp: document.getElementById('inputNomorHp').value,
-                marhala: document.getElementById('inputMarhala').value,
-                pekerjaan: pekerjaanFinal,
-                waktuHadir: ""
-            };
-
-            participantsData.push(newRecord);
-            localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-
-            if (SCRIPT_URL) {
-                try {
-                    await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newRecord) });
-                } catch(err) { console.log(err); }
-            }
-
-            alert("Data biodata peserta berhasil disimpan & disinkronkan!");
-            document.getElementById('entryForm').reset();
-            btn.disabled = false;
-            renderTable();
-            populateDropdowns();
-            updateQuickStats();
-            switchTab('masterlist');
-        }
-
-        function deleteParticipant(namaLengkap) {
-            if(!IS_ADMIN) { alert("Akses ditolak! Hanya Admin yang dapat menghapus data peserta."); return; }
-            if(confirm(`Yakin ingin menghapus peserta ${namaLengkap}? Data akan terhapus dari aplikasi dan Spreadsheet.`)) {
-                participantsData = participantsData.filter(p => p.namaLengkap !== namaLengkap);
-                localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-
-                if(SCRIPT_URL) {
-                    fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'delete', namaLengkap: namaLengkap })
-                    }).catch(e => console.log(e));
-                }
-
-                renderTable();
-                populateDropdowns();
-                updateQuickStats();
-                alert("Peserta berhasil dihapus dari sistem & Spreadsheet.");
-            }
-        }
-
-        function maskPrivateInfo(text) { if (IS_ADMIN) return text; return '••••••••'; }
-
-        function renderTable() {
-            const tbody = document.getElementById('participantTable');
-            const headerAksi = document.getElementById('headerAksiPeserta');
-            if(!tbody) return;
-
-            if(IS_ADMIN) {
-                if(headerAksi) headerAksi.classList.remove('hidden');
-            } else {
-                if(headerAksi) headerAksi.classList.add('hidden');
-            }
-
-            tbody.innerHTML = '';
-            participantsData.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
-                tr.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-400">${index + 1}</td>
-                    <td class="p-4 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
-                    <td class="p-4 font-medium text-slate-600">${escapeHtml(item.namaPanggilan)}</td>
-                    <td class="p-4">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
-                    <td class="p-4">${escapeHtml(item.marhala)}</td>
-                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.nomorHp)}</td>
-                    <td class="p-4 font-bold ${item.waktuHadir ? 'text-emerald-600' : 'text-slate-400'}">${item.waktuHadir || 'Belum Hadir'}</td>
-                    <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i> Hapus</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            updateQuickStats();
-        }
-
-        function escapeHtml(text) { return String(text || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m])); }
-
-        let chartM, chartK;
-        function initCharts() {
-            const ctxM = document.getElementById('marhalaChart');
-            if(ctxM) {
-                chartM = new Chart(ctxM.getContext('2d'), {
-                    type: 'bar',
-                    data: { labels: ['Takwin 1', 'Takwin 2', 'Tanfiz (Khusus)'], datasets: [{ label: 'Peserta', data: [0, 0, 0], backgroundColor: ['#24B1B1', '#007979', '#9333EA'] }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            const ctxK = document.getElementById('kecamatanChart');
-            if(ctxK) {
-                chartK = new Chart(ctxK.getContext('2d'), {
-                    type: 'doughnut',
-                    data: { labels: ['Palu Selatan', 'Palu Timur'], datasets: [{ data: [0, 0], backgroundColor: ['#24B1B1', '#6366F1'] }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            updateCharts();
-        }
-
-        function updateCharts() {
-            if(!chartM || !chartK) return;
-            chartM.data.datasets[0].data = [
-                participantsData.filter(x => x.marhala === 'Takwin 1').length,
-                participantsData.filter(x => x.marhala === 'Takwin 2').length,
-                participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length
-            ];
-            chartM.update();
-            chartK.data.datasets[0].data = [
-                participantsData.filter(x => x.kecamatan === 'Palu Selatan').length,
-                participantsData.filter(x => x.kecamatan === 'Palu Timur').length
-            ];
-            chartK.update();
+            syncDataFromCloud();
         }
 
         function syncDataFromCloud() {
@@ -1371,9 +406,7 @@
                     if(Array.isArray(data)) {
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-                        renderTable();
                         populateDropdowns();
-                        updateCharts();
                     }
                 }).catch(err => console.log(err));
         }
@@ -1382,7 +415,8 @@
             const container = document.getElementById('qrcodeContainer');
             if(container) {
                 container.innerHTML = "";
-                const targetUrl = window.location.href.split('#')[0] + "#absensi";
+                // URL khusus untuk scan barcode yang langsung mengarah ke mode bersih absen (#scan)
+                const targetUrl = window.location.href.split('#')[0] + "#scan";
                 new QRCode(container, {
                     text: targetUrl,
                     width: 140,
@@ -1402,113 +436,11 @@
                 link.href = img.src;
                 link.click();
             } else {
-                alert("QR Code belum siap, silakan buka ulang modal.");
+                alert("QR Code belum siap.");
             }
         }
 
-        function exportPDFPesertaDanKonsumsi() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFontSize(16);
-            doc.setTextColor(0, 121, 121);
-            doc.text("REKAP DATA SELURUH PESERTA PERMATA & KEHADIRAN", 14, 20);
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 26);
-
-            const pesertaRows = participantsData.map((p, idx) => [
-                idx + 1,
-                p.namaLengkap || '-',
-                p.namaPanggilan || '-',
-                p.kecamatan || 'Palu Selatan',
-                p.marhala || '-',
-                p.waktuHadir || 'Belum Hadir'
-            ]);
-
-            doc.autoTable({
-                startY: 32,
-                head: [['No', 'Nama Lengkap', 'Panggilan', 'Kecamatan', 'Marhala', 'Waktu Hadir (Kolom L)']],
-                body: pesertaRows,
-                theme: 'grid',
-                headStyles: { fillColor: [0, 121, 121] },
-                styles: { fontSize: 8 },
-                didDrawPage: (data) => {
-                    doc.setFontSize(8);
-                    doc.setTextColor(150);
-                    doc.text(`Halaman ${doc.internal.getNumberOfPages()}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
-                }
-            });
-
-            const finalY = doc.lastAutoTable.finalY || 40;
-            const totalHadir = participantsData.filter(x => x.waktuHadir).length;
-            doc.setFontSize(11);
-            doc.setTextColor(0, 0, 0);
-            doc.text(`Total Keseluruhan Peserta: ${participantsData.length} Orang | Hadir: ${totalHadir} Orang`, 14, finalY + 10);
-
-            doc.save("rekap-peserta-dan-kehadiran-permata.pdf");
-            closePrintModal();
-        }
-
-        function exportPDFBazarGabung() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFontSize(16);
-            doc.setTextColor(180, 83, 9);
-            doc.text("REKAPITULASI PEMESAN BAZAR MYCO SPACE", 14, 20);
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text(`Gabungan Pemesan Peserta & Pembeli Umum • ${new Date().toLocaleString('id-ID')}`, 14, 26);
-
-            const bazarRows = [];
-            let no = 1;
-
-            konsumsiData.forEach(item => {
-                const isUmum = item.kategori === 'Umum' || item.namaLengkap.includes('(Umum)');
-                bazarRows.push([
-                    no++,
-                    item.namaLengkap,
-                    isUmum ? 'Pembeli Umum' : 'Peserta PERMATA',
-                    item.kecamatan || '-',
-                    item.menu
-                ]);
-            });
-
-            doc.autoTable({
-                startY: 32,
-                head: [['No', 'Nama Pemesan', 'Kategori Pemesan', 'Kecamatan / Lokasi', 'Rincian Menu & Tipe']],
-                body: bazarRows,
-                theme: 'grid',
-                headStyles: { fillColor: [180, 83, 9] },
-                styles: { fontSize: 8 },
-                didDrawPage: (data) => {
-                    doc.setFontSize(8);
-                    doc.setTextColor(150);
-                    doc.text(`Halaman ${doc.internal.getNumberOfPages()}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
-                }
-            });
-
-            const finalY = doc.lastAutoTable.finalY || 40;
-            const totalBazar = konsumsiData.length;
-            const pesertaBazar = konsumsiData.filter(x => !(x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)'))).length;
-            const umumBazar = totalBazar - pesertaBazar;
-
-            doc.setFontSize(11);
-            doc.setTextColor(0, 0, 0);
-            doc.text("REKAPITULASI STATISTIK BAZAR:", 14, finalY + 10);
-            doc.setFontSize(10);
-            doc.text(`- Total Transaksi Pemesan Bazar: ${totalBazar} Pesanan`, 14, finalY + 16);
-            doc.text(`- Pemesan dari Peserta PERMATA: ${pesertaBazar} Orang`, 14, finalY + 22);
-            doc.text(`- Pemesan dari Pembeli Umum: ${umumBazar} Orang`, 14, finalY + 28);
-
-            doc.save("rekap-pemesan-bazar-myco-space.pdf");
-            closePrintModal();
-        }
-
-        function openAdminModal() { if(!IS_ADMIN) document.getElementById('adminModal').classList.remove('hidden'); }
+        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
         
         function handleAdminLogin(e) {
@@ -1516,31 +448,21 @@
             if (document.getElementById('adminPinInput').value === ADMIN_PIN_DEFAULT) {
                 IS_ADMIN = true;
                 closeAdminModal();
-                document.getElementById('roleBadge').innerHTML = `<i class="fa-solid fa-shield-halved text-[9px] mr-1"></i> Master Admin`;
-                document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                document.getElementById('adminNotice').classList.remove('hidden');
-                updateContactDisplay();
-                renderTable();
-                renderSeparatedBazarTables();
-                alert("Login Master Admin Berhasil!");
+                // Jika login admin dari link scan, buka kembali sidebar
+                document.getElementById('appSidebar').style.display = 'flex';
+                document.getElementById('appHeader').style.display = 'flex';
+                alert("Login Admin Berhasil! Menu lengkap dibuka.");
             } else { alert("PIN Salah!"); }
         }
 
         function logoutAdmin() {
             IS_ADMIN = false;
-            document.getElementById('roleBadge').innerHTML = `<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)`;
-            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
-            document.getElementById('adminNotice').classList.add('hidden');
-            updateContactDisplay();
-            renderTable();
-            renderSeparatedBazarTables();
-            alert("Berhasil keluar dari mode Admin.");
+            document.getElementById('appSidebar').style.display = 'none';
+            document.getElementById('appHeader').style.display = 'none';
+            alert("Keluar dari Mode Admin.");
         }
 
-        function openPrintModal() { 
-            document.getElementById('printModal').classList.remove('hidden'); 
-            generateQRCode();
-        }
+        function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); generateQRCode(); }
         function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
     </script>
 </body>

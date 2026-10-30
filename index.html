@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERMATA MWC - Dashboard System</title>
+    <title>PERMATA MWC - Dashboard & Bazar System</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -34,39 +34,15 @@
         }
     </script>
     <style>
-        .masked-text {
-            letter-spacing: 2px;
-            font-family: monospace;
-            color: #9CA3AF;
-        }
-        .precise-logo-contain {
-            object-fit: contain;
-            object-position: center;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FFF0E4;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #24B1B1;
-            border-radius: 4px;
-        }
+        .masked-text { letter-spacing: 2px; font-family: monospace; color: #9CA3AF; }
+        .precise-logo-contain { object-fit: contain; object-position: center; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #FFF0E4; }
+        ::-webkit-scrollbar-thumb { background: #24B1B1; border-radius: 4px; }
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            #printArea, #printArea * {
-                visibility: visible;
-            }
-            #printArea {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; }
         }
     </style>
 </head>
@@ -111,8 +87,8 @@
                     <span>Form Pendaftaran</span>
                 </button>
                 <button onclick="switchTab('konsumsi')" id="nav-konsumsi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
-                    <i class="fa-solid fa-utensils w-4 text-center"></i>
-                    <span>Pilihan Konsumsi</span>
+                    <i class="fa-solid fa-store w-4 text-center text-amber-300"></i>
+                    <span>Menu Bazar PERMATA</span>
                 </button>
                 <button onclick="switchTab('guide')" id="nav-guide" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-amber-200 hover:bg-amber-900/30">
                     <i class="fa-solid fa-circle-question w-4 text-center text-amber-400"></i>
@@ -164,7 +140,7 @@
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
-                    <p class="text-xs text-brand-cream/80">Real-time summary & konsumsi • MWC Palu Selatan & Timur</p>
+                    <p class="text-xs text-brand-cream/80">Real-time summary & Bazar PERMATA • MWC Palu Selatan & Timur</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -197,32 +173,26 @@
                 <div class="bg-brand-dark text-white p-4 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-brand-cream/80 uppercase">Total Peserta</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTotal">0</h3>
-                    <p class="text-[10px] text-teal-200/60">Overall records</p>
                 </div>
                 <div class="bg-emerald-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-emerald-100 uppercase">Takwin 1</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTakwin1">0</h3>
-                    <p class="text-[10px] text-emerald-100/70">Marhala Takwin 1</p>
                 </div>
                 <div class="bg-amber-500 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-amber-100 uppercase">Takwin 2</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTakwin2">0</h3>
-                    <p class="text-[10px] text-amber-100/70">Marhala Takwin 2</p>
                 </div>
                 <div class="bg-purple-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-purple-100 uppercase">Tanfiz (Khusus)</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTanfiz">0</h3>
-                    <p class="text-[10px] text-purple-100/70">Marhala Tanfiz</p>
                 </div>
                 <div class="bg-teal-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-teal-100 uppercase">Palu Selatan</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statPaluSelatan">0</h3>
-                    <p class="text-[10px] text-teal-100/70">Kecamatan Palu Selatan</p>
                 </div>
                 <div class="bg-indigo-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-indigo-100 uppercase">Palu Timur</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statPaluTimur">0</h3>
-                    <p class="text-[10px] text-indigo-100/70">Kecamatan Palu Timur</p>
                 </div>
             </div>
 
@@ -232,48 +202,13 @@
                         <h4 class="font-bold text-brand-dark text-sm">Marhala Overview</h4>
                         <span class="text-xs text-slate-400 font-mono" id="marhalaRatio">0% / 0% / 0%</span>
                     </div>
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-xs font-semibold mb-1">
-                                <span class="text-slate-700">Takwin 1</span>
-                                <span class="text-brand-dark font-bold" id="barTextTakwin1">0 (0%)</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
-                                <div id="barTakwin1" class="bg-brand-teal h-full transition-all duration-500" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-semibold mb-1">
-                                <span class="text-slate-700">Takwin 2</span>
-                                <span class="text-brand-dark font-bold" id="barTextTakwin2">0 (0%)</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
-                                <div id="barTakwin2" class="bg-brand-dark h-full transition-all duration-500" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-semibold mb-1">
-                                <span class="text-slate-700">Tanfiz (Khusus)</span>
-                                <span class="text-brand-dark font-bold" id="barTextTanfiz">0 (0%)</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
-                                <div id="barTanfiz" class="bg-purple-600 h-full transition-all duration-500" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-6 h-48">
-                        <canvas id="marhalaChart"></canvas>
-                    </div>
+                    <div class="h-48"><canvas id="marhalaChart"></canvas></div>
                 </div>
-
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100">
                     <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
                         <h4 class="font-bold text-brand-dark text-sm">Distribusi Kecamatan</h4>
-                        <span class="text-xs text-slate-400 font-mono" id="kecamatanCount">2 Wilayah</span>
                     </div>
-                    <div class="h-64">
-                        <canvas id="kecamatanChart"></canvas>
-                    </div>
+                    <div class="h-64"><canvas id="kecamatanChart"></canvas></div>
                 </div>
             </div>
         </section>
@@ -286,12 +221,12 @@
                     <input type="text" id="searchInput" oninput="renderTable()" placeholder="Cari nama lengkap / panggilan..." class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-brand-teal">
                 </div>
                 <div class="flex gap-2 w-full md:w-auto">
-                    <select id="filterKecamatan" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none focus:border-brand-teal">
+                    <select id="filterKecamatan" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none">
                         <option value="">Semua Kecamatan</option>
                         <option value="Palu Selatan">Palu Selatan</option>
                         <option value="Palu Timur">Palu Timur</option>
                     </select>
-                    <select id="filterMarhala" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none focus:border-brand-teal">
+                    <select id="filterMarhala" onchange="renderTable()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-white focus:outline-none">
                         <option value="">Semua Marhala</option>
                         <option value="Takwin 1">Takwin 1</option>
                         <option value="Takwin 2">Takwin 2</option>
@@ -310,20 +245,14 @@
                                 <th class="p-4">Nama Panggilan</th>
                                 <th class="p-4">Kecamatan</th>
                                 <th class="p-4">Marhala</th>
-                                <th class="p-4">No. HP (WhatsApp)</th>
-                                <th class="p-4">Alamat Domisili</th>
+                                <th class="p-4">No. HP</th>
+                                <th class="p-4">Alamat</th>
                                 <th class="p-4">Pekerjaan</th>
                                 <th class="p-4 text-center admin-only hidden" id="headerAksiPeserta">Aksi Admin</th>
                             </tr>
                         </thead>
-                        <tbody id="participantTable" class="divide-y divide-slate-100">
-                            <!-- Dynamic Table Rows -->
-                        </tbody>
+                        <tbody id="participantTable" class="divide-y divide-slate-100"></tbody>
                     </table>
-                </div>
-                <div id="emptyState" class="hidden p-8 text-center text-slate-400 text-xs">
-                    <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300"></i>
-                    <p>Belum ada data peserta yang terdaftar.</p>
                 </div>
             </div>
         </section>
@@ -333,7 +262,7 @@
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-3xl mx-auto">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-lg font-bold text-brand-dark">Formulir Biodata Peserta PERMATA</h3>
-                    <p class="text-xs text-slate-500">Lengkapi formulir di bawah ini untuk menambahkan data peserta baru ke sistem.</p>
+                    <p class="text-xs text-slate-500">Lengkapi formulir di bawah ini. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</p>
                 </div>
                 
                 <form id="entryForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
@@ -350,16 +279,16 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kecamatan (Dropdown) *</label>
-                            <select id="inputKecamatan" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kecamatan *</label>
+                            <select id="inputKecamatan" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
                                 <option value="">-- Pilih Kecamatan --</option>
                                 <option value="Palu Selatan">Palu Selatan</option>
                                 <option value="Palu Timur">Palu Timur</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Marhala (Dropdown) *</label>
-                            <select id="inputMarhala" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Marhala *</label>
+                            <select id="inputMarhala" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
                                 <option value="">-- Pilih Marhala --</option>
                                 <option value="Takwin 1">Takwin 1</option>
                                 <option value="Takwin 2">Takwin 2</option>
@@ -371,11 +300,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor HP / WhatsApp *</label>
-                            <input type="tel" id="inputNomorHp" required placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal">
+                            <input type="tel" id="inputNomorHp" required placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pekerjaan (Dropdown) *</label>
-                            <select id="inputPekerjaan" onchange="togglePekerjaanLainnya()" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pekerjaan *</label>
+                            <select id="inputPekerjaan" onchange="togglePekerjaanLainnya()" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white">
                                 <option value="">-- Pilih Pekerjaan --</option>
                                 <option value="Guru">Guru</option>
                                 <option value="ASN">ASN</option>
@@ -389,138 +318,209 @@
 
                     <div id="pekerjaanLainnyaContainer" class="hidden">
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Sebutkan Pekerjaan *</label>
-                        <input type="text" id="inputPekerjaanLainnya" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal" placeholder="Tuliskan profesi / pekerjaan Anda...">
+                        <input type="text" id="inputPekerjaanLainnya" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none" placeholder="Tuliskan profesi...">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Alamat Domisili Lengkap *</label>
-                        <textarea id="inputAlamat" rows="2" required placeholder="Masukkan alamat domisili..." class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal"></textarea>
+                        <textarea id="inputAlamat" rows="2" required placeholder="Masukkan alamat..." class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none"></textarea>
                     </div>
 
                     <div class="pt-4 flex justify-end gap-2 border-t border-slate-100">
-                        <button type="reset" class="px-4 py-2 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-50">Reset</button>
-                        <button type="submit" id="btnSubmitBiodata" class="px-6 py-2 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut Pilih Menu
+                        <button type="reset" class="px-4 py-2 border rounded-xl text-xs text-slate-600">Reset</button>
+                        <button type="submit" id="btnSubmitBiodata" class="px-6 py-2 bg-brand-dark text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut ke Menu Bazar
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- 4. TAB PILIHAN KONSUMSI PERMATA -->
+        <!-- 4. TAB MENU BAZAR PERMATA (KONSUMSI UTAMA CLOSED ORDER) -->
         <section id="tab-konsumsi" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto">
-                <div class="border-b border-slate-100 pb-4 mb-6 flex justify-between items-center">
-                    <div>
-                        <h3 class="text-lg font-bold text-brand-dark">Pilihan Menu Konsumsi PERMATA</h3>
-                        <p class="text-xs text-slate-500">Pilih peserta terdaftar dan tentukan menu makanan favorit Anda di bawah ini.</p>
-                    </div>
-                    <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
-                        <i class="fa-solid fa-utensils mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Tercatat
-                    </div>
-                </div>
-
-                <!-- RINGKASAN REKAPITULASI HITUNG TOTAL KONSUMSI -->
-                <div class="mb-6 p-4 bg-teal-50/50 rounded-2xl border border-teal-100">
-                    <h4 class="font-bold text-xs text-brand-dark uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                        <i class="fa-solid fa-calculator text-brand-teal"></i> Rekapitulasi Total Porsi Per Menu
-                    </h4>
-                    <div id="menuSummaryGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                        <!-- Populated dynamically via JS -->
-                    </div>
-                </div>
-
-                <!-- Form Pemilihan Menu -->
-                <form id="konsumsiForm" onsubmit="handleKonsumsiSubmit(event)" class="space-y-6 mb-8 bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-800 mb-1.5">1. Pilih Nama Peserta Terdaftar *</label>
-                        <select id="selectPesertaKonsumsi" required onchange="checkExistingOrder(this.value)" class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-teal bg-white shadow-sm">
-                            <option value="">-- Pilih Nama Peserta --</option>
-                        </select>
-                        <p id="orderWarning" class="text-[11px] text-amber-600 font-medium mt-1 hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Peserta ini telah memiliki pesanan sebelumnya. Publik tidak dapat mengubah pesanan orang lain.</p>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-800 mb-2">2. Centang Salah Satu Menu Makanan Pilihan Anda *</label>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Mie Goreng Seafood (Telur, Seafood, kol, wortel, sawi dan kerupuk)" required class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">1. Mie Goreng Seafood</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Telur, Seafood, kol, wortel, sawi dan kerupuk</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Nasi Pecel (Bawang Goreng, Kacang Panjang, Toge, Ketimun, Tahu, dan Tempe)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">2. Nasi Pecel</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Bawang Goreng, Kacang Panjang, Toge, Ketimun, Tahu & Tempe</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Gado-Gado (Telur Rebus, Kacang Panjang, Ketimun, Tahu, dan Tempe)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">3. Gado-Gado</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Telur Rebus, Kacang Panjang, Ketimun, Tahu & Tempe</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Nasi Goreng Merah (Topping Bakso, Telur suir)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">4. Nasi Goreng Merah</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Topping Bakso, Telur suir</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Nasi Goreng Myco (Telur Mata Sapi, ayam Suir, Kerupuk)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">5. Nasi Goreng Myco</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Telur Mata Sapi, Ayam Suir, Kerupuk</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Soto Ayam" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">6. Soto Ayam</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Kuah Soto Segar dengan Suiran Ayam</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Nasi Ayam Sambal Matah (Telur, Ayam Dadu Crispy Bumbu Sambal Matah)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">7. Nasi Ayam Sambal Matah</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Telur, Ayam Dadu Crispy Bumbu Sambal Matah</span>
-                                </div>
-                            </label>
-
-                            <label class="relative flex items-start p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-teal hover:bg-teal-50/30 transition shadow-sm group">
-                                <input type="radio" name="menuRadio" value="Nasi Ayam Asam Manis (Telur, ayam dadu Crispy Bumbu Asam Manis, Wijen)" class="mt-0.5 text-brand-teal focus:ring-brand-teal">
-                                <div class="ml-3 text-xs">
-                                    <span class="font-bold text-brand-dark block group-hover:text-brand-teal">8. Nasi Ayam Asam Manis</span>
-                                    <span class="text-slate-500 text-[11px] leading-relaxed">Telur, Ayam Dadu Crispy Asam Manis & Wijen</span>
-                                </div>
-                            </label>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-6xl mx-auto space-y-6">
+                
+                <!-- PEMBERITAHUAN CLOSED ORDER KONSUMSI UTAMA -->
+                <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-center justify-between text-rose-900 shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center font-bold text-base shadow flex-shrink-0">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Pemberitahuan: Batas Waktu Konsumsi Utama Telah Ditutup</h4>
+                            <p class="text-[11px] text-rose-700">Maaf, pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong> dan tidak dapat dipilih lagi. Silakan melakukan pemesanan melalui pilihan <strong>Menu Bazar PERMATA</strong> di bawah ini.</p>
                         </div>
                     </div>
+                    <span class="px-3 py-1 bg-rose-200 text-rose-900 rounded-full text-[10px] font-extrabold uppercase tracking-widest hidden sm:inline-block">Closed</span>
+                </div>
 
-                    <div class="flex justify-end pt-2">
-                        <button type="submit" id="btnSubmitKonsumsi" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
-                            <i class="fa-solid fa-circle-check"></i> Simpan Pilihan Makanan
-                        </button>
+                <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
+                            <i class="fa-solid fa-store text-brand-teal"></i> Katalog Menu Bazar PERMATA & Pemesanan Mandiri
+                        </h3>
+                        <p class="text-xs text-slate-500">Pilih menu bazar favorit Anda. Setiap pesanan yang masuk akan otomatis tercatat pada sistem[cite: 3, 4, 5, 9].</p>
                     </div>
-                </form>
+                    <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
+                        <i class="fa-solid fa-clipboard-check mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Bazar Tercatat
+                    </div>
+                </div>
 
-                <!-- Tabel Rekapitulasi Pesanan Makanan -->
-                <div>
+                <!-- FORM PEMILIHAN BAZAR -->
+                <div class="bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100 space-y-4">
+                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Form Pemesanan Menu Bazar PERMATA</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Pilih Nama Peserta Terdaftar *</label>
+                            <select id="selectPesertaKonsumsi" required class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white shadow-sm">
+                                <option value="">-- Pilih Nama Peserta --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Menu Bazar Pilihan Anda *</label>
+                            <input type="text" id="selectedMenuDisplay" readonly placeholder="Klik salah satu kartu menu di bawah..." class="w-full px-3 py-2.5 text-xs bg-white border border-brand-teal rounded-xl font-bold text-brand-dark focus:outline-none shadow-inner">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KATALOG VISUAL MENU BAZAR -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-brand-dark text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-brand-teal"></i> Daftar Katalog Menu Bazar (Coffee, Main Course, Pasta, Juice & Snack)
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="katalogMenuGrid">
+                        
+                        <!-- 1. Aren Caffe Latte -->
+                        <div onclick="selectMenuCard('Aren Caffe Latte (aren, freshmilk, esspresso)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Aren Caffe Latte</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">aren, freshmilk, esspresso[cite: 3]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                        </div>
+
+                        <!-- 2. Myco Kopi Susu -->
+                        <div onclick="selectMenuCard('Myco Kopi Susu (susu kental manis, freshmilk, esspresso)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Myco Kopi Susu</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">susu kental manis, freshmilk, esspresso[cite: 3]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                        </div>
+
+                        <!-- 3. Americano -->
+                        <div onclick="selectMenuCard('Americano (esspresso, es batu, air putih)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Americano</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">esspresso, es batu, air putih[cite: 3]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                        </div>
+
+                        <!-- 4. Spagetti Bolognese -->
+                        <div onclick="selectMenuCard('Spagetti Bolognese (saos bolognese, irisan bawang bombai putih & smoke beef)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Western & Pasta[cite: 4]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Spagetti Bolognese</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">saos bolognese, irisan bawang bombai putih & smoke beef[cite: 4]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                        </div>
+
+                        <!-- 5. Spagetti Oglio Olio -->
+                        <div onclick="selectMenuCard('Spagetti Oglio Olio (chili flakes, irisan bawang bombai putih & smoke beef)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Western & Pasta[cite: 4]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Spagetti Oglio Olio</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">chili flakes, irisan bawang bombai putih & smoke beef[cite: 4]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                        </div>
+
+                        <!-- 6. Mie Goreng Seafood -->
+                        <div onclick="selectMenuCard('Mie Goreng Seafood (telur, seafood, kol, wortel, sawi dan kerupuk)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Main Course[cite: 4]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Mie Goreng Seafood</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">telur, seafood, kol, wortel, sawi dan kerupuk[cite: 4]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                        </div>
+
+                        <!-- 7. Pandan Regal -->
+                        <div onclick="selectMenuCard('Pandan Regal (freshmilk mix, pandan, topping regal)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-[10px] font-bold">Milk & Regal[cite: 5]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Pandan Regal</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">freshmilk mix, pandan, topping regal[cite: 5]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-glass-water"></i>
+                            </div>
+                        </div>
+
+                        <!-- 8. Juice Alpukat -->
+                        <div onclick="selectMenuCard('Juice Alpukat (buah alpukat, avocado powder, freshmilk, susu kental manis)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded text-[10px] font-bold">Juice Fresh[cite: 5]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Juice Alpukat</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">buah alpukat, avocado powder, freshmilk, susu kental manis[cite: 5]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-glass-water"></i>
+                            </div>
+                        </div>
+
+                        <!-- 9. Tahu Lada Garam -->
+                        <div onclick="selectMenuCard('Tahu Lada Garam (tahu dadu crispy, irisan daun jeruk, daun bawang, bawang merah, cabai)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
+                            <div>
+                                <span class="px-2 py-0.5 bg-rose-50 text-rose-700 rounded text-[10px] font-bold">Snack & Bites[cite: 9]</span>
+                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Tahu Lada Garam</h5>
+                                <p class="text-[11px] text-slate-500 mt-1">tahu dadu crispy, irisan daun jeruk, daun bawang, bawang merah, cabai[cite: 9]</p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
+                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
+                                <i class="fa-solid fa-bowl-food"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-4 border-t border-slate-100">
+                    <button onclick="submitBazarOrder()" id="btnSubmitBazar" class="px-6 py-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Simpan Pesanan Menu Bazar
+                    </button>
+                </div>
+
+                <!-- TABEL LOG PESANAN BAZAR -->
+                <div class="pt-6 border-t border-slate-100">
                     <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Log Daftar Hadir & Rekapitulasi Pesanan Makanan Peserta
+                        <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Log Daftar Pesanan Menu Bazar Peserta
                     </h4>
                     <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
                         <div class="overflow-x-auto">
@@ -530,111 +530,46 @@
                                         <th class="p-3">No</th>
                                         <th class="p-3">Nama Lengkap Peserta</th>
                                         <th class="p-3">Kecamatan</th>
-                                        <th class="p-3">Menu Makanan Pilihan</th>
+                                        <th class="p-3">Menu Bazar Pilihan</th>
                                         <th class="p-3 text-center admin-only hidden" id="headerAksiKonsumsi">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody id="konsumsiTableBody" class="divide-y divide-slate-100">
-                                    <!-- Populated dynamically -->
-                                </tbody>
+                                <tbody id="konsumsiTableBody" class="divide-y divide-slate-100"></tbody>
                             </table>
-                        </div>
-                        <div id="emptyKonsumsiState" class="hidden p-6 text-center text-slate-400 text-xs">
-                            <i class="fa-solid fa-utensils text-2xl mb-1 text-slate-300"></i>
-                            <p>Belum ada pilihan konsumsi yang tercatat dalam log.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
         <!-- 5. TAB PETUNJUK PENGISIAN DATA -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
-                <div class="border-b border-slate-100 pb-4 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                            <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan & Petunjuk Pengisian Sistem PERMATA
-                        </h3>
-                        <p class="text-xs text-slate-500">Ikuti langkah-langkah di bawah ini untuk mengisi formulir biodata dan pilihan konsumsi dengan benar.</p>
-                    </div>
-                    <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-[11px] font-bold border border-amber-200 hidden md:inline-block">
-                        <i class="fa-solid fa-shield-halved mr-1"></i> Mode Aman & Terenkripsi
-                    </span>
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan & Petunjuk Pengisian Sistem PERMATA
+                    </h3>
+                    <p class="text-xs text-slate-500">Ikuti langkah-langkah di bawah ini untuk menggunakan aplikasi dengan benar.</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 rounded-xl bg-teal-50/60 border border-teal-200/80 space-y-2">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-brand-teal text-white flex items-center justify-center font-bold text-sm shadow">1</div>
-                            <h4 class="font-bold text-brand-dark text-sm">Pendaftaran Data Peserta</h4>
-                        </div>
-                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
-                            <li>Lengkapi formulir registrasi pada menu <strong>"Form Pendaftaran"</strong> dengan data diri yang valid.</li>
-                            <li>Setelah data berhasil disimpan, sistem akan mengarahkan Anda secara otomatis ke menu <strong>Pilihan Konsumsi</strong>.</li>
-                            <li>Peserta hanya dapat mendaftarkan diri dan dilarang keras memanipulasi atau menghapus data milik peserta lain.</li>
-                        </ul>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow">2</div>
-                            <h4 class="font-bold text-brand-dark text-sm">Pemilihan Menu Konsumsi</h4>
-                        </div>
-                        <ul class="text-xs text-slate-600 space-y-1.5 pl-11 list-disc">
-                            <li>Pilih nama Anda dari daftar pilihan peserta yang tersedia.</li>
-                            <li>Jika nama Anda telah memiliki pesanan, sistem publik akan mengunci tombol simpan untuk mencegah perubahan tanpa izin.</li>
-                            <li>Segala bentuk koreksi, perubahan data, atau penghapusan pesanan sepenuhnya dikelola secara eksklusif oleh Administrator.</li>
-                        </ul>
-                    </div>
-                </div>
+                <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
+                    <li>Isi formulir pada menu <strong>Form Pendaftaran</strong>. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</li>
+                    <li>Konsumsi utama telah ditutup (Closed Order). Peserta memesan menu melalui katalog visual <strong>Menu Bazar PERMATA</strong>.</li>
+                </ul>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL PILIHAN CETAK & SAVE PDF -->
+    <!-- MODAL CETAK & SAVE PDF -->
     <div id="printModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-slate-100">
-            <div class="text-center mb-5">
-                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <i class="fa-solid fa-print text-xl"></i>
-                </div>
-                <h3 class="font-bold text-slate-800 text-base">Opsi Cetak & Save PDF</h3>
-                <p class="text-xs text-slate-500">Pilih jenis data dan metode output yang ingin Anda unduh atau cetak.</p>
+            <h3 class="font-bold text-slate-800 text-base mb-4 text-center">Opsi Cetak & Save PDF</h3>
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                <button onclick="executePDFExport()" class="py-3 px-4 bg-brand-dark text-white rounded-xl text-xs font-bold shadow">Save File PDF</button>
+                <button onclick="executeBrowserPrint()" class="py-3 px-4 bg-teal-600 text-white rounded-xl text-xs font-bold shadow">Print Langsung</button>
             </div>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">1. Pilih Data Yang Akan Dicetak:</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-slate-50 text-xs space-x-2">
-                            <input type="radio" name="printDataType" value="peserta" checked class="text-brand-dark focus:ring-brand-teal">
-                            <span class="font-semibold text-slate-800">Data Peserta</span>
-                        </label>
-                        <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-slate-50 text-xs space-x-2">
-                            <input type="radio" name="printDataType" value="konsumsi" class="text-brand-dark focus:ring-brand-teal">
-                            <span class="font-semibold text-slate-800">Data Konsumsi</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">2. Pilih Format Output:</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="executePDFExport()" class="py-3 px-4 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-pdf text-red-300 text-sm"></i> Save File PDF
-                        </button>
-                        <button onclick="executeBrowserPrint()" class="py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-print text-sm"></i> Print Langsung
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-5 border-t border-slate-100 pt-3 text-right">
-                <button onclick="closePrintModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Tutup</button>
-            </div>
+            <div class="text-right"><button onclick="closePrintModal()" class="px-4 py-2 bg-slate-100 rounded-xl text-xs">Tutup</button></div>
         </div>
     </div>
 
@@ -666,16 +601,13 @@
                     <i class="fa-solid fa-user-shield text-xl"></i>
                 </div>
                 <h3 class="font-bold text-slate-800 text-base">Verifikasi Akses Admin</h3>
-                <p class="text-xs text-slate-500">Masukkan PIN Admin terotorisasi untuk mengelola data.</p>
+                <p class="text-xs text-slate-500">Masukkan PIN Admin terotorisasi.</p>
             </div>
-            
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-                <div>
-                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN Admin" required class="w-full px-4 py-3 text-center text-lg tracking-widest border border-slate-200 rounded-xl focus:outline-none focus:border-brand-dark">
-                </div>
+                <input type="password" id="adminPinInput" placeholder="Masukkan PIN Admin" required class="w-full px-4 py-3 text-center text-lg tracking-widest border rounded-xl">
                 <div class="flex gap-2">
-                    <button type="button" onclick="closeAdminModal()" class="w-1/2 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">Batal</button>
-                    <button type="submit" class="w-1/2 py-2.5 bg-brand-dark text-white rounded-xl text-xs font-semibold shadow hover:bg-brand-darker">Verifikasi</button>
+                    <button type="button" onclick="closeAdminModal()" class="w-1/2 py-2.5 border rounded-xl text-xs">Batal</button>
+                    <button type="submit" class="w-1/2 py-2.5 bg-brand-dark text-white rounded-xl text-xs">Verifikasi</button>
                 </div>
             </form>
         </div>
@@ -683,29 +615,18 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        const SPREADSHEET_ID = "1MA_WiA8lrgC1fhnmQT2-XGdCWPloodwNnJjmPEMV-gE";
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoBknPEL0IQv-f7kT9KffkjLJtgUckY2bIXh1Q56Dsqj6vhH4ia5SmRC6noeB0CltG/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbycq39HPuBArjTKIdhGsJP5xlBax7gZGLeclkzrHu4NK9C_97E4-h-wFqQX2MToWV0/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "12780";
+        const ADMIN_PIN_DEFAULT = "22222";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
-
-        const MENU_LIST = [
-            "Mie Goreng Seafood",
-            "Nasi Pecel",
-            "Gado-Gado",
-            "Nasi Goreng Merah",
-            "Nasi Goreng Myco",
-            "Soto Ayam",
-            "Nasi Ayam Sambal Matah",
-            "Nasi Ayam Asam Manis"
-        ];
+        let selectedActiveMenu = "";
 
         document.addEventListener('DOMContentLoaded', () => {
             renderTable();
             initCharts();
-            populatePesertaDropdown();
+            populateDropdowns();
             renderKonsumsiTable();
             syncDataFromCloud();
         });
@@ -730,7 +651,94 @@
             }
 
             if(tabId === 'dashboard') updateCharts();
-            if(tabId === 'konsumsi') populatePesertaDropdown();
+            if(tabId === 'konsumsi') populateDropdowns();
+        }
+
+        function populateDropdowns() {
+            const selKonsumsi = document.getElementById('selectPesertaKonsumsi');
+            if(selKonsumsi) {
+                selKonsumsi.innerHTML = '<option value="">-- Pilih Nama Peserta --</option>';
+                participantsData.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.namaLengkap;
+                    opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
+                    opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
+                    selKonsumsi.appendChild(opt);
+                });
+            }
+        }
+
+        function selectMenuCard(menuName) {
+            selectedActiveMenu = menuName;
+            const displayInput = document.getElementById('selectedMenuDisplay');
+            if (displayInput) displayInput.value = menuName;
+            
+            document.querySelectorAll('.menu-card').forEach(card => {
+                card.classList.remove('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+            });
+            event.currentTarget.classList.add('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+        }
+
+        async function submitBazarOrder() {
+            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
+            const selectedOption = selectPeserta ? selectPeserta.options[selectPeserta.selectedIndex] : null;
+            const namaLengkap = selectPeserta ? selectPeserta.value : '';
+            const kecamatan = selectedOption ? selectedOption.getAttribute('data-kecamatan') : 'Palu Selatan';
+
+            if (!namaLengkap) { alert("Silakan pilih nama peserta terlebih dahulu."); return; }
+            if (!selectedActiveMenu) { alert("Silakan klik dan pilih salah satu menu dari katalog bazar."); return; }
+
+            const btn = document.getElementById('btnSubmitBazar');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Pesanan...';
+
+            const payload = {
+                action: 'submitKonsumsi',
+                namaLengkap: namaLengkap,
+                kecamatan: kecamatan,
+                menu: selectedActiveMenu,
+                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
+            };
+
+            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase());
+            if (existingIndex >= 0) {
+                konsumsiData[existingIndex].menu = selectedActiveMenu;
+            } else {
+                konsumsiData.push({
+                    namaLengkap: namaLengkap,
+                    kecamatan: kecamatan,
+                    menu: selectedActiveMenu,
+                    timestamp: payload.timestamp
+                });
+            }
+            localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
+
+            if (SCRIPT_URL) {
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (err) { console.log(err); }
+            }
+
+            alert(`Sukses! Pesanan "${selectedActiveMenu}" untuk ${namaLengkap} berhasil dicatat.`);
+            
+            selectPeserta.value = "";
+            selectedActiveMenu = "";
+            document.getElementById('selectedMenuDisplay').value = "";
+            document.querySelectorAll('.menu-card').forEach(card => {
+                card.classList.remove('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+            });
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Simpan Pesanan Menu Bazar';
+
+            renderKonsumsiTable();
+            setTimeout(syncDataFromCloud, 1500);
         }
 
         function togglePekerjaanLainnya() {
@@ -772,13 +780,6 @@
                 return matchName && matchMarhala && matchKecamatan;
             });
 
-            const emptyState = document.getElementById('emptyState');
-            if(filtered.length === 0) {
-                if(emptyState) emptyState.classList.remove('hidden');
-            } else {
-                if(emptyState) emptyState.classList.add('hidden');
-            }
-
             filtered.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
@@ -791,21 +792,13 @@
                     <td class="p-4 font-semibold text-slate-400">${index + 1}</td>
                     <td class="p-4 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
                     <td class="p-4 font-medium text-slate-600">${escapeHtml(item.namaPanggilan)}</td>
-                    <td class="p-4">
-                        <span class="px-2 py-1 rounded-md text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">
-                            ${escapeHtml(item.kecamatan || 'Palu Selatan')}
-                        </span>
-                    </td>
-                    <td class="p-4">
-                        <span class="px-2 py-1 rounded-md text-[10px] font-bold ${marhalaBadgeColor}">
-                            ${escapeHtml(item.marhala)}
-                        </span>
-                    </td>
+                    <td class="p-4"><span class="px-2 py-1 rounded-md text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">${escapeHtml(item.kecamatan || 'Palu Selatan')}</span></td>
+                    <td class="p-4"><span class="px-2 py-1 rounded-md text-[10px] font-bold ${marhalaBadgeColor}">${escapeHtml(item.marhala)}</span></td>
                     <td class="p-4 ${IS_ADMIN ? 'font-mono text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.nomorHp)}</td>
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
                     <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
                     <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1" title="Hapus Data Peserta"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -814,213 +807,47 @@
             updateQuickStats();
         }
 
-        function populatePesertaDropdown() {
-            const select = document.getElementById('selectPesertaKonsumsi');
-            if(!select) return;
-            select.innerHTML = '<option value="">-- Pilih Nama Peserta --</option>';
-            participantsData.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.namaLengkap;
-                opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
-                opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
-                select.appendChild(opt);
-            });
-        }
-
-        function checkExistingOrder(namaLengkap) {
-            const btnSubmit = document.getElementById('btnSubmitKonsumsi');
-            const warningBox = document.getElementById('orderWarning');
-            
-            if(!namaLengkap) {
-                warningBox.classList.add('hidden');
-                if(!IS_ADMIN) btnSubmit.disabled = false;
-                return;
-            }
-
-            const existing = konsumsiData.find(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase() && k.menu && k.menu.trim() !== "");
-            
-            if (existing && !IS_ADMIN) {
-                warningBox.classList.remove('hidden');
-                btnSubmit.disabled = true;
-                btnSubmit.title = "Peserta ini sudah memiliki pesanan. Publik dilarang mengubah pesanan.";
-                btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                warningBox.classList.add('hidden');
-                btnSubmit.disabled = false;
-                btnSubmit.title = "";
-                btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        }
-
-        function getSelectedMenuRadio() {
-            const radios = document.getElementsByName('menuRadio');
-            for (let r of radios) {
-                if (r.checked) return r.value;
-            }
-            return '';
-        }
-
-        async function handleKonsumsiSubmit(e) {
-            e.preventDefault();
-            const btnSubmit = document.getElementById('btnSubmitKonsumsi');
-            
-            if (btnSubmit.disabled) return;
-            btnSubmit.disabled = true;
-            const originalBtnText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Pesanan...';
-
-            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
-            const selectedOption = selectPeserta.options[selectPeserta.selectedIndex];
-            const namaLengkap = selectPeserta.value;
-            const kecamatan = selectedOption.getAttribute('data-kecamatan') || 'Palu Selatan';
-            const menuMakanan = getSelectedMenuRadio();
-
-            if(!namaLengkap || !menuMakanan) {
-                alert("Silakan pilih peserta dan centang salah satu menu makanan terlebih dahulu.");
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = originalBtnText;
-                return;
-            }
-
-            const alreadyOrdered = konsumsiData.find(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase() && k.menu && k.menu.trim() !== "");
-            if (alreadyOrdered && !IS_ADMIN) {
-                alert("Akses ditolak! Peserta ini sudah tercatat memiliki pesanan. Publik tidak diizinkan mengubah pesanan.");
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = originalBtnText;
-                return;
-            }
-
-            const newOrder = {
-                action: 'submitKonsumsi',
-                namaLengkap: namaLengkap,
-                kecamatan: kecamatan,
-                menu: menuMakanan,
-                timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
-            };
-
-            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase());
-            if(existingIndex >= 0) {
-                konsumsiData[existingIndex] = { ...konsumsiData[existingIndex], menu: menuMakanan, timestamp: newOrder.timestamp };
-            } else {
-                konsumsiData.push(newOrder);
-            }
-
-            localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-
-            if (SCRIPT_URL) {
-                try {
-                    await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newOrder)
-                    });
-                } catch(err) {
-                    console.log("Cloud sync error:", err);
-                }
-            }
-
-            alert(`Pilihan konsumsi untuk ${namaLengkap} berhasil disimpan!`);
-            
-            document.getElementById('konsumsiForm').reset();
-            document.getElementById('orderWarning').classList.add('hidden');
-            renderKonsumsiTable();
-            setTimeout(syncDataFromCloud, 1500);
-
-            setTimeout(() => {
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = originalBtnText;
-            }, 1000);
-        }
-
-        // --- MENGHITUNG KONSUMSI REKAPITULASI REAL-TIME ---
         function renderKonsumsiTable() {
             const tbody = document.getElementById('konsumsiTableBody');
             if(!tbody) return;
             tbody.innerHTML = '';
-
-            const emptyState = document.getElementById('emptyKonsumsiState');
-            const countEl = document.getElementById('totalKonsumsiCount');
-            
             const validKonsumsi = konsumsiData.filter(item => item.menu && item.menu.trim() !== "");
-            
+            const countEl = document.getElementById('totalKonsumsiCount');
             if(countEl) countEl.innerText = validKonsumsi.length;
 
-            // Hitung Per Menu
-            const counts = {};
-            MENU_LIST.forEach(m => counts[m] = 0);
-
-            validKonsumsi.forEach(item => {
-                const foundMenu = MENU_LIST.find(m => item.menu.startsWith(m));
-                if (foundMenu) counts[foundMenu]++;
-            });
-
-            const summaryGrid = document.getElementById('menuSummaryGrid');
-            if(summaryGrid) {
-                summaryGrid.innerHTML = '';
-                MENU_LIST.forEach((menu, idx) => {
-                    const card = document.createElement('div');
-                    card.className = "p-2.5 bg-white rounded-xl border border-teal-100 shadow-sm flex items-center justify-between";
-                    card.innerHTML = `
-                        <div class="overflow-hidden">
-                            <p class="text-[10px] text-slate-500 font-semibold truncate" title="${menu}">${idx + 1}. ${menu}</p>
-                            <span class="text-xs font-bold text-brand-dark">${counts[menu]} Porsi</span>
-                        </div>
-                        <span class="w-6 h-6 rounded-full bg-brand-light text-brand-dark text-[10px] font-extrabold flex items-center justify-center flex-shrink-0">${counts[menu]}</span>
-                    `;
-                    summaryGrid.appendChild(card);
-                });
-            }
-
-            if(validKonsumsi.length === 0) {
-                if(emptyState) emptyState.classList.remove('hidden');
-                return;
-            } else {
-                if(emptyState) emptyState.classList.add('hidden');
-            }
-
             validKonsumsi.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
-                tr.innerHTML = `
-                    <td class="p-3 font-semibold text-slate-400">${index + 1}</td>
-                    <td class="p-3 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
-                    <td class="p-3">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">
-                            ${escapeHtml(item.kecamatan || 'Palu Selatan')}
-                        </span>
-                    </td>
-                    <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
-                    <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1" title="Hapus Pesanan"><i class="fa-solid fa-trash"></i></button>
-                    </td>
+                tbody.innerHTML += `
+                    <tr class="hover:bg-teal-50/50 transition border-b border-slate-100">
+                        <td class="p-3 font-semibold text-slate-400">${index + 1}</td>
+                        <td class="p-3 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
+                        <td class="p-3">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
+                        <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
+                        <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
+                            <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
         }
 
         function deleteKonsumsi(namaLengkap) {
-            if(!IS_ADMIN) {
-                alert("Akses ditolak! Hanya Administrator yang berwenang menghapus pesanan.");
-                return;
-            }
-            if(confirm(`Hapus pilihan konsumsi untuk ${namaLengkap}?`)) {
+            if(!IS_ADMIN) return;
+            if(confirm(`Hapus pesanan bazar ${namaLengkap}?`)) {
                 konsumsiData = konsumsiData.filter(x => x.namaLengkap !== namaLengkap);
                 localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
                 renderKonsumsiTable();
             }
         }
 
+        // --- PENGARAHAN OTOMATIS (SEAMLESS REDIRECT) KE MENU BAZAR SETELAH ISI FORM ---
         async function handleFormSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmitBiodata');
-            if(btn.disabled) return;
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan...';
 
+            const namaBaru = document.getElementById('inputNamaLengkap').value;
             const pekerjaanVal = document.getElementById('inputPekerjaan').value;
             const pekerjaanFinal = pekerjaanVal === 'Lainnya' ? document.getElementById('inputPekerjaanLainnya').value : pekerjaanVal;
-            const namaBaru = document.getElementById('inputNamaLengkap').value;
 
             const newRecord = {
                 action: 'create',
@@ -1039,266 +866,86 @@
 
             if (SCRIPT_URL) {
                 try {
-                    await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newRecord)
-                    });
-                } catch(err) {
-                    console.log("Remote post error:", err);
-                }
+                    await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newRecord) });
+                } catch(err) { console.log(err); }
             }
 
-            alert("Data biodata berhasil disimpan! Anda akan diarahkan otomatis ke menu Pilihan Konsumsi.");
+            alert("Data biodata berhasil disimpan! Anda akan diarahkan otomatis ke Menu Bazar PERMATA.");
             document.getElementById('entryForm').reset();
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut Pilih Menu';
-
             renderTable();
-            populatePesertaDropdown();
-            
+            populateDropdowns();
+
+            // Seamless redirect langsung ke menu bazar & pilih otomatis namanya
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
-            checkExistingOrder(namaBaru);
 
             switchTab('konsumsi');
             setTimeout(syncDataFromCloud, 1500);
         }
 
-        function openPrintModal() {
-            const modal = document.getElementById('printModal');
-            if(modal) modal.classList.remove('hidden');
-        }
+        function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); }
+        function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
 
-        function closePrintModal() {
-            const modal = document.getElementById('printModal');
-            if(modal) modal.classList.add('hidden');
-        }
-
-        function getSelectedPrintType() {
-            const radios = document.getElementsByName('printDataType');
-            for (let r of radios) {
-                if (r.checked) return r.value;
-            }
-            return 'peserta';
-        }
-
-        // --- CETAK PDF DENGAN OVERVIEW TOTAL KECAMATAN DAN MARHALA ---
         function executePDFExport() {
-            const type = getSelectedPrintType();
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-            const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-
-            doc.setFontSize(14);
-            doc.setTextColor(0, 77, 77);
-            doc.text("PERMATA MWC PALU SELATAN & TIMUR", 14, 15);
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-
-            if (type === 'peserta') {
-                doc.text(`LAPORAN REKAPITULASI DATA PESERTA (Tanggal: ${today})`, 14, 21);
-
-                // Hitung Rekapitulasi Overview
-                const totalTotal = participantsData.length;
-                const pSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
-                const pTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
-                const t1 = participantsData.filter(x => x.marhala === 'Takwin 1').length;
-                const t2 = participantsData.filter(x => x.marhala === 'Takwin 2').length;
-                const tanfiz = participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length;
-
-                // Tambah Ringkasan Overview di Atas Tabel PDF
-                doc.setFontSize(8);
-                doc.setTextColor(40);
-                const overviewText = `OVERVIEW TOTAL KEHADIRAN:\n• Total Peserta: ${totalTotal} orang   |   • Palu Selatan: ${pSelatan} orang   |   • Palu Timur: ${pTimur} orang\n• Marhala Takwin 1: ${t1} orang   |   • Marhala Takwin 2: ${t2} orang   |   • Marhala Tanfiz (Khusus): ${tanfiz} orang`;
-                
-                doc.text(overviewText, 14, 27);
-
-                const headers = [["No", "Nama Lengkap", "Nama Panggilan", "Kecamatan", "Marhala", "No. HP", "Alamat", "Pekerjaan"]];
-                const rows = participantsData.map((p, index) => [
-                    index + 1,
-                    p.namaLengkap || '-',
-                    p.namaPanggilan || '-',
-                    p.kecamatan || 'Palu Selatan',
-                    p.marhala || '-',
-                    maskPrivateInfo(p.nomorHp || ''),
-                    maskPrivateInfo(p.alamat || ''),
-                    maskPrivateInfo(p.pekerjaan || '')
-                ]);
-
-                doc.autoTable({ head: headers, body: rows, startY: 38, headStyles: { fillColor: [0, 121, 121] }, styles: { fontSize: 8 } });
-                doc.save(`Laporan_Peserta_PERMATA_${Date.now()}.pdf`);
-            } else {
-                doc.text(`LAPORAN REKAPITULASI PILIHAN KONSUMSI PESERTA (Tanggal: ${today})`, 14, 21);
-                
-                const validKonsumsi = konsumsiData.filter(item => item.menu && item.menu.trim() !== "");
-                doc.setFontSize(8);
-                doc.text(`TOTAL PESANAN KONSUMSI TERCATAT: ${validKonsumsi.length} Porsi`, 14, 27);
-
-                const headers = [["No", "Nama Lengkap Peserta", "Kecamatan", "Menu Makanan Pilihan"]];
-                const rows = validKonsumsi.map((k, index) => [
-                    index + 1,
-                    k.namaLengkap || '-',
-                    k.kecamatan || 'Palu Selatan',
-                    k.menu || '-'
-                ]);
-
-                doc.autoTable({ head: headers, body: rows, startY: 32, headStyles: { fillColor: [0, 121, 121] }, styles: { fontSize: 9 } });
-                doc.save(`Laporan_Konsumsi_PERMATA_${Date.now()}.pdf`);
-            }
-
+            doc.text("Laporan Data & Bazar PERMATA", 14, 15);
+            const headers = [["No", "Nama Lengkap", "Kecamatan", "Marhala", "Pekerjaan", "Menu Bazar Pilihan"]];
+            const rows = participantsData.map((p, i) => {
+                const k = konsumsiData.find(x => x.namaLengkap === p.namaLengkap);
+                return [i + 1, p.namaLengkap, p.kecamatan, p.marhala, p.pekerjaan, k ? k.menu : '-'];
+            });
+            doc.autoTable({ head: headers, body: rows, startY: 20 });
+            doc.save(`Laporan_PERMATA_${Date.now()}.pdf`);
             closePrintModal();
         }
 
-        function executeBrowserPrint() {
-            const type = getSelectedPrintType();
-            const printTitle = document.getElementById('printReportTitle');
-            const printTimestamp = document.getElementById('printTimestamp');
-            const printContainer = document.getElementById('printTableContainer');
+        function executeBrowserPrint() { window.print(); closePrintModal(); }
 
-            printTimestamp.innerText = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            if (type === 'peserta') {
-                printTitle.innerText = "Laporan Rekapitulasi Data Peserta PERMATA";
-                const pSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
-                const pTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
-                const t1 = participantsData.filter(x => x.marhala === 'Takwin 1').length;
-                const t2 = participantsData.filter(x => x.marhala === 'Takwin 2').length;
-                const tanfiz = participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length;
-
-                let html = `<div style="margin-bottom:12px; padding:10px; border:1px solid #007979; background:#E6F7F7; border-radius:6px; font-size:11px;">
-                    <strong>OVERVIEW TOTAL HADIR:</strong><br>
-                    • Total Peserta: <strong>${participantsData.length}</strong> | Palu Selatan: <strong>${pSelatan}</strong> | Palu Timur: <strong>${pTimur}</strong><br>
-                    • Takwin 1: <strong>${t1}</strong> | Takwin 2: <strong>${t2}</strong> | Tanfiz (Khusus): <strong>${tanfiz}</strong>
-                </div>`;
-
-                html += `<table style="width:100%; border-collapse:collapse; font-size:11px;"><thead><tr style="background-color:#007979; color:white;"><th style="border:1px solid #ccc; padding:6px;">No</th><th style="border:1px solid #ccc; padding:6px;">Nama Lengkap</th><th style="border:1px solid #ccc; padding:6px;">Panggilan</th><th style="border:1px solid #ccc; padding:6px;">Kecamatan</th><th style="border:1px solid #ccc; padding:6px;">Marhala</th><th style="border:1px solid #ccc; padding:6px;">No. HP</th><th style="border:1px solid #ccc; padding:6px;">Alamat</th><th style="border:1px solid #ccc; padding:6px;">Pekerjaan</th></tr></thead><tbody>`;
-                participantsData.forEach((p, idx) => {
-                    html += `<tr><td style="border:1px solid #ccc; padding:6px; text-align:center;">${idx + 1}</td><td style="border:1px solid #ccc; padding:6px; font-weight:bold;">${escapeHtml(p.namaLengkap)}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.namaPanggilan)}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.kecamatan || 'Palu Selatan')}</td><td style="border:1px solid #ccc; padding:6px;">${escapeHtml(p.marhala)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.nomorHp)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.alamat)}</td><td style="border:1px solid #ccc; padding:6px;">${maskPrivateInfo(p.pekerjaan)}</td></tr>`;
-                });
-                html += `</tbody></table>`;
-                printContainer.innerHTML = html;
-            } else {
-                printTitle.innerText = "Laporan Rekapitulasi Pesanan Makanan Konsumsi Peserta";
-                let html = `<table style="width:100%; border-collapse:collapse; font-size:11px;"><thead><tr style="background-color:#007979; color:white;"><th style="border:1px solid #ccc; padding:8px;">No</th><th style="border:1px solid #ccc; padding:8px;">Nama Lengkap Peserta</th><th style="border:1px solid #ccc; padding:8px;">Kecamatan</th><th style="border:1px solid #ccc; padding:8px;">Menu Makanan Pilihan</th></tr></thead><tbody>`;
-                konsumsiData.forEach((k, idx) => {
-                    html += `<tr><td style="border:1px solid #ccc; padding:8px; text-align:center;">${idx + 1}</td><td style="border:1px solid #ccc; padding:8px; font-weight:bold;">${escapeHtml(k.namaLengkap)}</td><td style="border:1px solid #ccc; padding:8px;">${escapeHtml(k.kecamatan)}</td><td style="border:1px solid #ccc; padding:8px; font-weight:600;">${escapeHtml(k.menu)}</td></tr>`;
-                });
-                html += `</tbody></table>`;
-                printContainer.innerHTML = html;
-            }
-
-            closePrintModal();
-            setTimeout(() => { window.print(); }, 300);
-        }
-
-        function openAdminModal() {
-            if(IS_ADMIN) return;
-            const modal = document.getElementById('adminModal');
-            if(modal) modal.classList.remove('hidden');
-        }
-        function closeAdminModal() {
-            const modal = document.getElementById('adminModal');
-            if(modal) modal.classList.add('hidden');
-        }
+        function openAdminModal() { if(!IS_ADMIN) document.getElementById('adminModal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
 
         function handleAdminLogin(e) {
             e.preventDefault();
-            const pin = document.getElementById('adminPinInput').value;
-            if (pin === ADMIN_PIN_DEFAULT) {
+            if (document.getElementById('adminPinInput').value === ADMIN_PIN_DEFAULT) {
                 IS_ADMIN = true;
                 closeAdminModal();
                 applyAdminState();
-                alert("Verifikasi Admin Berhasil! Hak Akses Pengelolaan & Penghapusan Data Diaktifkan.");
-            } else {
-                alert("PIN Admin Salah!");
-            }
+                alert("Login Admin Berhasil!");
+            } else { alert("PIN Salah!"); }
         }
 
         function applyAdminState() {
-            const badge = document.getElementById('roleBadge');
-            if(badge) {
-                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                badge.innerHTML = '<i class="fa-solid fa-user-shield text-[9px] mr-1"></i> Administrator';
-            }
-            const notice = document.getElementById('adminNotice');
-            if(notice) notice.classList.remove('hidden');
-            const group = document.getElementById('adminActionGroup');
-            if(group) group.classList.remove('hidden');
-            const lockIcon = document.getElementById('lockIcon');
-            if(lockIcon) lockIcon.className = "fa-solid fa-lock-open w-4 text-center";
-            const navText = document.getElementById('adminNavText');
-            if(navText) navText.innerText = "Mode Admin Aktif";
-            
-            const thPeserta = document.getElementById('headerAksiPeserta');
-            if(thPeserta) thPeserta.classList.remove('hidden');
-            const thKonsumsi = document.getElementById('headerAksiKonsumsi');
-            if(thKonsumsi) thKonsumsi.classList.remove('hidden');
-
-            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
-            if(selectPeserta && selectPeserta.value) {
-                checkExistingOrder(selectPeserta.value);
-            }
-
+            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user-shield text-[9px] mr-1"></i> Administrator';
+            document.getElementById('adminNotice').classList.remove('hidden');
+            document.getElementById('adminActionGroup').classList.remove('hidden');
+            document.getElementById('headerAksiPeserta').classList.remove('hidden');
+            document.getElementById('headerAksiKonsumsi').classList.remove('hidden');
             renderTable();
             renderKonsumsiTable();
         }
 
         function logoutAdmin() {
             IS_ADMIN = false;
-            const badge = document.getElementById('roleBadge');
-            if(badge) {
-                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
-                badge.innerHTML = '<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)';
-            }
-            const notice = document.getElementById('adminNotice');
-            if(notice) notice.classList.add('hidden');
-            const group = document.getElementById('adminActionGroup');
-            if(group) group.classList.add('hidden');
-            const lockIcon = document.getElementById('lockIcon');
-            if(lockIcon) lockIcon.className = "fa-solid fa-shield-halved w-4 text-center";
-            const navText = document.getElementById('adminNavText');
-            if(navText) navText.innerText = "Login Admin System";
-
-            const thPeserta = document.getElementById('headerAksiPeserta');
-            if(thPeserta) thPeserta.classList.add('hidden');
-            const thKonsumsi = document.getElementById('headerAksiKonsumsi');
-            if(thKonsumsi) thKonsumsi.classList.add('hidden');
-
-            const selectPeserta = document.getElementById('selectPesertaKonsumsi');
-            if(selectPeserta && selectPeserta.value) {
-                checkExistingOrder(selectPeserta.value);
-            }
-
+            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
+            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)';
+            document.getElementById('adminNotice').classList.add('hidden');
+            document.getElementById('adminActionGroup').classList.add('hidden');
+            document.getElementById('headerAksiPeserta').classList.add('hidden');
+            document.getElementById('headerAksiKonsumsi').classList.add('hidden');
             renderTable();
             renderKonsumsiTable();
         }
 
         async function deleteParticipant(nama) {
-            if(!IS_ADMIN) {
-                alert("Akses ditolak! Hanya Administrator yang berwenang menghapus data peserta.");
-                return;
-            }
-            if(confirm(`Apakah Anda yakin ingin menghapus data "${nama}"?`)) {
+            if(!IS_ADMIN) return;
+            if(confirm(`Hapus data ${nama}?`)) {
                 participantsData = participantsData.filter(x => x.namaLengkap !== nama);
                 localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
                 renderTable();
-                populatePesertaDropdown();
-
-                if(SCRIPT_URL) {
-                    try {
-                        await fetch(SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'delete', namaLengkap: nama })
-                        });
-                        setTimeout(syncDataFromCloud, 1500);
-                    } catch(err) {
-                        console.log("Delete error:", err);
-                    }
-                }
+                populateDropdowns();
             }
         }
 
@@ -1317,28 +964,20 @@
             const paluSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
             const paluTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
 
-            if(document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
-            if(document.getElementById('statTakwin1')) document.getElementById('statTakwin1').innerText = t1;
-            if(document.getElementById('statTakwin2')) document.getElementById('statTakwin2').innerText = t2;
-            if(document.getElementById('statTanfiz')) document.getElementById('statTanfiz').innerText = tanfiz;
-            if(document.getElementById('statPaluSelatan')) document.getElementById('statPaluSelatan').innerText = paluSelatan;
-            if(document.getElementById('statPaluTimur')) document.getElementById('statPaluTimur').innerText = paluTimur;
-
-            if(document.getElementById('quickTotal')) document.getElementById('quickTotal').innerText = total;
-            if(document.getElementById('quickPaluSelatan')) document.getElementById('quickPaluSelatan').innerText = paluSelatan;
-            if(document.getElementById('quickPaluTimur')) document.getElementById('quickPaluTimur').innerText = paluTimur;
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statTakwin1').innerText = t1;
+            document.getElementById('statTakwin2').innerText = t2;
+            document.getElementById('statTanfiz').innerText = tanfiz;
+            document.getElementById('statPaluSelatan').innerText = paluSelatan;
+            document.getElementById('statPaluTimur').innerText = paluTimur;
+            document.getElementById('quickTotal').innerText = total;
+            document.getElementById('quickPaluSelatan').innerText = paluSelatan;
+            document.getElementById('quickPaluTimur').innerText = paluTimur;
 
             const pct1 = total ? Math.round((t1 / total) * 100) : 0;
             const pct2 = total ? Math.round((t2 / total) * 100) : 0;
             const pctTanfiz = total ? Math.round((tanfiz / total) * 100) : 0;
-            
-            if(document.getElementById('barTakwin1')) document.getElementById('barTakwin1').style.width = pct1 + '%';
-            if(document.getElementById('barTakwin2')) document.getElementById('barTakwin2').style.width = pct2 + '%';
-            if(document.getElementById('barTanfiz')) document.getElementById('barTanfiz').style.width = pctTanfiz + '%';
-            if(document.getElementById('barTextTakwin1')) document.getElementById('barTextTakwin1').innerText = `${t1} (${pct1}%)`;
-            if(document.getElementById('barTextTakwin2')) document.getElementById('barTextTakwin2').innerText = `${t2} (${pct2}%)`;
-            if(document.getElementById('barTextTanfiz')) document.getElementById('barTextTanfiz').innerText = `${tanfiz} (${pctTanfiz}%)`;
-            if(document.getElementById('marhalaRatio')) document.getElementById('marhalaRatio').innerText = `${pct1}% / ${pct2}% / ${pctTanfiz}%`;
+            document.getElementById('marhalaRatio').innerText = `${pct1}% / ${pct2}% / ${pctTanfiz}%`;
         }
 
         function initCharts() {
@@ -1346,11 +985,10 @@
             if(ctxM) {
                 chartM = new Chart(ctxM.getContext('2d'), {
                     type: 'bar',
-                    data: { labels: ['Takwin 1', 'Takwin 2', 'Tanfiz (Khusus)'], datasets: [{ label: 'Jumlah Peserta', data: [0, 0, 0], backgroundColor: ['#24B1B1', '#007979', '#9333EA'] }] },
+                    data: { labels: ['Takwin 1', 'Takwin 2', 'Tanfiz (Khusus)'], datasets: [{ label: 'Peserta', data: [0, 0, 0], backgroundColor: ['#24B1B1', '#007979', '#9333EA'] }] },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
             }
-
             const ctxK = document.getElementById('kecamatanChart');
             if(ctxK) {
                 chartK = new Chart(ctxK.getContext('2d'), {
@@ -1364,15 +1002,16 @@
 
         function updateCharts() {
             if(!chartM || !chartK) return;
-            const t1 = participantsData.filter(x => x.marhala === 'Takwin 1').length;
-            const t2 = participantsData.filter(x => x.marhala === 'Takwin 2').length;
-            const tanfiz = participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length;
-            chartM.data.datasets[0].data = [t1, t2, tanfiz];
+            chartM.data.datasets[0].data = [
+                participantsData.filter(x => x.marhala === 'Takwin 1').length,
+                participantsData.filter(x => x.marhala === 'Takwin 2').length,
+                participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length
+            ];
             chartM.update();
-
-            const pSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
-            const pTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
-            chartK.data.datasets[0].data = [pSelatan, pTimur];
+            chartK.data.datasets[0].data = [
+                participantsData.filter(x => x.kecamatan === 'Palu Selatan').length,
+                participantsData.filter(x => x.kecamatan === 'Palu Timur').length
+            ];
             chartK.update();
         }
 
@@ -1384,21 +1023,18 @@
                     if(Array.isArray(data)) {
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-                        
                         konsumsiData = data.filter(item => item.menu && item.menu.trim() !== "").map(item => ({
                             namaLengkap: item.namaLengkap,
                             kecamatan: item.kecamatan || 'Palu Selatan',
-                            menu: item.menu,
-                            timestamp: item.timestamp || new Date().toLocaleString()
+                            menu: item.menu
                         }));
                         localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-
                         renderTable();
-                        populatePesertaDropdown();
+                        populateDropdowns();
                         renderKonsumsiTable();
                         updateCharts();
                     }
-                }).catch(err => console.log("Cloud sync note:", err));
+                }).catch(err => console.log(err));
         }
 
         function exportDataExcel() {
@@ -1407,10 +1043,9 @@
             participantsData.forEach(row => {
                 csvContent += `"${row.timestamp}","${row.namaLengkap}","${row.namaPanggilan}","${row.kecamatan}","${row.alamat}","${row.nomorHp}","${row.marhala}","${row.pekerjaan}"\n`;
             });
-            const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Data_PERMATA_Kecamatan.csv");
+            link.setAttribute("href", encodeURI(csvContent));
+            link.setAttribute("download", "Data_PERMATA_Lengkap.csv");
             document.body.appendChild(link);
             link.click();
         }

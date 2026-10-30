@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF & AutoTable untuk Save PDF -->
+    <!-- jsPDF & AutoTable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
@@ -336,7 +336,7 @@
             </div>
         </section>
 
-        <!-- 4. TAB MENU BAZAR PERMATA (KONSUMSI UTAMA CLOSED ORDER) -->
+        <!-- 4. TAB MENU BAZAR PERMATA -->
         <section id="tab-konsumsi" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-6xl mx-auto space-y-6">
                 
@@ -348,7 +348,7 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Pemberitahuan: Batas Waktu Konsumsi Utama Telah Ditutup</h4>
-                            <p class="text-[11px] text-rose-700">Maaf, pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong> dan tidak dapat dipilih lagi. Silakan melakukan pemesanan melalui pilihan <strong>Menu Bazar PERMATA</strong> di bawah ini.</p>
+                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong>. Silakan melakukan pemesanan melalui pilihan <strong>Menu Bazar PERMATA</strong> (Lengkap dengan harga termasuk pajak) di bawah ini.</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 bg-rose-200 text-rose-900 rounded-full text-[10px] font-extrabold uppercase tracking-widest hidden sm:inline-block">Closed</span>
@@ -357,9 +357,9 @@
                 <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                            <i class="fa-solid fa-store text-brand-teal"></i> Katalog Menu Bazar PERMATA & Pemesanan Mandiri
+                            <i class="fa-solid fa-store text-brand-teal"></i> Katalog Menu Bazar PERMATA (MYCO Space)
                         </h3>
-                        <p class="text-xs text-slate-500">Pilih menu bazar favorit Anda. Setiap pesanan yang masuk akan otomatis tercatat pada sistem[cite: 3, 4, 5, 9].</p>
+                        <p class="text-xs text-slate-500">Klik salah satu kartu menu di bawah ini. Semua harga sudah **termasuk pajak**.</p>
                     </div>
                     <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
                         <i class="fa-solid fa-clipboard-check mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Bazar Tercatat
@@ -383,132 +383,279 @@
                     </div>
                 </div>
 
-                <!-- KATALOG VISUAL MENU BAZAR -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-brand-dark text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-book-open text-brand-teal"></i> Daftar Katalog Menu Bazar (Coffee, Main Course, Pasta, Juice & Snack)
-                    </h4>
+                <!-- KATALOG VISUAL LENGKAP BAZAR DENGAN HARGA LENGKAP PAJAK -->
+                <div class="space-y-6">
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="katalogMenuGrid">
-                        
-                        <!-- 1. Aren Caffe Latte -->
-                        <div onclick="selectMenuCard('Aren Caffe Latte (aren, freshmilk, esspresso)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Aren Caffe Latte</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">aren, freshmilk, esspresso[cite: 3]</p>
+                    <!-- KATEGORI 1: COFFEE SERIES -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-teal-100">
+                            <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-mug-hot text-brand-teal"></i> 1. Coffee Series
+                            </h4>
+                            <span class="px-2.5 py-0.5 bg-teal-100 text-brand-dark font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div onclick="selectMenuCard('Aren Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Aren Caffe Latte</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
                             </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-mug-hot"></i>
+                            <div onclick="selectMenuCard('Myco Kopi Susu (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Myco Kopi Susu</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Americano (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Americano</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Caffe Latte</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Cappuchino (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Cappuchino</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso, powder kayu manis</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Pandan Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Caffe Latte</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">pandan, freshmilk, espresso</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg">Rp 32rb</span>
                             </div>
                         </div>
-
-                        <!-- 2. Myco Kopi Susu -->
-                        <div onclick="selectMenuCard('Myco Kopi Susu (susu kental manis, freshmilk, esspresso)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Myco Kopi Susu</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">susu kental manis, freshmilk, esspresso[cite: 3]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-mug-hot"></i>
-                            </div>
-                        </div>
-
-                        <!-- 3. Americano -->
-                        <div onclick="selectMenuCard('Americano (esspresso, es batu, air putih)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-teal-50 text-brand-teal rounded text-[10px] font-bold">Coffee Series[cite: 3]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Americano</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">esspresso, es batu, air putih[cite: 3]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-mug-hot"></i>
-                            </div>
-                        </div>
-
-                        <!-- 4. Spagetti Bolognese -->
-                        <div onclick="selectMenuCard('Spagetti Bolognese (saos bolognese, irisan bawang bombai putih & smoke beef)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Western & Pasta[cite: 4]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Spagetti Bolognese</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">saos bolognese, irisan bawang bombai putih & smoke beef[cite: 4]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-utensils"></i>
-                            </div>
-                        </div>
-
-                        <!-- 5. Spagetti Oglio Olio -->
-                        <div onclick="selectMenuCard('Spagetti Oglio Olio (chili flakes, irisan bawang bombai putih & smoke beef)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Western & Pasta[cite: 4]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Spagetti Oglio Olio</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">chili flakes, irisan bawang bombai putih & smoke beef[cite: 4]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-utensils"></i>
-                            </div>
-                        </div>
-
-                        <!-- 6. Mie Goreng Seafood -->
-                        <div onclick="selectMenuCard('Mie Goreng Seafood (telur, seafood, kol, wortel, sawi dan kerupuk)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded text-[10px] font-bold">Main Course[cite: 4]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Mie Goreng Seafood</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">telur, seafood, kol, wortel, sawi dan kerupuk[cite: 4]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-utensils"></i>
-                            </div>
-                        </div>
-
-                        <!-- 7. Pandan Regal -->
-                        <div onclick="selectMenuCard('Pandan Regal (freshmilk mix, pandan, topping regal)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-[10px] font-bold">Milk & Regal[cite: 5]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Pandan Regal</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">freshmilk mix, pandan, topping regal[cite: 5]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-glass-water"></i>
-                            </div>
-                        </div>
-
-                        <!-- 8. Juice Alpukat -->
-                        <div onclick="selectMenuCard('Juice Alpukat (buah alpukat, avocado powder, freshmilk, susu kental manis)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded text-[10px] font-bold">Juice Fresh[cite: 5]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Juice Alpukat</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">buah alpukat, avocado powder, freshmilk, susu kental manis[cite: 5]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-glass-water"></i>
-                            </div>
-                        </div>
-
-                        <!-- 9. Tahu Lada Garam -->
-                        <div onclick="selectMenuCard('Tahu Lada Garam (tahu dadu crispy, irisan daun jeruk, daun bawang, bawang merah, cabai)')" class="menu-card bg-white p-4 rounded-2xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex flex-col justify-between group">
-                            <div>
-                                <span class="px-2 py-0.5 bg-rose-50 text-rose-700 rounded text-[10px] font-bold">Snack & Bites[cite: 9]</span>
-                                <h5 class="font-bold text-slate-800 text-sm mt-1 group-hover:text-brand-dark">Tahu Lada Garam</h5>
-                                <p class="text-[11px] text-slate-500 mt-1">tahu dadu crispy, irisan daun jeruk, daun bawang, bawang merah, cabai[cite: 9]</p>
-                            </div>
-                            <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-brand-teal font-bold">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i> Klik untuk Pilih</span>
-                                <i class="fa-solid fa-bowl-food"></i>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <!-- KATEGORI 2: MAKANAN UTAMA & PASTA -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-amber-100">
+                            <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-utensils text-amber-600"></i> 2. Makanan Utama & Pasta
+                            </h4>
+                            <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[11px] rounded-md">Rp 37.000 / Porsi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div onclick="selectMenuCard('Spagetti Bolognese (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Bolognese</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Spagetti Oglio Olio (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Oglio Olio</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">chili flakes, bombai, smoke beef</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Mie Goreng Seafood (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Mie Goreng Seafood</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, sawi, kerupuk</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Nasi Pecel (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Pecel</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">bawang goreng, sayur, tahu & tempe</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Gado - Gado (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Gado - Gado</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, sayur lengkap, tahu & tempe</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Nasi Goreng Merah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Merah</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">topping bakso, telur suir</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Nasi Goreng Myco (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Myco</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur mata sapi, ayam suir, kerupuk</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Soto Ayam (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Soto Ayam</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, ayam suir, tahu, toge</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Ayam Sambal Matah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Sambal Matah</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, sambal matah</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Ayam Asam Manis (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Asam Manis</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, wijen</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg">Rp 37rb</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KATEGORI 3: REGAL, MILK & JUICE -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-glass-water text-emerald-600"></i> 3. Regal, Milk & Juice Series
+                            </h4>
+                            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-900 font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div onclick="selectMenuCard('Pandan Regal (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Regal</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk mix, pandan, topping regal</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Juice Alpukat (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Alpukat</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">buah alpukat, freshmilk, skm</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Juice Mangga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Mangga</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">buah mangga, mango powder, freshmilk</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Juice Buah Naga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Buah Naga</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">buah naga, vanila syrup, freshmilk</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg">Rp 32rb</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KATEGORI 4: TEA & MOCKTAIL -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-purple-100">
+                            <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-wine-glass text-purple-600"></i> 4. Tea & Mocktail Series
+                            </h4>
+                            <span class="px-2.5 py-0.5 bg-purple-100 text-purple-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div onclick="selectMenuCard('Teh Jahe Madu (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Teh Jahe Madu</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">madu, jahe, sereh, teh</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Lemon Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lemon Tea</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">lemon, sparkling water, jeruk nipis</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Lychee Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lychee Tea</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">leci, sparkling water, buah leci</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('R & B Mocktail (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">R & B Mocktail</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">strawberry, bluelagoon, sunkist</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Ocean Blue (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ocean Blue</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">bluelagoon, mint, sparkling water</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KATEGORI 5: DESSERT, ROTI & SNACK -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-rose-100">
+                            <h4 class="font-bold text-rose-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-cookie-bite text-rose-600"></i> 5. Dessert, Roti & Snack
+                            </h4>
+                            <span class="px-2.5 py-0.5 bg-rose-100 text-rose-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div onclick="selectMenuCard('Tahu Lada Garam (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Lada Garam</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">tahu dadu crispy, daun jeruk, cabai</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('3 in 1 Snack (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">3 in 1 (Sosis, Nugget, Kentang)</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">sosis, nugget, kentang balado</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Sanggara Belanda Coklat Kacang (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Sanggara Belanda Coklat Kacang</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">pisang, caramel, coklat kacang</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Roti Bakar Mix (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Roti Bakar Mix</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">coklat, keju parut, skm</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                            <div onclick="selectMenuCard('Tahu Bakso (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Bakso</h5>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">tahu isian bakso gurih</p>
+                                </div>
+                                <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg">Rp 27rb</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="flex justify-end pt-4 border-t border-slate-100">
@@ -554,7 +701,7 @@
                 </div>
                 <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
                     <li>Isi formulir pada menu <strong>Form Pendaftaran</strong>. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</li>
-                    <li>Konsumsi utama telah ditutup (Closed Order). Peserta memesan menu melalui katalog visual <strong>Menu Bazar PERMATA</strong>.</li>
+                    <li>Konsumsi utama telah ditutup (Closed Order). Peserta memesan menu melalui katalog visual <strong>Menu Bazar PERMATA</strong> (Semua harga termasuk pajak).</li>
                 </ul>
             </div>
         </section>
@@ -615,10 +762,10 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbycq39HPuBArjTKIdhGsJP5xlBax7gZGLeclkzrHu4NK9C_97E4-h-wFqQX2MToWV0/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThqWdM7RhckARWMZaaw1m-uGSnBo-3cGG1YhXAyDSDe6G5c58PH6ROQJUtgSHxoSH/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "22222";
+        const ADMIN_PIN_DEFAULT = "77777";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
         let selectedActiveMenu = "";
@@ -674,9 +821,9 @@
             if (displayInput) displayInput.value = menuName;
             
             document.querySelectorAll('.menu-card').forEach(card => {
-                card.classList.remove('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+                card.classList.remove('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
             });
-            event.currentTarget.classList.add('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+            event.currentTarget.classList.add('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
         }
 
         async function submitBazarOrder() {
@@ -731,7 +878,7 @@
             selectedActiveMenu = "";
             document.getElementById('selectedMenuDisplay').value = "";
             document.querySelectorAll('.menu-card').forEach(card => {
-                card.classList.remove('border-brand-teal', 'bg-teal-50/40', 'ring-2', 'ring-brand-teal');
+                card.classList.remove('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
             });
 
             btn.disabled = false;
@@ -839,7 +986,6 @@
             }
         }
 
-        // --- PENGARAHAN OTOMATIS (SEAMLESS REDIRECT) KE MENU BAZAR SETELAH ISI FORM ---
         async function handleFormSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmitBiodata');
@@ -876,7 +1022,6 @@
             renderTable();
             populateDropdowns();
 
-            // Seamless redirect langsung ke menu bazar & pilih otomatis namanya
             const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
             if(selectKonsumsi) selectKonsumsi.value = namaBaru;
 

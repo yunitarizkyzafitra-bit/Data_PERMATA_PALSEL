@@ -123,6 +123,7 @@
                 <div class="flex justify-between"><span>Total Peserta:</span> <strong id="quickTotal" class="text-white">0</strong></div>
                 <div class="flex justify-between"><span>Hadir (Kolom L):</span> <strong id="quickHadir" class="text-emerald-400">0</strong></div>
                 <div class="flex justify-between"><span>Bazar Peserta:</span> <strong id="quickBazarPeserta" class="text-white">0</strong></div>
+                <div class="flex justify-between"><span>Bazar Umum:</span> <strong id="quickBazarUmum" class="text-white">0</strong></div>
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
@@ -155,7 +156,7 @@
             </div>
             <div class="flex items-center gap-2 flex-wrap">
                 <button onclick="openPrintModal()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
-                    <i class="fa-solid fa-print"></i> Cetak PDF / Barcode
+                    <i class="fa-solid fa-print"></i> Cetak PDF / Barcode Meja
                 </button>
                 <button onclick="syncDataFromCloud()" class="px-4 py-2 bg-brand-teal hover:bg-teal-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
                     <i class="fa-solid fa-rotate"></i> Sinkron Spreadsheet
@@ -344,7 +345,7 @@
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slate-800">Scan Barcode / Check-in Kehadiran Mandiri</h3>
-                    <p class="text-xs text-slate-500">Pilih nama lengkap Anda, cek asal kecamatan, konfirmasi kehadiran, dan simpan untuk mencatat waktu ke <strong>Kolom L</strong> Spreadsheet.</p>
+                    <p class="text-xs text-slate-500">Pilih nama lengkap Anda, verifikasi asal kecamatan dan pesanan konsumsi utama, centang konfirmasi, lalu simpan waktu hadir ke <strong>Kolom L</strong> Spreadsheet.</p>
                 </div>
 
                 <div class="space-y-4">
@@ -359,7 +360,7 @@
                         <div class="flex justify-between"><span>Nama Lengkap:</span> <strong id="prevNama" class="text-slate-900">-</strong></div>
                         <div class="flex justify-between"><span>Asal Kecamatan:</span> <strong id="prevKecamatan" class="text-brand-dark">-</strong></div>
                         <div class="flex justify-between"><span>Marhala:</span> <strong id="prevMarhala" class="text-purple-700">-</strong></div>
-                        <div class="flex justify-between"><span>Status Konsumsi Utama:</span> <strong class="text-rose-600">Closed Order</strong></div>
+                        <div class="flex justify-between"><span>Konsumsi Utama:</span> <strong class="text-slate-700">Closed Order</strong></div>
                     </div>
 
                     <div class="p-4 bg-slate-50 border rounded-xl">
@@ -785,10 +786,10 @@
 
     </main>
 
-    <!-- MODAL CETAK & BARCODE ABSENSI -->
+    <!-- MODAL CETAK & BARCODE MEJA REGISTRASI -->
     <div id="printModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg border border-slate-100 space-y-4">
-            <h3 class="font-bold text-slate-800 text-base text-center">Pusat Cetak Dokumen & Barcode Absensi</h3>
+            <h3 class="font-bold text-slate-800 text-base text-center">Pusat Cetak Dokumen & Barcode Meja</h3>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <button onclick="exportPDFPesertaDanKonsumsi()" class="py-3 px-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
@@ -799,11 +800,14 @@
                 </button>
             </div>
 
-            <!-- CONTAINER BARCODE / QR CODE -->
-            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3">
-                <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider">Barcode QR Absensi Mandiri (Kolom L)</h4>
-                <div id="qrcodeContainer" class="bg-white p-3 inline-block rounded-xl shadow-sm border"></div>
-                <p class="text-[10px] text-emerald-700">Scan QR Code ini menggunakan HP peserta untuk melakukan check-in kehadiran secara instan.</p>
+            <!-- CONTAINER BARCODE / QR CODE UNTUK MEJA -->
+            <div class="p-5 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-3 shadow-inner">
+                <h4 class="font-bold text-emerald-900 text-sm uppercase tracking-wider">Barcode Meja Registrasi (Absensi Kolom L)</h4>
+                <div id="qrcodeContainer" class="bg-white p-4 inline-block rounded-2xl shadow-md border border-emerald-200"></div>
+                <p class="text-[11px] text-emerald-800 font-medium leading-relaxed">Silakan cetak atau simpan QR Code ini untuk ditempelkan pada meja registrasi agar peserta mudah melakukan scan barcode absensi.</p>
+                <button onclick="downloadBarcodeImage()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow transition">
+                    <i class="fa-solid fa-download mr-1"></i> Save Barcode Meja (PNG)
+                </button>
             </div>
 
             <div class="text-right pt-2 border-t"><button onclick="closePrintModal()" class="px-4 py-2 bg-slate-100 rounded-xl text-xs">Tutup</button></div>
@@ -832,10 +836,10 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC & BARCODE ABSENSI -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6kFwgYiathTk2dlFeFG6e8c9KrZvGV4JQ_fajdh1NgqmlSW452xKC0wVY2uROZe_j/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNNkJOZG_z8B7xNWmvkhk6O2uu4daDM0J2T5y2CtAIEb0sviIBAvMz0SMy85tZ4b7G/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "0780";
+        const ADMIN_PIN_DEFAULT = "127";
         const CONTACT_PHONE_RAW = "+62 852-9980-2002";
         
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
@@ -928,7 +932,6 @@
                 card.classList.add('hidden');
                 return;
             }
-            const selectedOpt = sel.options[sel.selectedIndex];
             const p = participantsData.find(x => x.namaLengkap === sel.value);
             if(p) {
                 document.getElementById('prevNama').innerText = p.namaLengkap;
@@ -948,7 +951,6 @@
             const namaPeserta = sel.value;
             const waktuHadir = new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' });
 
-            // Update local data
             const participant = participantsData.find(x => x.namaLengkap === namaPeserta);
             if(participant) {
                 participant.waktuHadir = waktuHadir;
@@ -1380,12 +1382,11 @@
             const container = document.getElementById('qrcodeContainer');
             if(container) {
                 container.innerHTML = "";
-                // Menggunakan URL halaman ini atau halaman absensi sebagai target QR Code
                 const targetUrl = window.location.href.split('#')[0] + "#absensi";
                 new QRCode(container, {
                     text: targetUrl,
-                    width: 128,
-                    height: 128,
+                    width: 140,
+                    height: 140,
                     colorDark: "#003636",
                     colorLight: "#ffffff",
                     correctLevel: QRCode.CorrectLevel.H
@@ -1393,7 +1394,18 @@
             }
         }
 
-        // EXPORT PDF FULL TANPA TERPOTONG
+        function downloadBarcodeImage() {
+            const img = document.querySelector('#qrcodeContainer img');
+            if(img) {
+                const link = document.createElement('a');
+                link.download = 'barcode-meja-absensi-permata.png';
+                link.href = img.src;
+                link.click();
+            } else {
+                alert("QR Code belum siap, silakan buka ulang modal.");
+            }
+        }
+
         function exportPDFPesertaDanKonsumsi() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();

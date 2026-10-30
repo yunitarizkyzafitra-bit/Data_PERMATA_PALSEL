@@ -80,15 +80,19 @@
                 </button>
                 <button onclick="switchTab('masterlist')" id="nav-masterlist" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-users w-4 text-center"></i>
-                    <span>Data Masterlist</span>
+                    <span>Data Masterlist Peserta</span>
                 </button>
                 <button onclick="switchTab('entry')" id="nav-entry" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-user-plus w-4 text-center"></i>
-                    <span>Form Pendaftaran</span>
+                    <span>Form Pendaftaran Peserta</span>
                 </button>
                 <button onclick="switchTab('konsumsi')" id="nav-konsumsi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
+                    <i class="fa-solid fa-utensils w-4 text-center text-teal-300"></i>
+                    <span>Konsumsi Utama PERMATA</span>
+                </button>
+                <button onclick="switchTab('bazar')" id="nav-bazar" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-store w-4 text-center text-amber-300"></i>
-                    <span>Menu Bazar PERMATA</span>
+                    <span>Menu Bazar MYCO Space</span>
                 </button>
                 <button onclick="switchTab('guide')" id="nav-guide" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-amber-200 hover:bg-amber-900/30">
                     <i class="fa-solid fa-circle-question w-4 text-center text-amber-400"></i>
@@ -111,8 +115,8 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </div>
                 <div class="flex justify-between"><span>Total Peserta:</span> <strong id="quickTotal" class="text-white">0</strong></div>
-                <div class="flex justify-between"><span>Palu Selatan:</span> <strong id="quickPaluSelatan" class="text-white">0</strong></div>
-                <div class="flex justify-between"><span>Palu Timur:</span> <strong id="quickPaluTimur" class="text-white">0</strong></div>
+                <div class="flex justify-between"><span>Bazar Peserta:</span> <strong id="quickBazarPeserta" class="text-white">0</strong></div>
+                <div class="flex justify-between"><span>Bazar Umum:</span> <strong id="quickBazarUmum" class="text-white">0</strong></div>
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
@@ -140,7 +144,7 @@
                 </div>
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-white uppercase" id="pageTitle">EMPLOYEE DASHBOARD</h2>
-                    <p class="text-xs text-brand-cream/80">Real-time summary & Bazar PERMATA • MWC Palu Selatan & Timur</p>
+                    <p class="text-xs text-brand-cream/80">System Management PERMATA & Bazar MYCO Space • Palu Selatan & Timur</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -169,30 +173,27 @@
 
         <!-- 1. TAB DASHBOARD -->
         <section id="tab-dashboard" class="space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-                <div class="bg-brand-dark text-white p-4 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-brand-cream/80 uppercase">Total Peserta</p>
+            <!-- HITUNGAN TERPISAH DI DASHBOARD -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-brand-dark text-white p-5 rounded-2xl shadow-md border border-teal-700 flex flex-col justify-between">
+                    <p class="text-[11px] font-semibold text-brand-cream/80 uppercase tracking-wider">Total Peserta PERMATA</p>
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTotal">0</h3>
+                    <p class="text-[10px] text-teal-200">Terdaftar di Sistem Kegiatan</p>
                 </div>
-                <div class="bg-emerald-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-emerald-100 uppercase">Takwin 1</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statTakwin1">0</h3>
+                <div class="bg-teal-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
+                    <p class="text-[11px] font-semibold text-teal-100 uppercase tracking-wider">Order Konsumsi PERMATA</p>
+                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statKonsumsi">0</h3>
+                    <p class="text-[10px] text-teal-100">Konsumsi Utama Peserta</p>
                 </div>
-                <div class="bg-amber-500 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-amber-100 uppercase">Takwin 2</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statTakwin2">0</h3>
+                <div class="bg-amber-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
+                    <p class="text-[11px] font-semibold text-amber-100 uppercase tracking-wider">Peserta Order Bazar</p>
+                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarPeserta">0</h3>
+                    <p class="text-[10px] text-amber-100">Bazar Khusus Peserta</p>
                 </div>
-                <div class="bg-purple-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-purple-100 uppercase">Tanfiz (Khusus)</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statTanfiz">0</h3>
-                </div>
-                <div class="bg-teal-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-teal-100 uppercase">Palu Selatan</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statPaluSelatan">0</h3>
-                </div>
-                <div class="bg-indigo-600 text-white p-4 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-indigo-100 uppercase">Palu Timur</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statPaluTimur">0</h3>
+                <div class="bg-purple-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
+                    <p class="text-[11px] font-semibold text-purple-100 uppercase tracking-wider">Pembeli Umum Bazar</p>
+                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statBazarUmum">0</h3>
+                    <p class="text-[10px] text-purple-100">Bazar Non-Peserta</p>
                 </div>
             </div>
 
@@ -257,12 +258,12 @@
             </div>
         </section>
 
-        <!-- 3. TAB FORM ENTRY DATA -->
+        <!-- 3. TAB FORM ENTRY DATA PESERTA BAWAAN -->
         <section id="tab-entry" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-3xl mx-auto">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-lg font-bold text-brand-dark">Formulir Biodata Peserta PERMATA</h3>
-                    <p class="text-xs text-slate-500">Lengkapi formulir di bawah ini. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</p>
+                    <p class="text-xs text-slate-500">Lengkapi formulir di bawah ini untuk pendaftaran peserta kegiatan PERMATA.</p>
                 </div>
                 
                 <form id="entryForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
@@ -329,501 +330,302 @@
                     <div class="pt-4 flex justify-end gap-2 border-t border-slate-100">
                         <button type="reset" class="px-4 py-2 border rounded-xl text-xs text-slate-600">Reset</button>
                         <button type="submit" id="btnSubmitBiodata" class="px-6 py-2 bg-brand-dark text-white rounded-xl text-xs font-semibold shadow-md flex items-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Simpan & Lanjut ke Menu Bazar
+                            <i class="fa-solid fa-paper-plane"></i> Simpan Data Peserta
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- 4. TAB MENU BAZAR PERMATA -->
+        <!-- 4. TAB KONSUMSI UTAMA PERMATA (CLOSED ORDER) -->
         <section id="tab-konsumsi" class="space-y-6 hidden">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-6xl mx-auto space-y-6">
-                
-                <!-- PEMBERITAHUAN CLOSED ORDER KONSUMSI UTAMA -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-center justify-between text-rose-900 shadow-sm">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center font-bold text-base shadow flex-shrink-0">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Pemberitahuan: Batas Waktu Konsumsi Utama Telah Ditutup</h4>
-                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama telah <strong>CLOSED ORDER</strong>. Silakan memilih <strong>Menu Bazar PERMATA</strong> di bawah ini (seluruh harga sudah termasuk pajak).</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 bg-rose-200 text-rose-900 rounded-full text-[10px] font-extrabold uppercase tracking-widest hidden sm:inline-block">Closed</span>
-                </div>
-
-                <!-- TOMBOL BUKA/TUTUP FORM PEMBELI UMUM -->
-                <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
-                    <div class="text-xs text-amber-900">
-                        <strong>Bukan Peserta Kegiatan PERMATA?</strong> Ingin beli bazar saja? Klik tombol di samping untuk mengisi data pembeli umum.
-                    </div>
-                    <button onclick="togglePembeliUmumForm()" id="btnToggleUmum" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow transition flex-shrink-0">
-                        <i class="fa-solid fa-user-plus mr-1"></i> Form Pembeli Bazar Saja
-                    </button>
-                </div>
-
-                <!-- FORM KHUSUS PEMBELI UMUM (NON-PESERTA) -->
-                <div id="formPembeliUmumContainer" class="hidden bg-amber-50/70 p-5 rounded-2xl border border-amber-300 space-y-3">
-                    <h5 class="font-bold text-xs text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-cash-register text-amber-600"></i> Form Khusus Pembeli Bazar (Non-Peserta)
-                    </h5>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nama Lengkap Pembeli *</label>
-                            <input type="text" id="umumNama" placeholder="Nama Pembeli..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nomor HP / WhatsApp *</label>
-                            <input type="tel" id="umumHp" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Alamat Domisili *</label>
-                            <input type="text" id="umumAlamat" placeholder="Alamat pembeli..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none focus:border-amber-500">
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-rose-900">Konsumsi Utama PERMATA Status: CLOSED ORDER</h4>
+                            <p class="text-[11px] text-rose-700">Pemesanan konsumsi utama kegiatan PERMATA telah ditutup. Untuk memesan makanan/minuman, silakan gunakan tab <strong>Menu Bazar MYCO Space</strong>.</p>
                         </div>
                     </div>
                 </div>
 
+                <div>
+                    <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider mb-2">Log Pesanan Konsumsi Utama Peserta PERMATA</h4>
+                    <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3">No</th>
+                                    <th class="p-3">Nama Peserta PERMATA</th>
+                                    <th class="p-3">Kecamatan</th>
+                                    <th class="p-3">Status Konsumsi Utama</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableKonsumsiUtamaBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TAB MENU BAZAR MYCO SPACE (PESERTA & NON-PESERTA) -->
+        <section id="tab-bazar" class="space-y-6 hidden">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-amber-100 max-w-6xl mx-auto space-y-6">
+                
                 <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                            <i class="fa-solid fa-store text-brand-teal"></i> Katalog Menu Bazar PERMATA (MYCO Space)
+                            <i class="fa-solid fa-store text-amber-500"></i> Pemesanan Menu Bazar MYCO Space
                         </h3>
-                        <p class="text-xs text-slate-500">Klik salah satu kartu menu di bawah ini. Seluruh harga sudah <strong>termasuk pajak</strong>.</p>
-                    </div>
-                    <div class="bg-brand-light px-3 py-1.5 rounded-xl border border-brand-teal/30 text-xs font-semibold text-brand-dark">
-                        <i class="fa-solid fa-clipboard-check mr-1"></i> <span id="totalKonsumsiCount">0</span> Pesanan Bazar Tercatat
+                        <p class="text-xs text-slate-500">Konfirmasi identitas pemesan terlebih dahulu sebelum memilih menu dari katalog visual.</p>
                     </div>
                 </div>
 
-                <!-- FORM PEMILIHAN PESERTA TERDAFTAR -->
-                <div class="bg-brand-cream/40 p-5 md:p-6 rounded-2xl border border-amber-100 space-y-4">
-                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Pemilihan Untuk Peserta Terdaftar PERMATA</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Pilih Nama Peserta Terdaftar *</label>
-                            <select id="selectPesertaKonsumsi" class="w-full px-3 py-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none bg-white shadow-sm">
-                                <option value="">-- Pilih Nama Peserta --</option>
+                <!-- ALUR VALIDASI IDENTITAS (PESERTA VS NON-PESERTA) -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Langkah 1: Tentukan Kategori Pemesan</h4>
+                    <div class="flex gap-4">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="katPembeli" value="Peserta" checked onchange="switchKategoriPembeli('Peserta')" class="text-brand-teal focus:ring-brand-teal">
+                            <span class="text-xs font-bold text-slate-700">Peserta PERMATA Terdaftar</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="katPembeli" value="Umum" onchange="switchKategoriPembeli('Umum')" class="text-brand-teal focus:ring-brand-teal">
+                            <span class="text-xs font-bold text-slate-700">Pembeli Umum (Non-Peserta)</span>
+                        </label>
+                    </div>
+
+                    <!-- BOX PEMILIHAN PESERTA TERDAFTAR -->
+                    <div id="boxIdentitasPeserta" class="space-y-2 pt-2 border-t border-slate-200">
+                        <label class="block text-xs font-bold text-slate-700">Cari & Lock Nama Peserta Anda *</label>
+                        <div class="flex gap-2">
+                            <select id="selectPesertaKonsumsi" class="w-full px-3 py-2 text-xs border rounded-xl bg-white focus:outline-none">
+                                <option value="">-- Cari Nama Peserta PERMATA --</option>
                             </select>
+                            <button onclick="konfirmasiIdentitasPeserta()" class="px-4 py-2 bg-brand-teal text-white rounded-xl text-xs font-bold flex-shrink-0 shadow">
+                                Lock Identitas
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- BOX PEMASUKAN DATA PEMBELI UMUM (NON-PESERTA) -->
+                    <div id="boxIdentitasUmum" class="hidden space-y-3 pt-2 border-t border-slate-200">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-700 mb-1">Nama Pembeli *</label>
+                                <input type="text" id="umumNama" placeholder="Masukkan Nama Lengkap..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-700 mb-1">No. HP / WA *</label>
+                                <input type="tel" id="umumHp" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-700 mb-1">Alamat Domisili *</label>
+                                <input type="text" id="umumAlamat" placeholder="Masukkan Alamat Lengkap..." class="w-full px-3 py-2 text-xs border rounded-xl bg-white">
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="konfirmasiIdentitasUmum()" class="px-4 py-2 bg-amber-600 text-white rounded-xl text-xs font-bold shadow">
+                                Lock Data Pembeli Umum
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STATUS BADGE LOCK IDENTITAS -->
+                    <div id="statusIdentitasTerkunci" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex justify-between items-center">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Menu Bazar Pilihan Anda *</label>
-                            <input type="text" id="selectedMenuDisplay" readonly placeholder="Klik salah satu kartu menu di bawah..." class="w-full px-3 py-2.5 text-xs bg-white border border-brand-teal rounded-xl font-bold text-brand-dark focus:outline-none shadow-inner">
+                            <span><strong>Identitas Terkunci:</strong> <span id="textIdentitasNama">-</span></span>
                         </div>
+                        <button onclick="resetIdentitas()" class="text-[10px] text-red-600 underline font-bold">Ganti Pemesan</button>
                     </div>
                 </div>
 
-                <!-- KATALOG VISUAL LENGKAP BAZAR DENGAN HARGA LENGKAP PAJAK TERTULIS DI BAWAH HARGA -->
-                <div class="space-y-6">
-
-                    <!-- KATEGORI 1: COFFEE SERIES -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between border-b pb-1.5 border-teal-100">
-                            <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-mug-hot text-brand-teal"></i> 1. Coffee Series
-                            </h4>
-                            <span class="px-2.5 py-0.5 bg-teal-100 text-brand-dark font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
+                <!-- METODE PENGAMBILAN & KATALOG BAZAR -->
+                <div id="sectionOrderContent" class="opacity-40 pointer-events-none transition-all space-y-4">
+                    
+                    <div class="p-4 bg-brand-light border border-brand-teal/30 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div class="text-xs font-bold text-brand-dark">
+                            Langkah 2: Pilih Metode Pengambilan Pesanan *
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <div onclick="selectMenuCard('Aren Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Aren Caffe Latte</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Myco Kopi Susu (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Myco Kopi Susu</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Americano (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Americano</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Caffe Latte</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Cappuchino (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Cappuchino</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk, espresso, powder kayu manis</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Pandan Caffe Latte (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Caffe Latte</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">pandan, freshmilk, espresso</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-brand-dark bg-brand-light px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
+                        <div class="flex gap-4">
+                            <label class="flex items-center space-x-2 cursor-pointer bg-white px-3 py-1.5 rounded-xl border">
+                                <input type="radio" name="tipePengambilan" value="Dine In" checked class="text-brand-teal focus:ring-brand-teal">
+                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-utensils mr-1"></i> Makan di Tempat (Dine In)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-white px-3 py-1.5 rounded-xl border">
+                                <input type="radio" name="tipePengambilan" value="Take Away" class="text-brand-teal focus:ring-brand-teal">
+                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-bag-shopping mr-1 text-amber-600"></i> Dibungkus (Take Away)</span>
+                            </label>
                         </div>
                     </div>
 
-                    <!-- KATEGORI 2: MAKANAN UTAMA & PASTA -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between border-b pb-1.5 border-amber-100">
-                            <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-utensils text-amber-600"></i> 2. Makanan Utama & Pasta
-                            </h4>
-                            <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[11px] rounded-md">Rp 37.000 / Porsi</span>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <div onclick="selectMenuCard('Spagetti Bolognese (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Bolognese</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Spagetti Oglio Olio (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Spagetti Oglio Olio</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">chili flakes, bombai, smoke beef</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Mie Goreng Seafood (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Mie Goreng Seafood</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, sawi, kerupuk</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Nasi Pecel (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Pecel</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">bawang goreng, sayur, tahu & tempe</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Gado - Gado (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Gado - Gado</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, sayur lengkap, tahu & tempe</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Nasi Goreng Merah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Merah</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">topping bakso, telur suir</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Nasi Goreng Myco (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Nasi Goreng Myco</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur mata sapi, ayam suir, kerupuk</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Soto Ayam (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Soto Ayam</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur rebus, ayam suir, tahu, toge</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Ayam Sambal Matah (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Sambal Matah</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, sambal matah</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Ayam Asam Manis (Rp 37.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ayam Asam Manis</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">telur, ayam dadu crispy, wijen</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-amber-800 bg-amber-50 px-2 py-1 rounded-lg block">Rp 37.000</span>
-                                    <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- RINGKASAN KERANJANG PESANAN BAZAR -->
+                    <div class="p-4 bg-slate-50 border rounded-2xl space-y-2">
+                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center justify-between">
+                            <span><i class="fa-solid fa-cart-shopping text-brand-teal mr-1"></i> Ringkasan Keranjang Pesanan</span>
+                            <span id="cartCountBadge" class="px-2 py-0.5 bg-brand-teal text-white rounded-full text-[10px]">0 Item</span>
+                        </h4>
+                        <div id="cartItemsContainer" class="text-xs text-slate-500 italic py-2">Belum ada menu yang dipilih. Klik kartu menu di bawah ini untuk menambah pesanan.</div>
                     </div>
 
-                    <!-- KATEGORI 3: REGAL, MILK & JUICE -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between border-b pb-1.5 border-emerald-100">
-                            <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-glass-water text-emerald-600"></i> 3. Regal, Milk & Juice Series
-                            </h4>
-                            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-900 font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <div onclick="selectMenuCard('Pandan Regal (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Pandan Regal</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">freshmilk mix, pandan, topping regal</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
+                    <!-- KATALOG VISUAL DENGAN HARGA TERMASUK PAJAK -->
+                    <div class="space-y-6">
+
+                        <!-- 1. COFFEE SERIES -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b pb-1.5 border-teal-100">
+                                <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-mug-hot text-brand-teal"></i> 1. Coffee Series
+                                </h4>
+                                <span class="px-2.5 py-0.5 bg-teal-100 text-brand-dark font-extrabold text-[11px] rounded-md">Rp 32.000 / Porsi</span>
                             </div>
-                            <div onclick="selectMenuCard('Juice Alpukat (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Alpukat</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">buah alpukat, freshmilk, skm</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div onclick="addToCart('Aren Caffe Latte', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Aren Caffe Latte</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">aren, freshmilk, espresso</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
+                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
                                 </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                <div onclick="addToCart('Myco Kopi Susu', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Myco Kopi Susu</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">susu kental manis, freshmilk, espresso</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
+                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div onclick="selectMenuCard('Juice Mangga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Mangga</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">buah mangga, mango powder, freshmilk</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Juice Buah Naga (Rp 32.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Juice Buah Naga</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">buah naga, vanila syrup, freshmilk</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg block">Rp 32.000</span>
-                                    <span class="text-[9px] text-emerald-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                <div onclick="addToCart('Americano', 32000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Americano</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">espresso, es batu, air putih</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-brand-dark block">Rp 32.000</span>
+                                        <span class="text-[9px] text-teal-600 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 2. MAKANAN UTAMA & PASTA -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b pb-1.5 border-amber-100">
+                                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-utensils text-amber-600"></i> 2. Makanan Utama & Pasta
+                                </h4>
+                                <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[11px] rounded-md">Rp 37.000 / Porsi</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div onclick="addToCart('Spagetti Bolognese', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Spagetti Bolognese</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">saos bolognese, bombai, smoke beef</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
+                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
+                                </div>
+                                <div onclick="addToCart('Mie Goreng Seafood', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Mie Goreng Seafood</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">telur, seafood, kol, wortel, kerupuk</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
+                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
+                                </div>
+                                <div onclick="addToCart('Nasi Ayam Lalapan', 37000)" class="bg-white p-3.5 rounded-xl border hover:border-brand-teal cursor-pointer transition flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-bold text-slate-800 text-xs">Nasi Ayam Lalapan</h5>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">ayam goreng, sambal terasi, sup</p>
+                                    </div>
+                                    <div class="text-right flex-shrink-0">
+                                        <span class="text-xs font-extrabold text-amber-800 block">Rp 37.000</span>
+                                        <span class="text-[9px] text-amber-700 italic block mt-0.5">*Harga termasuk pajak</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- KATEGORI 4: TEA & MOCKTAIL -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between border-b pb-1.5 border-purple-100">
-                            <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-wine-glass text-purple-600"></i> 4. Tea & Mocktail Series
-                            </h4>
-                            <span class="px-2.5 py-0.5 bg-purple-100 text-purple-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <div onclick="selectMenuCard('Teh Jahe Madu (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Teh Jahe Madu</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">madu, jahe, sereh, teh</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Lemon Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lemon Tea</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">lemon, sparkling water, jeruk nipis</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Lychee Tea (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Lychee Tea</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">leci, sparkling water, buah leci</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('R & B Mocktail (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">R & B Mocktail</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">strawberry, bluelagoon, sunkist</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Ocean Blue (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Ocean Blue</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">bluelagoon, mint, sparkling water</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-purple-800 bg-purple-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-purple-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- KATEGORI 5: DESSERT, ROTI & SNACK -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between border-b pb-1.5 border-rose-100">
-                            <h4 class="font-bold text-rose-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-cookie-bite text-rose-600"></i> 5. Dessert, Roti & Snack
-                            </h4>
-                            <span class="px-2.5 py-0.5 bg-rose-100 text-rose-900 font-extrabold text-[11px] rounded-md">Rp 27.000 / Porsi</span>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <div onclick="selectMenuCard('Tahu Lada Garam (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Lada Garam</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">tahu dadu crispy, daun jeruk, cabai</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('3 in 1 Snack (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">3 in 1 (Sosis, Nugget, Kentang)</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">sosis, nugget, kentang balado</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Sanggara Belanda Coklat Kacang (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Sanggara Belanda Coklat Kacang</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">pisang, caramel, coklat kacang</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Roti Bakar Mix (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Roti Bakar Mix</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">coklat, keju parut, skm</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                            <div onclick="selectMenuCard('Tahu Bakso (Rp 27.000)')" class="menu-card bg-white p-3.5 rounded-xl border border-slate-200 hover:border-brand-teal hover:shadow-md cursor-pointer transition flex justify-between items-center group">
-                                <div>
-                                    <h5 class="font-bold text-slate-800 text-xs group-hover:text-brand-dark">Tahu Bakso</h5>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">tahu isian bakso gurih</p>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span class="text-xs font-extrabold text-rose-800 bg-rose-50 px-2 py-1 rounded-lg block">Rp 27.000</span>
-                                    <span class="text-[9px] text-rose-700 italic block mt-0.5">*Harga termasuk pajak</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex justify-end pt-4 border-t border-slate-100">
+                        <button onclick="submitMultiBazarOrder()" id="btnSubmitBazar" class="px-6 py-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim & Simpan Pesanan Bazar
+                        </button>
                     </div>
 
                 </div>
 
-                <div class="flex justify-end pt-4 border-t border-slate-100">
-                    <button onclick="submitBazarOrder()" id="btnSubmitBazar" class="px-6 py-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2 transition">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> Simpan Pesanan Menu Bazar
-                    </button>
-                </div>
-
-                <!-- TABEL LOG PESANAN BAZAR -->
-                <div class="pt-6 border-t border-slate-100">
-                    <h4 class="font-bold text-brand-dark text-sm mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-list text-brand-teal"></i> Log Daftar Pesanan Menu Bazar Peserta
-                    </h4>
-                    <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
-                        <div class="overflow-x-auto">
+                <!-- OVERVIEW PESANAN TERPISAH (PESERTA VS UMUM) -->
+                <div class="pt-8 border-t border-slate-200 space-y-6">
+                    
+                    <!-- TABEL LOG BAZAR PESERTA PERMATA -->
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-users text-brand-teal"></i> Log Pesanan Bazar Peserta PERMATA
+                        </h4>
+                        <div class="bg-white rounded-2xl shadow-sm border border-teal-100 overflow-hidden">
                             <table class="w-full text-left text-xs text-slate-600">
                                 <thead class="bg-brand-dark text-white uppercase text-[10px] tracking-wider">
                                     <tr>
                                         <th class="p-3">No</th>
-                                        <th class="p-3">Nama Lengkap Peserta / Pembeli</th>
-                                        <th class="p-3">Kecamatan / Kategori</th>
-                                        <th class="p-3">Menu Bazar Pilihan</th>
-                                        <th class="p-3 text-center admin-only hidden" id="headerAksiKonsumsi">Aksi</th>
+                                        <th class="p-3">Nama Peserta PERMATA</th>
+                                        <th class="p-3">Kecamatan</th>
+                                        <th class="p-3">Rincian Pesanan Bazar</th>
                                     </tr>
                                 </thead>
-                                <tbody id="konsumsiTableBody" class="divide-y divide-slate-100"></tbody>
+                                <tbody id="tablePesertaBazar" class="divide-y divide-slate-100"></tbody>
                             </table>
                         </div>
                     </div>
+
+                    <!-- TABEL LOG BAZAR PEMBELI UMUM (NON-PESERTA) -->
+                    <div>
+                        <h4 class="font-bold text-purple-900 text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-store text-purple-600"></i> Log Pesanan Bazar Pembeli Umum (Non-Peserta)
+                        </h4>
+                        <div class="bg-white rounded-2xl shadow-sm border border-purple-200 overflow-hidden">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-purple-800 text-white uppercase text-[10px] tracking-wider">
+                                    <tr>
+                                        <th class="p-3">No</th>
+                                        <th class="p-3">Nama Pembeli Umum</th>
+                                        <th class="p-3">No. HP</th>
+                                        <th class="p-3">Alamat</th>
+                                        <th class="p-3">Rincian Pesanan Bazar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableUmumBazar" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
         </section>
 
-        <!-- 5. TAB PETUNJUK PENGISIAN DATA -->
+        <!-- 6. TAB PETUNJUK PENGISIAN DATA -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4">
                     <h3 class="text-lg font-bold text-brand-dark flex items-center gap-2">
-                        <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan & Petunjuk Pengisian Sistem PERMATA
+                        <i class="fa-solid fa-book-open-reader text-brand-teal"></i> Panduan System PERMATA & Bazar
                     </h3>
-                    <p class="text-xs text-slate-500">Ikuti langkah-langkah di bawah ini untuk menggunakan aplikasi dengan benar.</p>
+                    <p class="text-xs text-slate-500">Panduan terpisah antara pendaftaran peserta, konsumsi utama, dan pesanan bazar MYCO Space.</p>
                 </div>
-                <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
-                    <li>Isi formulir pada menu <strong>Form Pendaftaran</strong>. Setelah disimpan, Anda akan otomatis diarahkan ke <strong>Menu Bazar PERMATA</strong>.</li>
-                    <li>Untuk pembeli non-peserta (umum), gunakan tombol <strong>Form Pembeli Bazar Saja</strong> untuk memesan tanpa mendaftar presensi kegiatan.</li>
-                </ul>
             </div>
         </section>
 
@@ -839,26 +641,6 @@
             </div>
             <div class="text-right"><button onclick="closePrintModal()" class="px-4 py-2 bg-slate-100 rounded-xl text-xs">Tutup</button></div>
         </div>
-    </div>
-
-    <!-- AREA CETAK TERSEMBUNYI -->
-    <div id="printArea" class="hidden p-8 bg-white">
-        <div class="flex items-center justify-between border-b-2 border-brand-dark pb-4 mb-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-white flex items-center justify-center border rounded">
-                    <img src="Palsel.jpeg" alt="Logo Cetak" class="max-h-full max-w-full object-contain">
-                </div>
-                <div>
-                    <h2 class="font-bold text-lg text-brand-dark uppercase">PERMATA MWC PALU SELATAN & TIMUR</h2>
-                    <p class="text-xs text-slate-500" id="printReportTitle">Laporan Resmi System</p>
-                </div>
-            </div>
-            <div class="text-right text-xs text-slate-400">
-                <p>Dicetak Pada:</p>
-                <p class="font-bold text-slate-700" id="printTimestamp">-</p>
-            </div>
-        </div>
-        <div id="printTableContainer" class="mt-4"></div>
     </div>
 
     <!-- MODAL AUTHENTICATION ADMIN -->
@@ -883,24 +665,26 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoBknPEL0IQv-f7kT9KffkjLJtgUckY2bIXh1Q56Dsqj6vhH4ia5SmRC6noeB0CltG/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6AYn6LrEwy59sKD3D8Fzbi6QPgaT58bazk8tOTUEy-51gX9k5wiyamSuCE-C7Q-TY/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "7780";
+        const ADMIN_PIN_DEFAULT = "1180";
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
         let konsumsiData = JSON.parse(localStorage.getItem('PERMATA_KONSUMSI_DATA')) || [];
-        let selectedActiveMenu = "";
+        let currentKategoriPembeli = "Peserta";
+        let activeBuyerInfo = null;
+        let cartList = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             renderTable();
             initCharts();
             populateDropdowns();
-            renderKonsumsiTable();
+            renderSeparatedBazarTables();
             syncDataFromCloud();
         });
 
         function switchTab(tabId) {
-            ['dashboard', 'masterlist', 'entry', 'konsumsi', 'guide'].forEach(id => {
+            ['dashboard', 'masterlist', 'entry', 'konsumsi', 'bazar', 'guide'].forEach(id => {
                 const tabEl = document.getElementById(`tab-${id}`);
                 const navEl = document.getElementById(`nav-${id}`);
                 if(tabEl) tabEl.classList.add('hidden');
@@ -919,100 +703,136 @@
             }
 
             if(tabId === 'dashboard') updateCharts();
-            if(tabId === 'konsumsi') populateDropdowns();
+            if(tabId === 'bazar') populateDropdowns();
         }
 
         function populateDropdowns() {
-            const selKonsumsi = document.getElementById('selectPesertaKonsumsi');
-            if(selKonsumsi) {
-                selKonsumsi.innerHTML = '<option value="">-- Pilih Nama Peserta --</option>';
+            const sel = document.getElementById('selectPesertaKonsumsi');
+            if(sel) {
+                sel.innerHTML = '<option value="">-- Cari Nama Peserta PERMATA --</option>';
                 participantsData.forEach(p => {
                     const opt = document.createElement('option');
                     opt.value = p.namaLengkap;
                     opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
                     opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
-                    selKonsumsi.appendChild(opt);
+                    sel.appendChild(opt);
                 });
             }
         }
 
-        function togglePembeliUmumForm() {
-            const container = document.getElementById('formPembeliUmumContainer');
-            if (container) container.classList.toggle('hidden');
-        }
-
-        function selectMenuCard(menuName) {
-            selectedActiveMenu = menuName;
-            const displayInput = document.getElementById('selectedMenuDisplay');
-            if (displayInput) displayInput.value = menuName;
-            
-            document.querySelectorAll('.menu-card').forEach(card => {
-                card.classList.remove('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
-            });
-            event.currentTarget.classList.add('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
-        }
-
-        async function submitBazarOrder() {
-            const isUmumActive = !document.getElementById('formPembeliUmumContainer').classList.contains('hidden');
-            
-            let namaLengkap = "";
-            let kecamatan = "Palu Selatan";
-            let nomorHp = "";
-            let alamat = "";
-
-            if (isUmumActive) {
-                const uNama = document.getElementById('umumNama').value.trim();
-                const uHp = document.getElementById('umumHp').value.trim();
-                const uAlamat = document.getElementById('umumAlamat').value.trim();
-
-                if (!uNama || !uHp || !uAlamat) {
-                    alert("Mohon lengkapi Nama, Nomor HP, dan Alamat untuk Pembeli Umum.");
-                    return;
-                }
-                namaLengkap = `${uNama} (Pembeli Umum)`;
-                kecamatan = "Umum / Non-Peserta";
-                nomorHp = uHp;
-                alamat = uAlamat;
+        function switchKategoriPembeli(kat) {
+            currentKategoriPembeli = kat;
+            resetIdentitas();
+            if (kat === 'Peserta') {
+                document.getElementById('boxIdentitasPeserta').classList.remove('hidden');
+                document.getElementById('boxIdentitasUmum').classList.add('hidden');
             } else {
-                const selectPeserta = document.getElementById('selectPesertaKonsumsi');
-                const selectedOption = selectPeserta ? selectPeserta.options[selectPeserta.selectedIndex] : null;
-                namaLengkap = selectPeserta ? selectPeserta.value : '';
-                kecamatan = selectedOption ? selectedOption.getAttribute('data-kecamatan') : 'Palu Selatan';
-
-                if (!namaLengkap) { alert("Silakan pilih nama peserta terdaftar, atau isi Form Pembeli Bazar Saja."); return; }
+                document.getElementById('boxIdentitasPeserta').classList.add('hidden');
+                document.getElementById('boxIdentitasUmum').classList.remove('hidden');
             }
+        }
 
-            if (!selectedActiveMenu) { alert("Silakan klik dan pilih salah satu menu dari katalog bazar."); return; }
+        function konfirmasiIdentitasPeserta() {
+            const sel = document.getElementById('selectPesertaKonsumsi');
+            if(!sel.value) { alert("Pilih nama peserta Anda terlebih dahulu!"); return; }
+            activeBuyerInfo = {
+                namaLengkap: sel.value,
+                kecamatan: sel.options[sel.selectedIndex].getAttribute('data-kecamatan'),
+                kategori: "Peserta"
+            };
+            lockIdentitasState();
+        }
 
-            const btn = document.getElementById('btnSubmitBazar');
-            if (btn.disabled) return;
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan Pesanan...';
+        function konfirmasiIdentitasUmum() {
+            const nama = document.getElementById('umumNama').value.trim();
+            const hp = document.getElementById('umumHp').value.trim();
+            const alamat = document.getElementById('umumAlamat').value.trim();
+            if(!nama || !hp || !alamat) { alert("Lengkapi Nama, No HP, dan Alamat Anda!"); return; }
+            activeBuyerInfo = {
+                namaLengkap: `${nama} (Umum)`,
+                noHp: hp,
+                alamat: alamat,
+                kategori: "Umum"
+            };
+            lockIdentitasState();
+        }
+
+        function lockIdentitasState() {
+            document.getElementById('statusIdentitasTerkunci').classList.remove('hidden');
+            document.getElementById('textIdentitasNama').innerText = activeBuyerInfo.namaLengkap;
+            document.getElementById('sectionOrderContent').classList.remove('opacity-40', 'pointer-events-none');
+        }
+
+        function resetIdentitas() {
+            activeBuyerInfo = null;
+            cartList = [];
+            updateCartDisplay();
+            document.getElementById('statusIdentitasTerkunci').classList.add('hidden');
+            document.getElementById('sectionOrderContent').classList.add('opacity-40', 'pointer-events-none');
+        }
+
+        function addToCart(menuName, price) {
+            if(!activeBuyerInfo) { alert("Mohon lock identitas Anda terlebih dahulu!"); return; }
+            const existing = cartList.find(x => x.name === menuName);
+            if(existing) { existing.qty += 1; }
+            else { cartList.push({ name: menuName, price: price, qty: 1 }); }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('cartCountBadge');
+            if(cartList.length === 0) {
+                container.innerHTML = '<span class="italic text-slate-400">Belum ada menu yang dipilih.</span>';
+                badge.innerText = '0 Item';
+                return;
+            }
+            let totalQty = 0;
+            let totalHarga = 0;
+            let html = '<ul class="space-y-1 font-semibold text-slate-700">';
+            cartList.forEach(item => {
+                totalQty += item.qty;
+                totalHarga += (item.price * item.qty);
+                html += `<li class="flex justify-between items-center bg-white p-2 rounded-lg border">
+                    <span>${item.name} x${item.qty}</span>
+                    <span class="text-brand-dark font-bold">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+                </li>`;
+            });
+            html += `</ul><div class="pt-2 flex justify-between font-bold text-slate-800 border-t mt-2"><span>Total Tagihan:</span><span class="text-brand-dark">Rp ${totalHarga.toLocaleString('id-ID')}</span></div>`;
+            container.innerHTML = html;
+            badge.innerText = `${totalQty} Item`;
+        }
+
+        async function submitMultiBazarOrder() {
+            if(!activeBuyerInfo) { alert("Lock identitas Anda terlebih dahulu!"); return; }
+            if(cartList.length === 0) { alert("Pilih minimal 1 menu dari katalog bazar."); return; }
+
+            const tipePengambilan = document.querySelector('input[name="tipePengambilan"]:checked').value;
+            const compiledMenu = cartList.map(x => `${x.name} x${x.qty}`).join(", ");
 
             const payload = {
                 action: 'submitKonsumsi',
-                namaLengkap: namaLengkap,
-                kecamatan: kecamatan,
-                alamat: alamat,
-                nomorHp: nomorHp,
-                menu: selectedActiveMenu,
+                kategoriPembeli: activeBuyerInfo.kategori,
+                namaLengkap: activeBuyerInfo.namaLengkap,
+                kecamatan: activeBuyerInfo.kecamatan || "Umum",
+                alamat: activeBuyerInfo.alamat || "-",
+                nomorHp: activeBuyerInfo.noHp || "-",
+                menu: compiledMenu,
+                tipePengambilan: tipePengambilan,
                 timestamp: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' })
             };
 
-            const existingIndex = konsumsiData.findIndex(k => k.namaLengkap.toLowerCase() === namaLengkap.toLowerCase());
-            if (existingIndex >= 0) {
-                konsumsiData[existingIndex].menu = selectedActiveMenu;
-            } else {
-                konsumsiData.push({
-                    namaLengkap: namaLengkap,
-                    kecamatan: kecamatan,
-                    menu: selectedActiveMenu,
-                    timestamp: payload.timestamp
-                });
-            }
+            konsumsiData.push({
+                namaLengkap: activeBuyerInfo.namaLengkap,
+                kecamatan: activeBuyerInfo.kecamatan || "Umum",
+                noHp: activeBuyerInfo.noHp || "-",
+                alamat: activeBuyerInfo.alamat || "-",
+                menu: `${compiledMenu} [${tipePengambilan}]`,
+                kategori: activeBuyerInfo.kategori
+            });
             localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
 
-            if (SCRIPT_URL) {
+            if(SCRIPT_URL) {
                 try {
                     await fetch(SCRIPT_URL, {
                         method: 'POST',
@@ -1020,124 +840,80 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-                } catch (err) { console.log(err); }
+                } catch(e) { console.log(e); }
             }
 
-            alert(`Sukses! Pesanan "${selectedActiveMenu}" untuk ${namaLengkap} berhasil disimpan ke Spreadsheet!`);
-            
-            document.getElementById('selectPesertaKonsumsi').value = "";
-            document.getElementById('umumNama').value = "";
-            document.getElementById('umumHp').value = "";
-            document.getElementById('umumAlamat').value = "";
-            selectedActiveMenu = "";
-            document.getElementById('selectedMenuDisplay').value = "";
-            document.querySelectorAll('.menu-card').forEach(card => {
-                card.classList.remove('border-brand-teal', 'bg-teal-50/60', 'ring-2', 'ring-brand-teal');
-            });
-
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Simpan Pesanan Menu Bazar';
-
-            renderKonsumsiTable();
-            setTimeout(syncDataFromCloud, 1500);
-        }
-
-        function togglePekerjaanLainnya() {
-            const select = document.getElementById('inputPekerjaan');
-            const container = document.getElementById('pekerjaanLainnyaContainer');
-            const input = document.getElementById('inputPekerjaanLainnya');
-            if (select.value === 'Lainnya') {
-                container.classList.remove('hidden');
-                input.required = true;
-            } else {
-                container.classList.add('hidden');
-                input.required = false;
-            }
-        }
-
-        function maskPrivateInfo(text) {
-            if (IS_ADMIN) return text;
-            return '••••••••';
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById('participantTable');
-            const searchInput = document.getElementById('searchInput');
-            const filterMarhalaEl = document.getElementById('filterMarhala');
-            const filterKecamatanEl = document.getElementById('filterKecamatan');
-
-            const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
-            const filterMarhala = filterMarhalaEl ? filterMarhalaEl.value : '';
-            const filterKecamatan = filterKecamatanEl ? filterKecamatanEl.value : '';
-
-            if(!tbody) return;
-            tbody.innerHTML = '';
-            
-            const filtered = participantsData.filter(item => {
-                const matchName = (item.namaLengkap || '').toLowerCase().includes(searchVal) || 
-                                  (item.namaPanggilan || '').toLowerCase().includes(searchVal);
-                const matchMarhala = filterMarhala ? item.marhala === filterMarhala : true;
-                const matchKecamatan = filterKecamatan ? item.kecamatan === filterKecamatan : true;
-                return matchName && matchMarhala && matchKecamatan;
-            });
-
-            filtered.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
-                
-                let marhalaBadgeColor = 'bg-teal-100 text-teal-800';
-                if (item.marhala === 'Takwin 2') marhalaBadgeColor = 'bg-amber-100 text-amber-800';
-                if (item.marhala === 'Tanfiz (Khusus)') marhalaBadgeColor = 'bg-purple-100 text-purple-800';
-
-                tr.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-400">${index + 1}</td>
-                    <td class="p-4 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
-                    <td class="p-4 font-medium text-slate-600">${escapeHtml(item.namaPanggilan)}</td>
-                    <td class="p-4"><span class="px-2 py-1 rounded-md text-[10px] font-bold ${item.kecamatan === 'Palu Selatan' ? 'bg-teal-100 text-teal-800' : 'bg-indigo-100 text-indigo-800'}">${escapeHtml(item.kecamatan || 'Palu Selatan')}</span></td>
-                    <td class="p-4"><span class="px-2 py-1 rounded-md text-[10px] font-bold ${marhalaBadgeColor}">${escapeHtml(item.marhala)}</span></td>
-                    <td class="p-4 ${IS_ADMIN ? 'font-mono text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.nomorHp)}</td>
-                    <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
-                    <td class="p-4 ${IS_ADMIN ? 'text-slate-700' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
-                    <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
+            alert(`Pesanan Bazar (${tipePengambilan}) Berhasil Disimpan!`);
+            resetIdentitas();
+            renderSeparatedBazarTables();
             updateQuickStats();
         }
 
-        function renderKonsumsiTable() {
-            const tbody = document.getElementById('konsumsiTableBody');
-            if(!tbody) return;
-            tbody.innerHTML = '';
-            const validKonsumsi = konsumsiData.filter(item => item.menu && item.menu.trim() !== "");
-            const countEl = document.getElementById('totalKonsumsiCount');
-            if(countEl) countEl.innerText = validKonsumsi.length;
+        function renderSeparatedBazarTables() {
+            const tPeserta = document.getElementById('tablePesertaBazar');
+            const tUmum = document.getElementById('tableUmumBazar');
+            const tUtama = document.getElementById('tableKonsumsiUtamaBody');
 
-            validKonsumsi.forEach((item, index) => {
-                tbody.innerHTML += `
-                    <tr class="hover:bg-teal-50/50 transition border-b border-slate-100">
-                        <td class="p-3 font-semibold text-slate-400">${index + 1}</td>
-                        <td class="p-3 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
-                        <td class="p-3">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
-                        <td class="p-3 font-medium text-brand-dark">${escapeHtml(item.menu)}</td>
-                        <td class="p-3 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
-                            <button onclick="deleteKonsumsi('${escapeHtml(item.namaLengkap)}')" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
+            if(tPeserta) tPeserta.innerHTML = "";
+            if(tUmum) tUmum.innerHTML = "";
+            if(tUtama) tUtama.innerHTML = "";
+
+            let idxP = 1, idxU = 1, idxUt = 1;
+
+            participantsData.forEach(p => {
+                if(tUtama) {
+                    tUtama.innerHTML += `
+                        <tr class="hover:bg-teal-50/50">
+                            <td class="p-3">${idxUt++}</td>
+                            <td class="p-3 font-bold">${p.namaLengkap}</td>
+                            <td class="p-3">${p.kecamatan || 'Palu Selatan'}</td>
+                            <td class="p-3 font-bold text-rose-600">Closed Order</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            konsumsiData.forEach(item => {
+                if(item.kategori === 'Umum' || item.namaLengkap.includes('(Umum)')) {
+                    if(tUmum) {
+                        tUmum.innerHTML += `
+                            <tr class="hover:bg-purple-50/50">
+                                <td class="p-3">${idxU++}</td>
+                                <td class="p-3 font-bold">${item.namaLengkap}</td>
+                                <td class="p-3">${item.noHp || '-'}</td>
+                                <td class="p-3">${item.alamat || '-'}</td>
+                                <td class="p-3 font-bold text-purple-800">${item.menu}</td>
+                            </tr>
+                        `;
+                    }
+                } else {
+                    if(tPeserta) {
+                        tPeserta.innerHTML += `
+                            <tr class="hover:bg-teal-50/50">
+                                <td class="p-3">${idxP++}</td>
+                                <td class="p-3 font-bold">${item.namaLengkap}</td>
+                                <td class="p-3">${item.kecamatan || 'Palu Selatan'}</td>
+                                <td class="p-3 font-bold text-brand-dark">${item.menu}</td>
+                            </tr>
+                        `;
+                    }
+                }
             });
         }
 
-        function deleteKonsumsi(namaLengkap) {
-            if(!IS_ADMIN) return;
-            if(confirm(`Hapus pesanan bazar ${namaLengkap}?`)) {
-                konsumsiData = konsumsiData.filter(x => x.namaLengkap !== namaLengkap);
-                localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
-                renderKonsumsiTable();
-            }
+        function updateQuickStats() {
+            const totalPeserta = participantsData.length;
+            const bazarPesertaCount = konsumsiData.filter(x => x.kategori !== 'Umum' && !x.namaLengkap.includes('(Umum)')).length;
+            const bazarUmumCount = konsumsiData.filter(x => x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)')).length;
+
+            document.getElementById('statTotal').innerText = totalPeserta;
+            document.getElementById('statKonsumsi').innerText = totalPeserta;
+            document.getElementById('statBazarPeserta').innerText = bazarPesertaCount;
+            document.getElementById('statBazarUmum').innerText = bazarUmumCount;
+
+            document.getElementById('quickTotal').innerText = totalPeserta;
+            document.getElementById('quickBazarPeserta').innerText = bazarPesertaCount;
+            document.getElementById('quickBazarUmum').innerText = bazarUmumCount;
         }
 
         async function handleFormSubmit(e) {
@@ -1170,115 +946,45 @@
                 } catch(err) { console.log(err); }
             }
 
-            alert("Data biodata berhasil disimpan! Anda akan diarahkan otomatis ke Menu Bazar PERMATA.");
+            alert("Data biodata peserta berhasil disimpan!");
             document.getElementById('entryForm').reset();
             btn.disabled = false;
             renderTable();
             populateDropdowns();
-
-            const selectKonsumsi = document.getElementById('selectPesertaKonsumsi');
-            if(selectKonsumsi) selectKonsumsi.value = namaBaru;
-
-            switchTab('konsumsi');
-            setTimeout(syncDataFromCloud, 1500);
+            updateQuickStats();
+            switchTab('masterlist');
         }
 
-        function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); }
-        function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
+        function maskPrivateInfo(text) { if (IS_ADMIN) return text; return '••••••••'; }
 
-        function executePDFExport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-            doc.text("Laporan Data & Bazar PERMATA", 14, 15);
-            const headers = [["No", "Nama Lengkap", "Kecamatan", "Marhala", "Pekerjaan", "Menu Bazar Pilihan"]];
-            const rows = participantsData.map((p, i) => {
-                const k = konsumsiData.find(x => x.namaLengkap === p.namaLengkap);
-                return [i + 1, p.namaLengkap, p.kecamatan, p.marhala, p.pekerjaan, k ? k.menu : '-'];
+        function renderTable() {
+            const tbody = document.getElementById('participantTable');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            participantsData.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-teal-50/50 transition border-b border-slate-100";
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-slate-400">${index + 1}</td>
+                    <td class="p-4 font-bold text-slate-800">${escapeHtml(item.namaLengkap)}</td>
+                    <td class="p-4 font-medium text-slate-600">${escapeHtml(item.namaPanggilan)}</td>
+                    <td class="p-4">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
+                    <td class="p-4">${escapeHtml(item.marhala)}</td>
+                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.nomorHp)}</td>
+                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
+                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
+                    <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
+                        <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
-            doc.autoTable({ head: headers, body: rows, startY: 20 });
-            doc.save(`Laporan_PERMATA_${Date.now()}.pdf`);
-            closePrintModal();
+            updateQuickStats();
         }
 
-        function executeBrowserPrint() { window.print(); closePrintModal(); }
-
-        function openAdminModal() { if(!IS_ADMIN) document.getElementById('adminModal').classList.remove('hidden'); }
-        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
-
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            if (document.getElementById('adminPinInput').value === ADMIN_PIN_DEFAULT) {
-                IS_ADMIN = true;
-                closeAdminModal();
-                applyAdminState();
-                alert("Login Admin Berhasil!");
-            } else { alert("PIN Salah!"); }
-        }
-
-        function applyAdminState() {
-            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user-shield text-[9px] mr-1"></i> Administrator';
-            document.getElementById('adminNotice').classList.remove('hidden');
-            document.getElementById('adminActionGroup').classList.remove('hidden');
-            document.getElementById('headerAksiPeserta').classList.remove('hidden');
-            document.getElementById('headerAksiKonsumsi').classList.remove('hidden');
-            renderTable();
-            renderKonsumsiTable();
-        }
-
-        function logoutAdmin() {
-            IS_ADMIN = false;
-            document.getElementById('roleBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
-            document.getElementById('roleBadge').innerHTML = '<i class="fa-solid fa-user text-[9px] mr-1"></i> Publik (Tamu)';
-            document.getElementById('adminNotice').classList.add('hidden');
-            document.getElementById('adminActionGroup').classList.add('hidden');
-            document.getElementById('headerAksiPeserta').classList.add('hidden');
-            document.getElementById('headerAksiKonsumsi').classList.add('hidden');
-            renderTable();
-            renderKonsumsiTable();
-        }
-
-        async function deleteParticipant(nama) {
-            if(!IS_ADMIN) return;
-            if(confirm(`Hapus data ${nama}?`)) {
-                participantsData = participantsData.filter(x => x.namaLengkap !== nama);
-                localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-                renderTable();
-                populateDropdowns();
-            }
-        }
-
-        function escapeHtml(text) {
-            return String(text || '').replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-            });
-        }
+        function escapeHtml(text) { return String(text || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m])); }
 
         let chartM, chartK;
-        function updateQuickStats() {
-            const total = participantsData.length;
-            const t1 = participantsData.filter(x => x.marhala === 'Takwin 1').length;
-            const t2 = participantsData.filter(x => x.marhala === 'Takwin 2').length;
-            const tanfiz = participantsData.filter(x => x.marhala === 'Tanfiz (Khusus)').length;
-            const paluSelatan = participantsData.filter(x => x.kecamatan === 'Palu Selatan').length;
-            const paluTimur = participantsData.filter(x => x.kecamatan === 'Palu Timur').length;
-
-            document.getElementById('statTotal').innerText = total;
-            document.getElementById('statTakwin1').innerText = t1;
-            document.getElementById('statTakwin2').innerText = t2;
-            document.getElementById('statTanfiz').innerText = tanfiz;
-            document.getElementById('statPaluSelatan').innerText = paluSelatan;
-            document.getElementById('statPaluTimur').innerText = paluTimur;
-            document.getElementById('quickTotal').innerText = total;
-            document.getElementById('quickPaluSelatan').innerText = paluSelatan;
-            document.getElementById('quickPaluTimur').innerText = paluTimur;
-
-            const pct1 = total ? Math.round((t1 / total) * 100) : 0;
-            const pct2 = total ? Math.round((t2 / total) * 100) : 0;
-            const pctTanfiz = total ? Math.round((tanfiz / total) * 100) : 0;
-            document.getElementById('marhalaRatio').innerText = `${pct1}% / ${pct2}% / ${pctTanfiz}%`;
-        }
-
         function initCharts() {
             const ctxM = document.getElementById('marhalaChart');
             if(ctxM) {
@@ -1322,32 +1028,29 @@
                     if(Array.isArray(data)) {
                         participantsData = data;
                         localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
-                        konsumsiData = data.filter(item => item.menu && item.menu.trim() !== "").map(item => ({
-                            namaLengkap: item.namaLengkap,
-                            kecamatan: item.kecamatan || 'Palu Selatan',
-                            menu: item.menu
-                        }));
-                        localStorage.setItem('PERMATA_KONSUMSI_DATA', JSON.stringify(konsumsiData));
                         renderTable();
                         populateDropdowns();
-                        renderKonsumsiTable();
                         updateCharts();
                     }
                 }).catch(err => console.log(err));
         }
 
-        function exportDataExcel() {
-            if(!IS_ADMIN) return;
-            let csvContent = "data:text/csv;charset=utf-8,Timestamp,Nama Lengkap,Nama Panggilan,Kecamatan,Alamat,Nomor HP,Marhala,Pekerjaan\n";
-            participantsData.forEach(row => {
-                csvContent += `"${row.timestamp}","${row.namaLengkap}","${row.namaPanggilan}","${row.kecamatan}","${row.alamat}","${row.nomorHp}","${row.marhala}","${row.pekerjaan}"\n`;
-            });
-            const link = document.createElement("a");
-            link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", "Data_PERMATA_Lengkap.csv");
-            document.body.appendChild(link);
-            link.click();
+        function openAdminModal() { if(!IS_ADMIN) document.getElementById('adminModal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            if (document.getElementById('adminPinInput').value === ADMIN_PIN_DEFAULT) {
+                IS_ADMIN = true;
+                closeAdminModal();
+                alert("Login Admin Berhasil!");
+                renderTable();
+            } else { alert("PIN Salah!"); }
         }
+        function logoutAdmin() { IS_ADMIN = false; renderTable(); }
+        function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); }
+        function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
+        function executePDFExport() { window.print(); closePrintModal(); }
+        function executeBrowserPrint() { window.print(); closePrintModal(); }
     </script>
 </body>
 </html>

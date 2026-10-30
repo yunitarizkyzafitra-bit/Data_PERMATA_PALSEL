@@ -744,7 +744,7 @@
             <h3 class="font-bold text-slate-800 text-base text-center">Pilih Dokumen PDF yang Ingin Dicetak</h3>
             <div class="space-y-2">
                 <button onclick="exportPDFPesertaDanKonsumsi()" class="w-full py-3 px-4 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> PDF 1: Data Peserta & Konsumsi Utama
+                    <i class="fa-solid fa-file-pdf"></i> PDF 1: Data Seluruh Peserta & Konsumsi Utama
                 </button>
                 <button onclick="exportPDFBazarGabung()" class="w-full py-3 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
                     <i class="fa-solid fa-file-pdf"></i> PDF 2: Rekap Pemesan Bazar (Peserta & Umum)
@@ -774,9 +774,9 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT SYSTEM LOGIC & PDF EXPORT -->
+    <!-- JAVASCRIPT SYSTEM LOGIC & FULL PDF EXPORT -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzEzsYPKrG4HtkbG1DC72nvKJhwHahDpfxkLmva3QNme-xE8RJ7qU30M5De-OHPJGQt/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvPHvqtCXf8CTvx-jwPN1c4AqxMCZmaBe8da5dgoldQFMRahkFkBxtSRNwgLjrA7I_/exec";
 
         let IS_ADMIN = false;
         const ADMIN_PIN_DEFAULT = "080";
@@ -1245,27 +1245,27 @@
                 }).catch(err => console.log(err));
         }
 
-        // EXPORT PDF TERPISAH & REKAPITULASI
+        // EXPORT PDF FULL TANPA TERPOTONG
         function exportPDFPesertaDanKonsumsi() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
             doc.setFontSize(16);
             doc.setTextColor(0, 121, 121);
-            doc.text("REKAP DATA PESERTA & KONSUMSI UTAMA PERMATA", 14, 20);
+            doc.text("REKAP DATA SELURUH PESERTA PERMATA", 14, 20);
             
             doc.setFontSize(10);
             doc.setTextColor(100);
             doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 26);
 
-            // Tabel Peserta
+            // Memuat SELURUH data peserta tanpa batasan angka
             const pesertaRows = participantsData.map((p, idx) => [
                 idx + 1,
-                p.namaLengkap,
-                p.namaPanggilan,
+                p.namaLengkap || '-',
+                p.namaPanggilan || '-',
                 p.kecamatan || 'Palu Selatan',
-                p.marhala,
-                p.nomorHp
+                p.marhala || '-',
+                IS_ADMIN ? (p.nomorHp || '-') : '••••••••'
             ]);
 
             doc.autoTable({
@@ -1274,16 +1274,21 @@
                 body: pesertaRows,
                 theme: 'grid',
                 headStyles: { fillColor: [0, 121, 121] },
-                styles: { fontSize: 8 }
+                styles: { fontSize: 8 },
+                didDrawPage: (data) => {
+                    // Footer halaman otomatis
+                    doc.setFontSize(8);
+                    doc.setTextColor(150);
+                    doc.text(`Halaman ${doc.internal.getNumberOfPages()}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
+                }
             });
 
-            // Rekap Total Peserta
             const finalY = doc.lastAutoTable.finalY || 40;
             doc.setFontSize(11);
             doc.setTextColor(0, 0, 0);
-            doc.text(`Total Peserta Terdaftar: ${participantsData.length} Orang`, 14, finalY + 10);
+            doc.text(`Total Keseluruhan Peserta Terdaftar: ${participantsData.length} Orang`, 14, finalY + 10);
 
-            doc.save("rekap-peserta-dan-konsumsi-utama.pdf");
+            doc.save("rekap-seluruh-peserta-permata.pdf");
             closePrintModal();
         }
 
@@ -1292,14 +1297,13 @@
             const doc = new jsPDF();
 
             doc.setFontSize(16);
-            doc.setTextColor(180, 83, 9); // Amber color
+            doc.setTextColor(180, 83, 9);
             doc.text("REKAPITULASI PEMESAN BAZAR MYCO SPACE", 14, 20);
             
             doc.setFontSize(10);
             doc.setTextColor(100);
             doc.text(`Gabungan Pemesan Peserta & Pembeli Umum • ${new Date().toLocaleString('id-ID')}`, 14, 26);
 
-            // Satukan pemesan bazar peserta & umum dalam 1 tabel rekap
             const bazarRows = [];
             let no = 1;
 
@@ -1320,7 +1324,12 @@
                 body: bazarRows,
                 theme: 'grid',
                 headStyles: { fillColor: [180, 83, 9] },
-                styles: { fontSize: 8 }
+                styles: { fontSize: 8 },
+                didDrawPage: (data) => {
+                    doc.setFontSize(8);
+                    doc.setTextColor(150);
+                    doc.text(`Halaman ${doc.internal.getNumberOfPages()}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
+                }
             });
 
             const finalY = doc.lastAutoTable.finalY || 40;

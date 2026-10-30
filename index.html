@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERMATA MWC - Dashboard & Bazar System</title>
+    <title>PERMATA MWC - Dashboard, Bazar & Barcode Absensi System</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -13,6 +13,8 @@
     <!-- jsPDF & AutoTable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <!-- QRCode Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -86,6 +88,10 @@
                     <i class="fa-solid fa-user-plus w-4 text-center"></i>
                     <span>Form Pendaftaran Peserta</span>
                 </button>
+                <button onclick="switchTab('absensi')" id="nav-absensi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
+                    <i class="fa-solid fa-qrcode w-4 text-center text-emerald-300"></i>
+                    <span>Scan Barcode / Absensi (Kolom L)</span>
+                </button>
                 <button onclick="switchTab('konsumsi')" id="nav-konsumsi" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-brand-cream/80 hover:bg-teal-900/50">
                     <i class="fa-solid fa-utensils w-4 text-center text-teal-300"></i>
                     <span>Konsumsi Utama PERMATA</span>
@@ -115,8 +121,8 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </div>
                 <div class="flex justify-between"><span>Total Peserta:</span> <strong id="quickTotal" class="text-white">0</strong></div>
+                <div class="flex justify-between"><span>Hadir (Kolom L):</span> <strong id="quickHadir" class="text-emerald-400">0</strong></div>
                 <div class="flex justify-between"><span>Bazar Peserta:</span> <strong id="quickBazarPeserta" class="text-white">0</strong></div>
-                <div class="flex justify-between"><span>Bazar Umum:</span> <strong id="quickBazarUmum" class="text-white">0</strong></div>
             </div>
 
             <div class="p-3 rounded-xl bg-brand-darker border border-teal-700/50 flex items-center space-x-3">
@@ -149,7 +155,7 @@
             </div>
             <div class="flex items-center gap-2 flex-wrap">
                 <button onclick="openPrintModal()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
-                    <i class="fa-solid fa-print"></i> Cetak / Save PDF
+                    <i class="fa-solid fa-print"></i> Cetak PDF / Barcode
                 </button>
                 <button onclick="syncDataFromCloud()" class="px-4 py-2 bg-brand-teal hover:bg-teal-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
                     <i class="fa-solid fa-rotate"></i> Sinkron Spreadsheet
@@ -174,10 +180,10 @@
                     <h3 class="text-3xl font-extrabold my-2 text-white" id="statTotal">0</h3>
                     <p class="text-[10px] text-teal-200">Terdaftar di Sistem Kegiatan</p>
                 </div>
-                <div class="bg-teal-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
-                    <p class="text-[11px] font-semibold text-teal-100 uppercase tracking-wider">Order Konsumsi Utama</p>
-                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statKonsumsi">0</h3>
-                    <p class="text-[10px] text-teal-100">Konsumsi Utama Peserta</p>
+                <div class="bg-emerald-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
+                    <p class="text-[11px] font-semibold text-emerald-100 uppercase tracking-wider">Peserta Hadir (Kolom L)</p>
+                    <h3 class="text-3xl font-extrabold my-2 text-white" id="statHadir">0</h3>
+                    <p class="text-[10px] text-emerald-100">Check-in Kehadiran Terverifikasi</p>
                 </div>
                 <div class="bg-amber-600 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
                     <p class="text-[11px] font-semibold text-amber-100 uppercase tracking-wider">Peserta Order Bazar</p>
@@ -241,8 +247,7 @@
                                 <th class="p-4">Kecamatan</th>
                                 <th class="p-4">Marhala</th>
                                 <th class="p-4">No. HP (Protected)</th>
-                                <th class="p-4">Alamat</th>
-                                <th class="p-4">Pekerjaan</th>
+                                <th class="p-4">Waktu Hadir (Kolom L)</th>
                                 <th class="p-4 text-center admin-only hidden" id="headerAksiPeserta">Aksi Admin</th>
                             </tr>
                         </thead>
@@ -331,7 +336,49 @@
             </div>
         </section>
 
-        <!-- 4. TAB KONSUMSI UTAMA PERMATA -->
+        <!-- 4. TAB SCAN BARCODE / ABSENSI MANDIRI -->
+        <section id="tab-absensi" class="space-y-6 hidden">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-emerald-200 max-w-2xl mx-auto space-y-6">
+                <div class="text-center space-y-2 border-b pb-4 border-slate-100">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Scan Barcode / Check-in Kehadiran Mandiri</h3>
+                    <p class="text-xs text-slate-500">Pilih nama lengkap Anda, cek asal kecamatan, konfirmasi kehadiran, dan simpan untuk mencatat waktu ke <strong>Kolom L</strong> Spreadsheet.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Cari & Pilih Nama Lengkap Anda *</label>
+                        <select id="absensiSelectNama" onchange="previewDataAbsensi()" class="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl bg-white focus:outline-none focus:border-emerald-500">
+                            <option value="">-- Pilih Nama Peserta PERMATA --</option>
+                        </select>
+                    </div>
+
+                    <div id="previewCardAbsensi" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs">
+                        <div class="flex justify-between"><span>Nama Lengkap:</span> <strong id="prevNama" class="text-slate-900">-</strong></div>
+                        <div class="flex justify-between"><span>Asal Kecamatan:</span> <strong id="prevKecamatan" class="text-brand-dark">-</strong></div>
+                        <div class="flex justify-between"><span>Marhala:</span> <strong id="prevMarhala" class="text-purple-700">-</strong></div>
+                        <div class="flex justify-between"><span>Status Konsumsi Utama:</span> <strong class="text-rose-600">Closed Order</strong></div>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 border rounded-xl">
+                        <label class="flex items-start space-x-3 cursor-pointer">
+                            <input type="checkbox" id="checkPernyataanHadir" class="mt-0.5 w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                            <span class="text-xs font-bold text-slate-800 leading-relaxed">
+                                Saya menyatakan dengan sebenar-benarnya bahwa saya <strong>HADIR</strong> secara langsung pada kegiatan PERMATA MWC Palu Selatan & Timur.
+                            </span>
+                        </label>
+                    </div>
+
+                    <button onclick="submitAbsensiHadir()" id="btnSubmitAbsen" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran (Simpan ke Kolom L)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TAB KONSUMSI UTAMA PERMATA -->
         <section id="tab-konsumsi" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-center justify-between text-rose-900 shadow-sm">
@@ -365,7 +412,7 @@
             </div>
         </section>
 
-        <!-- 5. TAB MENU BAZAR MYCO SPACE -->
+        <!-- 6. TAB MENU BAZAR MYCO SPACE -->
         <section id="tab-bazar" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-amber-100 max-w-6xl mx-auto space-y-6">
                 
@@ -724,7 +771,7 @@
             </div>
         </section>
 
-        <!-- 6. TAB PETUNJUK -->
+        <!-- 7. TAB PETUNJUK -->
         <section id="tab-guide" class="space-y-6 hidden">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-teal-100 max-w-4xl mx-auto space-y-6">
                 <div class="border-b border-slate-100 pb-4">
@@ -738,18 +785,27 @@
 
     </main>
 
-    <!-- MODAL CETAK & PDF TERPISAH -->
+    <!-- MODAL CETAK & BARCODE ABSENSI -->
     <div id="printModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-slate-100 space-y-4">
-            <h3 class="font-bold text-slate-800 text-base text-center">Pilih Dokumen PDF yang Ingin Dicetak</h3>
-            <div class="space-y-2">
-                <button onclick="exportPDFPesertaDanKonsumsi()" class="w-full py-3 px-4 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> PDF 1: Data Seluruh Peserta & Konsumsi Utama
+        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg border border-slate-100 space-y-4">
+            <h3 class="font-bold text-slate-800 text-base text-center">Pusat Cetak Dokumen & Barcode Absensi</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button onclick="exportPDFPesertaDanKonsumsi()" class="py-3 px-3 bg-brand-dark hover:bg-brand-darker text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> PDF Data Peserta
                 </button>
-                <button onclick="exportPDFBazarGabung()" class="w-full py-3 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> PDF 2: Rekap Pemesan Bazar (Peserta & Umum)
+                <button onclick="exportPDFBazarGabung()" class="py-3 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> PDF Rekap Bazar
                 </button>
             </div>
+
+            <!-- CONTAINER BARCODE / QR CODE -->
+            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3">
+                <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider">Barcode QR Absensi Mandiri (Kolom L)</h4>
+                <div id="qrcodeContainer" class="bg-white p-3 inline-block rounded-xl shadow-sm border"></div>
+                <p class="text-[10px] text-emerald-700">Scan QR Code ini menggunakan HP peserta untuk melakukan check-in kehadiran secara instan.</p>
+            </div>
+
             <div class="text-right pt-2 border-t"><button onclick="closePrintModal()" class="px-4 py-2 bg-slate-100 rounded-xl text-xs">Tutup</button></div>
         </div>
     </div>
@@ -774,12 +830,12 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT SYSTEM LOGIC & FULL PDF EXPORT -->
+    <!-- JAVASCRIPT SYSTEM LOGIC & BARCODE ABSENSI -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvPHvqtCXf8CTvx-jwPN1c4AqxMCZmaBe8da5dgoldQFMRahkFkBxtSRNwgLjrA7I_/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6kFwgYiathTk2dlFeFG6e8c9KrZvGV4JQ_fajdh1NgqmlSW452xKC0wVY2uROZe_j/exec";
 
         let IS_ADMIN = false;
-        const ADMIN_PIN_DEFAULT = "080";
+        const ADMIN_PIN_DEFAULT = "0780";
         const CONTACT_PHONE_RAW = "+62 852-9980-2002";
         
         let participantsData = JSON.parse(localStorage.getItem('PERMATA_LOCAL_DATA')) || [];
@@ -796,6 +852,7 @@
             renderSeparatedBazarTables();
             updateContactDisplay();
             syncDataFromCloud();
+            generateQRCode();
         });
 
         function updateContactDisplay() {
@@ -821,7 +878,7 @@
         }
 
         function switchTab(tabId) {
-            ['dashboard', 'masterlist', 'entry', 'konsumsi', 'bazar', 'guide'].forEach(id => {
+            ['dashboard', 'masterlist', 'entry', 'absensi', 'konsumsi', 'bazar', 'guide'].forEach(id => {
                 const tabEl = document.getElementById(`tab-${id}`);
                 const navEl = document.getElementById(`nav-${id}`);
                 if(tabEl) tabEl.classList.add('hidden');
@@ -840,21 +897,93 @@
             }
 
             if(tabId === 'dashboard') updateCharts();
-            if(tabId === 'bazar') populateDropdowns();
+            if(tabId === 'bazar' || tabId === 'absensi') populateDropdowns();
         }
 
         function populateDropdowns() {
-            const sel = document.getElementById('selectPesertaKonsumsi');
-            if(sel) {
-                sel.innerHTML = '<option value="">-- Cari Nama Peserta PERMATA --</option>';
-                participantsData.forEach(p => {
-                    const opt = document.createElement('option');
-                    opt.value = p.namaLengkap;
-                    opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
-                    opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
-                    sel.appendChild(opt);
-                });
+            const selBazar = document.getElementById('selectPesertaKonsumsi');
+            const selAbsen = document.getElementById('absensiSelectNama');
+
+            [selBazar, selAbsen].forEach(sel => {
+                if(sel) {
+                    const currentVal = sel.value;
+                    sel.innerHTML = '<option value="">-- Cari Nama Peserta PERMATA --</option>';
+                    participantsData.forEach(p => {
+                        const opt = document.createElement('option');
+                        opt.value = p.namaLengkap;
+                        opt.setAttribute('data-kecamatan', p.kecamatan || 'Palu Selatan');
+                        opt.setAttribute('data-marhala', p.marhala || '-');
+                        opt.textContent = `${p.namaLengkap} (${p.kecamatan || 'Palu Selatan'})`;
+                        sel.appendChild(opt);
+                    });
+                    sel.value = currentVal;
+                }
+            });
+        }
+
+        function previewDataAbsensi() {
+            const sel = document.getElementById('absensiSelectNama');
+            const card = document.getElementById('previewCardAbsensi');
+            if(!sel.value) {
+                card.classList.add('hidden');
+                return;
             }
+            const selectedOpt = sel.options[sel.selectedIndex];
+            const p = participantsData.find(x => x.namaLengkap === sel.value);
+            if(p) {
+                document.getElementById('prevNama').innerText = p.namaLengkap;
+                document.getElementById('prevKecamatan').innerText = p.kecamatan || 'Palu Selatan';
+                document.getElementById('prevMarhala').innerText = p.marhala || '-';
+                card.classList.remove('hidden');
+            }
+        }
+
+        async function submitAbsensiHadir() {
+            const sel = document.getElementById('absensiSelectNama');
+            const checkbox = document.getElementById('checkPernyataanHadir');
+
+            if(!sel.value) { alert("Pilih nama lengkap Anda terlebih dahulu!"); return; }
+            if(!checkbox.checked) { alert("Anda harus mencentang pernyataan konfirmasi kehadiran terlebih dahulu!"); return; }
+
+            const namaPeserta = sel.value;
+            const waktuHadir = new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'medium' });
+
+            // Update local data
+            const participant = participantsData.find(x => x.namaLengkap === namaPeserta);
+            if(participant) {
+                participant.waktuHadir = waktuHadir;
+                localStorage.setItem('PERMATA_LOCAL_DATA', JSON.stringify(participantsData));
+            }
+
+            const btn = document.getElementById('btnSubmitAbsen');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Menyimpan ke Kolom L...`;
+
+            const payload = {
+                action: 'hadir',
+                namaLengkap: namaPeserta,
+                waktuHadir: waktuHadir
+            };
+
+            if(SCRIPT_URL) {
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch(e) { console.log(e); }
+            }
+
+            alert(`Alhamdulillah, Kehadiran atas nama ${namaPeserta} berhasil dicatat ke Kolom L Spreadsheet pada ${waktuHadir}!`);
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran (Simpan ke Kolom L)`;
+            checkbox.checked = false;
+            sel.value = "";
+            document.getElementById('previewCardAbsensi').classList.add('hidden');
+            renderTable();
+            updateQuickStats();
         }
 
         function switchKategoriPembeli(kat) {
@@ -1083,15 +1212,17 @@
 
         function updateQuickStats() {
             const totalPeserta = participantsData.length;
+            const hadircount = participantsData.filter(x => x.waktuHadir).length;
             const bazarPesertaCount = konsumsiData.filter(x => !(x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)'))).length;
             const bazarUmumCount = konsumsiData.filter(x => x.kategori === 'Umum' || x.namaLengkap.includes('(Umum)')).length;
 
             document.getElementById('statTotal').innerText = totalPeserta;
-            document.getElementById('statKonsumsi').innerText = totalPeserta;
+            document.getElementById('statHadir').innerText = hadircount;
             document.getElementById('statBazarPeserta').innerText = bazarPesertaCount;
             document.getElementById('statBazarUmum').innerText = bazarUmumCount;
 
             document.getElementById('quickTotal').innerText = totalPeserta;
+            document.getElementById('quickHadir').innerText = hadircount;
             document.getElementById('quickBazarPeserta').innerText = bazarPesertaCount;
             document.getElementById('quickBazarUmum').innerText = bazarUmumCount;
         }
@@ -1114,7 +1245,8 @@
                 alamat: document.getElementById('inputAlamat').value,
                 nomorHp: document.getElementById('inputNomorHp').value,
                 marhala: document.getElementById('inputMarhala').value,
-                pekerjaan: pekerjaanFinal
+                pekerjaan: pekerjaanFinal,
+                waktuHadir: ""
             };
 
             participantsData.push(newRecord);
@@ -1181,8 +1313,7 @@
                     <td class="p-4">${escapeHtml(item.kecamatan || 'Palu Selatan')}</td>
                     <td class="p-4">${escapeHtml(item.marhala)}</td>
                     <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.nomorHp)}</td>
-                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.alamat)}</td>
-                    <td class="p-4 ${IS_ADMIN ? '' : 'masked-text'}">${maskPrivateInfo(item.pekerjaan)}</td>
+                    <td class="p-4 font-bold ${item.waktuHadir ? 'text-emerald-600' : 'text-slate-400'}">${item.waktuHadir || 'Belum Hadir'}</td>
                     <td class="p-4 text-center admin-only ${IS_ADMIN ? '' : 'hidden'}">
                         <button onclick="deleteParticipant('${escapeHtml(item.namaLengkap)}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i> Hapus</button>
                     </td>
@@ -1245,6 +1376,23 @@
                 }).catch(err => console.log(err));
         }
 
+        function generateQRCode() {
+            const container = document.getElementById('qrcodeContainer');
+            if(container) {
+                container.innerHTML = "";
+                // Menggunakan URL halaman ini atau halaman absensi sebagai target QR Code
+                const targetUrl = window.location.href.split('#')[0] + "#absensi";
+                new QRCode(container, {
+                    text: targetUrl,
+                    width: 128,
+                    height: 128,
+                    colorDark: "#003636",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        }
+
         // EXPORT PDF FULL TANPA TERPOTONG
         function exportPDFPesertaDanKonsumsi() {
             const { jsPDF } = window.jspdf;
@@ -1252,31 +1400,29 @@
 
             doc.setFontSize(16);
             doc.setTextColor(0, 121, 121);
-            doc.text("REKAP DATA SELURUH PESERTA PERMATA", 14, 20);
+            doc.text("REKAP DATA SELURUH PESERTA PERMATA & KEHADIRAN", 14, 20);
             
             doc.setFontSize(10);
             doc.setTextColor(100);
             doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 26);
 
-            // Memuat SELURUH data peserta tanpa batasan angka
             const pesertaRows = participantsData.map((p, idx) => [
                 idx + 1,
                 p.namaLengkap || '-',
                 p.namaPanggilan || '-',
                 p.kecamatan || 'Palu Selatan',
                 p.marhala || '-',
-                IS_ADMIN ? (p.nomorHp || '-') : '••••••••'
+                p.waktuHadir || 'Belum Hadir'
             ]);
 
             doc.autoTable({
                 startY: 32,
-                head: [['No', 'Nama Lengkap', 'Panggilan', 'Kecamatan', 'Marhala', 'No HP']],
+                head: [['No', 'Nama Lengkap', 'Panggilan', 'Kecamatan', 'Marhala', 'Waktu Hadir (Kolom L)']],
                 body: pesertaRows,
                 theme: 'grid',
                 headStyles: { fillColor: [0, 121, 121] },
                 styles: { fontSize: 8 },
                 didDrawPage: (data) => {
-                    // Footer halaman otomatis
                     doc.setFontSize(8);
                     doc.setTextColor(150);
                     doc.text(`Halaman ${doc.internal.getNumberOfPages()}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
@@ -1284,11 +1430,12 @@
             });
 
             const finalY = doc.lastAutoTable.finalY || 40;
+            const totalHadir = participantsData.filter(x => x.waktuHadir).length;
             doc.setFontSize(11);
             doc.setTextColor(0, 0, 0);
-            doc.text(`Total Keseluruhan Peserta Terdaftar: ${participantsData.length} Orang`, 14, finalY + 10);
+            doc.text(`Total Keseluruhan Peserta: ${participantsData.length} Orang | Hadir: ${totalHadir} Orang`, 14, finalY + 10);
 
-            doc.save("rekap-seluruh-peserta-permata.pdf");
+            doc.save("rekap-peserta-dan-kehadiran-permata.pdf");
             closePrintModal();
         }
 
@@ -1378,7 +1525,10 @@
             alert("Berhasil keluar dari mode Admin.");
         }
 
-        function openPrintModal() { document.getElementById('printModal').classList.remove('hidden'); }
+        function openPrintModal() { 
+            document.getElementById('printModal').classList.remove('hidden'); 
+            generateQRCode();
+        }
         function closePrintModal() { document.getElementById('printModal').classList.add('hidden'); }
     </script>
 </body>
